@@ -7,28 +7,10 @@ use Goutte\Client;
 
 class ScraperController extends Controller
 {
-    public function index()
+    public function screenshot(Request $request)
     {
-        // $ch = curl_init();
-        // $url = 'https://headers.scrapeops.io/v1/browser-headers?api_key=5462e102-0d9b-4af5-a66e-31c57d6e8d49&num_headers=2';
-
-        // // Set URL
-        // curl_setopt($ch, CURLOPT_URL, $url);
-
-        // // Configure Request
-        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        // curl_setopt($ch, CURLOPT_HEADER, FALSE);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-        // // Make Request
-        // $response = curl_exec($ch);
-
-        // // Close curl 
-        // curl_close($ch);
-
-        // $headers = json_decode($response, true);
+        $url = $request->input('url');
+        if (!$url) abort(404);
 
         $headers = [
             'upgrade-insecure-requests' => '1',
@@ -46,8 +28,9 @@ class ScraperController extends Controller
         
         $client = new Client();
         
-        $website = $client->request('GET', 'https://web.archive.org/web/20231118132832/https://topai.tools/s/StudentM-AI-tool', $headers);
+        $website = $client->request('GET', $url, [], [], $headers);
+
+        // get screenshot of the website
         
-        return $website->html();
     }
 }

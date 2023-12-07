@@ -11,19 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ratings', function (Blueprint $table) {
+        Schema::create('replies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tool_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('rating')->default(0);
-            $table->string('review');
+            $table->unsignedBigInteger('rating_id');
+            $table->text('reply');
             $table->boolean('is_approved')->default(false);
-            $table->boolean('is_featured')->default(false);
             $table->boolean('is_spam')->default(false);
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
 
-            $table->foreign('tool_id')->references('id')->on('tools');
+            $table->foreign('rating_id')->references('id')->on('ratings');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ratings');
+        Schema::dropIfExists('replies');
     }
 };

@@ -23,6 +23,7 @@
         </div>
     </section>
     <!-- ==== / banner end ==== -->
+
     <!-- ==== contact start ==== -->
     <section class="section m-contact fade-wrapper">
         <div class="container">
@@ -74,6 +75,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="row gaper align-items-center">
                 <div class="col-12 col-lg-6 col-xl-6">
                     <div class="m-contact__form">

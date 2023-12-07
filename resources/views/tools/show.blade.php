@@ -154,19 +154,19 @@
                                         <div class="row">
                                             <div class="col-12 col-xl-9">
                                                 <div class="b-comment__wrapper">
+                                                    @foreach($tool->ratings()->orderBy('created_at', 'desc')->get() as $rating)
                                                     <div class="b-comment-single">
                                                         <div class="thumb">
-                                                            <img src="/images/a-one.png" alt="Image">
+                                                            <img src="{{ $rating->user->avatar }}" alt="Image">
                                                         </div>
                                                         <div class="content">
                                                             <div class="intro">
-                                                                <h4 class="text-white">Alen</h4>
-                                                                <span class="tertiary-text">05 day ago</span>
+                                                                <h4 class="text-white">{{ '@' . $rating->user->first_name }}</h4>
+                                                                <span class="tertiary-text">{{ $rating->created_at->diffForHumans() }}</span>
                                                             </div>
-                                                            <p>Dui id ornare arcu odio ut. Mi quis hendrerit dolor magna eget
-                                                                est lorem. Quisque sagittis purus sit amet volutpat consequat
-                                                                mauris. Convallis convallis tellus id interdum velit laoreet id
-                                                                donec ultrices.</p>
+
+                                                            <p>{{ $rating->review }}</p>
+
                                                             <div class="content-meta">
                                                                 <button class="open-reply">
                                                                     Reply
@@ -178,60 +178,39 @@
                                                                     </span>
                                                                 </a>
                                                             </div>
+
                                                             <div class="reply-box-wrapper">
-                                                                <div class="reply-box">
-                                                                    <img src="/images/a-one.png" alt="Image">
-                                                                    <input type="text" name="reply-me" id="remplyMe" placeholder="Join the discussion" required="">
-                                                                    <button>
-                                                                        <span class="material-symbols-outlined">
-                                                                            send
-                                                                        </span>
-                                                                    </button>
+                                                                @foreach($rating->replies()->orderBy('created_at', 'desc')->get() as $reply)
+                                                                <div class="reply-box border-none">
+                                                                    <img src="{{ $reply->user->avatar }}" alt="Image">
+                                                                    <p>{{ $reply->reply }}</p>
                                                                 </div>
+                                                                @endforeach
+
+                                                                @auth
+                                                                <div class="reply-box">
+                                                                    <img src="{{ Auth::user()->avatar }}" alt="Image">
+                                                                    <form action="{{ route('tools.reply', [ $tool->slug, $rating->id ]) }}" method="post">
+                                                                        @csrf
+                                                                        <input type="text" name="reply" id="remplyMeTwo" placeholder="Respond to review" required="">
+                                                                        <button>
+                                                                            <span class="material-symbols-outlined">
+                                                                                send
+                                                                            </span>
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                                @endauth
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="b-comment-single">
-                                                        <div class="thumb">
-                                                            <img src="/images/a-two.png" alt="Image">
-                                                        </div>
-                                                        <div class="content">
-                                                            <div class="intro">
-                                                                <h4 class="text-white">Melina</h4>
-                                                                <span class="tertiary-text">05 day ago</span>
-                                                            </div>
-                                                            <p>Dui id ornare arcu odio ut. Mi quis hendrerit dolor magna eget
-                                                                est lorem. Quisque sagittis purus sit amet volutpat consequat
-                                                                mauris. Convallis convallis tellus id interdum velit laoreet id
-                                                                donec ultrices.</p>
-                                                            <div class="content-meta">
-                                                                <button class="open-reply">
-                                                                    Reply
-                                                                </button>
-                                                                <a href="index.html">
-                                                                    Share
-                                                                    <span class="material-symbols-outlined">
-                                                                        send
-                                                                    </span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="reply-box-wrapper">
-                                                                <div class="reply-box">
-                                                                    <img src="/images/a-two.png" alt="Image">
-                                                                    <input type="text" name="reply-meTwo" id="remplyMeTwo" placeholder="Join the discussion" required="">
-                                                                    <button>
-                                                                        <span class="material-symbols-outlined">
-                                                                            send
-                                                                        </span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    @endforeach
                                                 </div>
+
                                                 <div class="w-comment">
-                                                    <h3 class="fw-7 title-animation text-white">Write a comment</h3>
-                                                    <form action="#" method="post">
+                                                    <h3 class="fw-7 title-animation text-white">Write a review</h3>
+                                                    <form action="{{ route('tools.review', $tool->slug) }}" method="post">
+                                                        @csrf
                                                         {{-- <div class="input-group">
                                                             <div class="input-single">
                                                                 <input type="text" name="a-name" id="aName" placeholder="Your Name" required="">
@@ -240,9 +219,36 @@
                                                                 <input type="email" name="a-email" id="aemail" placeholder="Your Email" required="">
                                                             </div>
                                                         </div> --}}
-                                                        <div class="input-single">
-                                                            <textarea name="a-comment" id="aComment" cols="30" rows="10" placeholder="Let people know what you think about {{ $tool->name }}" required=""></textarea>
+
+                                                        <div class="input-group">
+                                                            <div class="rate">
+                                                                <input type="radio" id="star5" name="rate" value="5" />
+                                                                <label for="star5" title="text">5 stars</label>
+                                                                <input type="radio" id="star4" name="rate" value="4" />
+                                                                <label for="star4" title="text">4 stars</label>
+                                                                <input type="radio" id="star3" name="rate" value="3" />
+                                                                <label for="star3" title="text">3 stars</label>
+                                                                <input type="radio" id="star2" name="rate" value="2" />
+                                                                <label for="star2" title="text">2 stars</label>
+                                                                <input type="radio" id="star1" name="rate" value="1" />
+                                                                <label for="star1" title="text">1 star</label>
+                                                            </div>
+                                                            @error('rating')
+                                                            <span class="invalid-feedback d-block" role="alert">
+                                                                <strong class="text-danger">{{ $message }}</strong>
+                                                            </span>
+                                                            @enderror
                                                         </div>
+
+                                                        <div class="input-single">
+                                                            <textarea name="review" id="aComment" cols="30" rows="10" placeholder="Let people know what you think about {{ $tool->name }}" required=""></textarea>
+                                                            @error('review')
+                                                            <span class="invalid-feedback d-block" role="alert">
+                                                                <strong class="text-danger">{{ $message }}</strong>
+                                                            </span>
+                                                            @enderror
+                                                        </div>
+
                                                         <div class="section__content-cta">
                                                             <button type="submit" class="btn btn--primary">Submit Now</button>
                                                         </div>

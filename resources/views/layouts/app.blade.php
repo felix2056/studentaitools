@@ -203,6 +203,9 @@
                                         {{-- <button class="open-cart" aria-label="selected products" title="see cart items">
                                             <i class="bi bi-bag-plus"></i>
                                         </button> --}}
+                                        <button class="submit-tool" aria-label="submit tool" title="submit tool" onclick="window.location.href='{{ route('tools.create') }}'">
+                                            <i class="bi bi-patch-plus"></i>
+                                        </button>
                                         <button class="open-search" aria-label="search products" title="open search box">
                                             <i class="bi bi-search"></i>
                                         </button>

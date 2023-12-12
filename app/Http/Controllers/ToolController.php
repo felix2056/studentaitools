@@ -26,7 +26,7 @@ class ToolController extends Controller
             return view('tools.index', compact('tools'));
         }
 
-        $tools = Tool::paginate(16);
+        $tools = Tool::where('is_active', true)->paginate(16);
         return view('tools.index', compact('tools'));
     }
 

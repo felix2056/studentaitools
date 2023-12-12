@@ -6961,6 +6961,7 @@ span {
   margin-bottom: 0px;
 }
 .m-contact .input-single input,
+.m-contact .input-single select,
 .m-contact .input-single textarea {
   background-color: inherit;
   padding: 20px 16px;
@@ -6968,6 +6969,12 @@ span {
   width: 100%;
   border-radius: 5px;
   max-height: 180px;
+}
+.m-contact .input-single select option {
+  margin: 10px;
+  background: inherit;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 .m-contact .m-contact__form h3 {
   max-width: 550px;

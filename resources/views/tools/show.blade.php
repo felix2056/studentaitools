@@ -66,6 +66,27 @@
                                                 </a>
                                             </h5>
                                         </div>
+                                        @auth
+                                            @if (Auth::user()->id == $tool->user_id)
+                                            <span class="line"></span>
+                                            <div class="case-meta-single">
+                                                <a href="{{ route('tools.edit', $tool->slug) }}" class="btn btn--primary">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                            </div>
+
+                                            <span class="line"></span>
+                                            <div class="case-meta-single">
+                                                <form action="/tools/{{ $tool->slug }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn--primary">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            @endif
+                                        @endauth
                                     </div>
                                 </div>
                             </div>

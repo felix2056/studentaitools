@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Submit Tool')
+@section('title', 'Edit Tool')
 
 @section('content')
 <main>
@@ -35,7 +35,7 @@
                             <form method="post">
                                 @csrf
                                 <div class="input-single">
-                                    <input type="text" name="tool_name" id="tName" placeholder="Tool Name" required="" class="@error('tool_name') is-invalid @enderror" value="{{ old('tool_name') }}">
+                                    <input type="text" name="tool_name" id="tName" placeholder="Tool Name" required="" class="@error('tool_name') is-invalid @enderror" value="{{ old('tool_name') ?? $tool->name }}">
                                     @error('tool_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -44,7 +44,7 @@
                                 </div>
 
                                 <div class="input-single">
-                                    <input type="url" name="tool_website" id="tWebsite" placeholder="Tool Website URL" required="" class="@error('tool_website') is-invalid @enderror" value="{{ old('tool_website') }}">
+                                    <input type="url" name="tool_website" id="tWebsite" placeholder="Tool Website URL" required="" class="@error('tool_website') is-invalid @enderror" value="{{ old('tool_website') ?? $tool->link }}">
                                     @error('tool_website')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
                                 </div>
 
                                 <div class="input-single">
-                                    <textarea name="tool_content" id="tContent" cols="30" rows="10" placeholder="Describe your tool" class="@error('tool_content') is-invalid @enderror">{{ old('tool_content') }}</textarea>
+                                    <textarea name="tool_content" id="tContent" cols="30" rows="10" placeholder="Describe your tool" class="@error('tool_content') is-invalid @enderror">{{ old('tool_content') ?? $tool->content }}</textarea>
                                     @error('tool_content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -62,7 +62,7 @@
                                 </div>
 
                                 <div class="input-single">
-                                    <input type="text" name="tool_tags" id="tTags" placeholder="Tags (comma separated)" required="" class="@error('tool_tags') is-invalid @enderror" value="{{ old('tool_tags') }}">
+                                    <input type="text" name="tool_tags" id="tTags" placeholder="Tags (comma separated)" required="" class="@error('tool_tags') is-invalid @enderror" value="{{ old('tool_tags') ?? $tool->comma_separated_tags }}">
                                     @error('tool_tags')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -72,9 +72,9 @@
 
                                 <div class="input-single">
                                     <select name="tool_pricing" id="tPricing" required="" class="@error('tool_pricing') is-invalid @enderror" value="{{ old('tool_pricing') }}">
-                                        <option value="free">Free</option>
-                                        <option value="freemium">Freemium</option>
-                                        <option value="paid">Paid</option>
+                                        <option value="free" @if ($tool->pricing == 'free') selected @endif>Free</option>
+                                        <option value="freemium" @if ($tool->pricing == 'freemium') selected @endif>Freemium</option>
+                                        <option value="paid" @if ($tool->pricing == 'paid') selected @endif>Paid</option>
                                     </select>
                                     @error('tool_pricing')
                                     <span class="invalid-feedback" role="alert">
@@ -84,9 +84,9 @@
                                 </div>
 
                                 <div class="input-single">
-                                    <select name="tool_categories[]" id="tCategories" required="" multiple class="@error('tool_categories') is-invalid @enderror" value="{{ old('tool_categories') }}">
+                                    <select name="tool_categories[]" id="tCategories" required="" multiple class="@error('tool_categories') is-invalid @enderror">
                                         @foreach (\App\Models\Category::all() as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}" @if ($tool->categories->contains($category->id)) selected @endif>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('tool_categories')
@@ -97,14 +97,18 @@
                                 </div>
 
                                 <div class="section__content-cta text-center">
-                                    <button type="submit" class="btn btn--primary">Submit Now</button>
+                                    <button type="submit" class="btn btn--primary">Save Changes</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 col-xl-5 offset-xl-1">
                         <div class="m-contact__thumb reveal-img parallax-img">
-                            <img src="/images/thumb_1.png" alt="Image">
+                            <img src="{{ $tool->screenshot1 }}" alt="Image">
+                        </div>
+
+                        <div class="section__content-cta text-center mt-5">
+                            <a href="{{ route('tools.update-screenshots', $tool->slug) }}" class="btn btn--primary">Update <i class="fa fa-picture-o"></i></a>
                         </div>
                     </div>
                 </div>

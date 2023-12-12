@@ -11,6 +11,18 @@ class Tool extends Model
 
     protected $guarded = [];
 
+    protected $with = ['categories'];
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -24,6 +36,27 @@ class Tool extends Model
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    // public function bookmarks()
+    // {
+    //     return $this->hasMany(Bookmark::class);
+    // }
+
+    // public function likes()
+    // {
+    //     return $this->hasMany(Like::class);
+    // }
+
+    public function getTagsAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    public function getCommaseparatedTagsAttribute()
+    {
+        if (!$this->tags) return '';
+        return implode(', ', $this->tags);
     }
 
     public function getRatingAttribute()

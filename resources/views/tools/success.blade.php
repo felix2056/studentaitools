@@ -107,20 +107,20 @@
                                         <form action="/tools/{{ $tool->slug }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn--primary">
+                                            <button type="submit" class="btn btn--primary" aria-label="Delete tool" title="Delete tool">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
                                         <!-- /delete -->
 
                                         <!-- edit -->
-                                        <button class="btn btn--primary" onclick="window.location.href='/tools/{{ $tool->slug }}/edit'">
+                                        <button class="btn btn--primary" onclick="window.location.href='/tools/{{ $tool->slug }}/edit'" aria-label="Edit tool" title="Edit tool">
                                             <i class="bi bi-pencil"></i>
                                         </button>
                                         <!-- /edit -->
 
                                         <!-- update screenshots -->
-                                        <button class="btn btn--primary" onclick="window.location.href='/tools/{{ $tool->slug }}/update-screenshots'">
+                                        <button class="btn btn--primary" onclick="window.location.href='/tools/{{ $tool->slug }}/update-screenshots'" aria-label="Update Screenshots" title="Update Screenshots">
                                             <i class="bi bi-image"></i>
                                         </button>
                                         <!-- /update screenshots -->

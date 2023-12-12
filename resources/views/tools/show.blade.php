@@ -70,7 +70,7 @@
                                             @if (Auth::user()->id == $tool->user_id)
                                             <span class="line"></span>
                                             <div class="case-meta-single">
-                                                <a href="{{ route('tools.edit', $tool->slug) }}" class="btn btn--primary">
+                                                <a href="{{ route('tools.edit', $tool->slug) }}" class="btn btn--primary" aria-label="Edit tool" title="Edit tool">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
                                             </div>
@@ -80,7 +80,7 @@
                                                 <form action="/tools/{{ $tool->slug }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn--primary">
+                                                    <button type="submit" class="btn btn--primary" onclick="return confirm('Are you sure you want to delete this tool?')" aria-label="Delete tool" title="Delete tool">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </form>

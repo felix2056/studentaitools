@@ -14,7 +14,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10 col-xxl-8">
                     <div class="cmn-banner__content text-center">
-                        <h2 class="light-title fw-7 text-white title-animation">Submit Tool</h2>
+                        <h2 class="light-title fw-7 text-white title-animation">Edit {{ $tool->name }}</h2>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <div class="row gaper align-items-center">
                     <div class="col-12 col-lg-6 col-xl-6">
                         <div class="m-contact__form">
-                            <h3 class="title-animation fw-7 text-white mt-12">Quickly submit your student AI tool to be featured.</h3>
+                            <h3 class="title-animation fw-7 text-white mt-12">Editing your tool will require it to be re-evaluated.</h3>
                             <form method="post">
                                 @csrf
                                 <div class="input-single">

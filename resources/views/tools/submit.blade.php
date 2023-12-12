@@ -2,6 +2,10 @@
 
 @section('title', 'Submit Tool')
 
+@section('styles')
+<script src="https://cdn.tiny.cloud/1/89wibrodin74xxczxdk9eqmk20bhmmhphl3gh2dj3owgi3fo/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+@endsection
+
 @section('content')
 <main>
     <!-- ==== banner start ==== -->
@@ -124,7 +128,13 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $('.tWebsite').on('input', function() {
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+
+        $('#tWebsite').on('input', function() {
             var url = $(this).val();
             if (url.length > 0) {
                 // validate url

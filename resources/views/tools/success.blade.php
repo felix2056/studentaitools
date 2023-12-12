@@ -96,7 +96,7 @@
                                         @if ($tool->tags && count($tool->tags) > 0)
                                         <div class="tags-wrapper">
                                             @foreach ($tool->tags as $tag)
-                                            <a href="/tools?tag={{ $tag->name }}" class="tag">{{ $tag->name }}</a>
+                                            <a href="/tools?tag={{ $tag }}" class="tag">{{ $tag }}</a>
                                             @endforeach
                                         </div>
                                         @endif
@@ -119,11 +119,17 @@
                                         </button>
                                         <!-- /edit -->
 
-                                        <button>
+                                        <!-- update screenshots -->
+                                        <button class="btn btn--primary" onclick="window.location.href='/tools/{{ $tool->slug }}/update-screenshots'">
+                                            <i class="bi bi-image"></i>
+                                        </button>
+                                        <!-- /update screenshots -->
+
+                                        {{-- <button >
                                             <span class="material-symbols-outlined">
                                                 favorite
                                             </span>
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 </div>
                             </div>

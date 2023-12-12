@@ -33,6 +33,8 @@
     <!-- ==== / css dependencies end ==== -->
     <!-- main css -->
     <link rel="stylesheet" href="/css/main.css">
+
+    @yield('styles')
 </head>
 <body>
     <!--[if lte IE 9]>
@@ -79,7 +81,7 @@
             <span>Drag</span>
         </div>
         <!-- ==== / mouse cursor drag end ==== -->
-        
+
         <!-- ==== header start ==== -->
         <header class="header">
             <div class="primary-navbar">
@@ -380,7 +382,7 @@
         </div>
         <div class="cart-backdrop"></div>
         <!-- ==== / offcanvas cart end ==== -->
-        
+
         <!-- ==== search popup start ==== -->
         <div class="search-popup">
             <button class="close-search" aria-label="close search box" title="close search box">
@@ -396,7 +398,7 @@
             </form>
         </div>
         <!-- ==== / search popup end ==== -->
-        
+
         <!-- ==== offcanvas info start ==== -->
         <div class="offcanvas-info">
             <div class="offcanvas-info__inner">
@@ -459,9 +461,9 @@
         </div>
         <div class="offcanvas-info-backdrop"></div>
         <!-- ==== / offcanvas info end ==== -->
-        
+
         <div id="particles-js"></div>
-        
+
         <div id="smooth-wrapper">
             <div id="smooth-content">
                 <!-- ==== main start ==== -->
@@ -569,7 +571,7 @@
                 <!-- ==== / footer end ==== -->
             </div>
         </div>
-        
+
         <!-- ==== scroll to top start ==== -->
         <button class="progress-wrap" aria-label="scroll indicator" title="go to top">
             <span></span>
@@ -621,5 +623,6 @@
     <!-- main js -->
     <script src="/js/main.js"></script>
 
+    @yield('scripts')
 </body>
 </html>

@@ -65,10 +65,6 @@ class ToolController extends Controller
 
             if ($tool) {
                 $tool->categories()->attach($request->input('tool_categories'));
-
-                // take screenshots of the website
-                $this->captureScreenshots($tool->slug, 'redirect');
-
                 return redirect()->route('tools.success', $tool->slug);
             }
 
@@ -168,7 +164,11 @@ class ToolController extends Controller
 
     public function updateScreenshots($slug)
     {
-        $this->captureScreenshots($slug, 'back');
+        $screenshots = $this->captureScreenshots($slug);
+
+        if ($screenshots) {
+            return redirect()->route('tools.show', $slug)->with('success', 'Screenshots updated successfully.');
+        }
     }
 
     public function captureScreenshots($slug, $return_type = 'boolean')

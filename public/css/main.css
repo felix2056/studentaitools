@@ -4749,13 +4749,15 @@ span {
   gap: 12px;
   flex-wrap: wrap;
 }
-.product-filter .product-filter__wrapper button {
+.product-filter .product-filter__wrapper button,
+.product-filter .product-filter__wrapper a {
   padding: 8px 16px;
   background-color: #302e3f;
   border-radius: 10px;
   font-size: 16px;
 }
-.product-filter .product-filter__wrapper button:hover {
+.product-filter .product-filter__wrapper button:hover,
+.product-filter .product-filter__wrapper a:hover {
   color: #ffffff;
   background-color: var(--primary-color);
 }

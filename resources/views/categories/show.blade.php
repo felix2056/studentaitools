@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tools')
+@section('title', $category->name)
 
 @section('content')
 <main>
@@ -10,7 +10,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10 col-xxl-8">
                     <div class="cmn-banner__content text-center">
-                        <h2 class="light-title fw-7 text-white text-capitalize title-animation">Student AI Tools</h2>
+                        <h2 class="light-title fw-7 text-white title-animation">{{ $category->name }}</h2>
                     </div>
                 </div>
             </div>
@@ -27,12 +27,13 @@
     <section class="section shop">
         <div class="container">
             <div class="row">
-                {{-- <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4">
                     <div class="shop__sidebar">
                         <div class="shop-sidebar-single shop-search-bar">
-                            <form action="#" method="post">
+                            <form action="{{ route('tools.index') }}" method="get">
+                                @csrf
                                 <div class="search-group">
-                                    <input type="text" name="product-search" id="ProductSearch" placeholder="Search.." required="">
+                                    <input type="text" name="search" id="ProductSearch" placeholder="Search.." required="">
                                     <button type="submit">
                                         <i class="bi bi-search"></i>
                                     </button>
@@ -42,26 +43,33 @@
                         <div class="shop-sidebar-single shop-category">
                             <h3 class="title-animation fw-6 text-white mt-12">Category</h3>
                             <ul class="check-group">
+                                @foreach (\App\Models\Category::all() as $cat)
                                 <li class="check-group-single">
-                                    <input type="checkbox" name="product-ai" id="productAi" checked="">
-                                    <label for="productAi">AI</label>
+                                    <input type="checkbox" name="product-{{ $cat->slug }}" id="product{{ $cat->slug }}" {{ $cat->slug == $category->slug ? 'checked' : '' }}>
+                                    <label for="product{{ $cat->slug }}">{{ $cat->name }}</label>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="shop-sidebar-single shop-sorting">
+                            <h3 class="title-animation fw-6 text-white mt-12">Pricing</h3>
+                            <ul class="check-group">
+                                <li class="check-group-single">
+                                    <input type="checkbox" name="product-Free" id="productFree" checked="">
+                                    <label for="productFree">Free</label>
                                 </li>
                                 <li class="check-group-single">
-                                    <input type="checkbox" name="product-Prompts" id="productPrompts">
-                                    <label for="productPrompts">Prompts</label>
+                                    <input type="checkbox" name="product-Freemium" id="productFreemium">
+                                    <label for="productFreemium">Freemium</label>
                                 </li>
                                 <li class="check-group-single">
-                                    <input type="checkbox" name="product-Robo" id="productRobo">
-                                    <label for="productRobo">Robo</label>
-                                </li>
-                                <li class="check-group-single">
-                                    <input type="checkbox" name="product-Gaming" id="productGaming">
-                                    <label for="productGaming">Gaming</label>
+                                    <input type="checkbox" name="product-Paid" id="productPaid">
+                                    <label for="productPaid">Paid</label>
                                 </li>
                             </ul>
                         </div>
                         <div class="shop-sidebar-single shop-type">
-                            <h3 class="title-animation fw-6 text-white mt-12">Type</h3>
+                            <h3 class="title-animation fw-6 text-white mt-12">Technology</h3>
                             <ul class="check-group">
                                 <li class="check-group-single">
                                     <input type="checkbox" name="product-Chatgpt" id="productChatgpt" checked="">
@@ -80,13 +88,6 @@
                                     <label for="productDalle">Dalle</label>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="shop-sidebar-single shop-price">
-                            <h3 class="title-animation fw-6 text-white mt-12">Price</h3>
-                            <div class="price-box">
-                                <div id="price-range" class="price-slider"></div>
-                                <label for="priceRange"><span>Price:</span> <input type="text" id="priceRange" readonly=""></label>
-                            </div>
                         </div>
                         <div class="shop-sidebar-single shop-rating">
                             <h3 class="title-animation fw-6 text-white mt-12">Rating</h3>
@@ -142,12 +143,13 @@
                             </ul>
                         </div>
                     </div>
-                </div> --}}
-                <div class="col-12">
+                </div>
+
+                <div class="col-12 col-lg-8">
                     <div class="shop__content">
                         <div class="row gaper">
                             @foreach($tools as $tool)
-                            <div class="col-12 col-md-3 slide-top">
+                            <div class="col-12 col-md-6 slide-top">
                                 <div class="category__single topy-tilt">
                                     <div class="thumb">
                                         <a href="{{ route('tools.show', $tool->slug) }}" target="_blank" class="thumb-img">
@@ -193,29 +195,6 @@
                         <div class="row">
                             <div class="col-12">
                                 {{ $tools->links('vendor.pagination.default') }}
-                                {{-- <div class="section__cta">
-                                    <ul class="pagination">
-                                        <li>
-                                            <button>
-                                                <i class="fa-solid fa-angle-left"></i>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <a href="projects.html">1</a>
-                                        </li>
-                                        <li>
-                                            <a href="projects.html" class="active">2</a>
-                                        </li>
-                                        <li>
-                                            <a href="projects.html">3</a>
-                                        </li>
-                                        <li>
-                                            <button>
-                                                <i class="fa-solid fa-angle-right"></i>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -225,4 +204,15 @@
     </section>
     <!-- ==== / shop section end ==== -->
 </main>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('input[type="checkbox"]').click(function() {
+            var inputValue = $(this).attr("id");
+            $("." + inputValue).toggle();
+        });
+    });
+</script>
 @endsection

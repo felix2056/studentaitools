@@ -36,21 +36,10 @@
                 </div>
                 <div class="col-12 col-lg-7 col-xxl-12 offset-xxl-1">
                     <div class="product-filter__wrapper justify-content-start justify-content-lg-end">
-                        <button aria-label="Filter Product" data-filter="*" class="active">Research</button>
-                        <button aria-label="Filter Product" data-filter=".writing">Writing</button>
-                        <button aria-label="Filter Product" data-filter=".reading">Reading</button>
-                        <button aria-label="Filter Product" data-filter=".tutoring">Tutoring</button>
-                        <button aria-label="Filter Product" data-filter=".essay-writing">Essay Writing</button>
-                        <button aria-label="Filter Product" data-filter=".language-translation">Language Translation</button>
-                        <button aria-label="Filter Product" data-filter=".collaboration">Collaboration</button>
-                        <button aria-label="Filter Product" data-filter=".test-prep">Test Prep</button>
-                        <button aria-label="Filter Product" data-filter=".time-management">Time Management</button>
-                        <button aria-label="Filter Product" data-filter=".data-analysis">Data Analysis</button>
-                        <button aria-label="Filter Product" data-filter=".code-writing">Code Writing</button>
-                        <button aria-label="Filter Product" data-filter=".presentations">Presentations</button>
-                        <button aria-label="Filter Product" data-filter=".mathematics">Mathematics</button>
-                        <button aria-label="Filter Product" data-filter=".productivity">Productivity</button>
-                        <button aria-label="Filter Product" data-filter=".jobs-internships">Jobs/Internships</button>
+                        <button type="button" aria-label="Filter Product" data-filter="*" class="active">All</button>
+                        @foreach(\App\Models\Category::all() as $category)
+                            <a href="{{ route('categories.show', $category->slug) }}" aria-label="{{ $category->name }}" data-filter=".{{ $category->slug }}">{{ $category->name }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>

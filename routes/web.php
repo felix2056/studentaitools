@@ -22,6 +22,11 @@ Route::match(['get', 'post'], 'submit-tool', 'ToolController@create')->middlewar
 Route::get('about-us', 'HomeController@aboutUs')->name('about-us');
 Route::get('contact-us', 'HomeController@contactUs')->name('contact-us');
 
+Route::prefix('categories')->group(function () {
+    Route::get('/', 'CategoryController@index')->name('categories.index');
+    Route::get('/{category}', 'CategoryController@show')->name('categories.show');
+});
+
 Route::prefix('tools')->group(function () {
     Route::get('/', 'ToolController@index')->name('tools.index');
     Route::get('/{tool}', 'ToolController@show')->name('tools.show');

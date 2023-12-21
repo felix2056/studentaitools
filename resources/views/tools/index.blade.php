@@ -10,7 +10,11 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10 col-xxl-8">
                     <div class="cmn-banner__content text-center">
+                        @if (request()->has('search') && request()->get('search') != '')
+                        <h2 class="light-title fw-7 text-white text-capitalize title-animation">Search Results for <strong>"{{ request()->get('search') }}"</strong></h2>
+                        @else
                         <h2 class="light-title fw-7 text-white text-capitalize title-animation">Student AI Tools</h2>
+                        @endif
                     </div>
                 </div>
             </div>

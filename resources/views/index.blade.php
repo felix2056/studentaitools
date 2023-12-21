@@ -26,8 +26,9 @@
             <div class="row gaper justify-content-end">
                 <div class="col-12 col-lg-5 col-xxl-12">
                     <div class="product-search">
-                        <form action="#" method="post">
-                            <input type="text" name="product-search" id="productSearch" placeholder="Search">
+                        <form action="{{ route('tools.index') }}" method="get">
+                            @csrf
+                            <input type="text" name="search" id="productSearch" placeholder="Search">
                             <button type="submit">
                                 <i class="bi bi-search"></i>
                             </button>

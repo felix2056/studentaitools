@@ -27,11 +27,11 @@
                 <div class="col-12 col-lg-5 col-xxl-12">
                     <div class="product-search">
                         <form action="{{ route('tools.index') }}" method="get">
-                            @csrf
                             <input type="text" name="search" id="productSearch" placeholder="Search">
                             <button type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
+                            @csrf
                         </form>
                     </div>
                 </div>

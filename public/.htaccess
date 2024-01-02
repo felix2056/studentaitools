@@ -18,4 +18,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+     # Add the following lines to handle Next.js
+     RewriteCond %{REQUEST_URI} !^/blog/
+     RewriteRule ^next-app/(.*)$ /blog/packages/blog-starter-kit/themes/enterprise [NC,L]
 </IfModule>

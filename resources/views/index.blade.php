@@ -271,7 +271,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section__cta text-center">
-                        <button class="btn btn--primary">See more</button>
+                        <a href="{{ route('tools.index') }}" class="btn btn--primary">See more</a>
                     </div>
                 </div>
             </div>

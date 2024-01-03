@@ -501,13 +501,13 @@
                                                             <a href="/">Home</a>
                                                         </li>
                                                         <li>
-                                                            <a href="{{ route('about-us') }}">About Us</a>
+                                                            <a href="{{ route('tools.index') }}">Browse AI Tools</a>
                                                         </li>
-                                                        {{-- <li>
-                                                            <a href="shop.html">Shop</a>
-                                                        </li> --}}
                                                         <li>
                                                             <a href="/blog">Blog</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('about-us') }}">About Us</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ route('contact-us') }}">Contact Us</a>

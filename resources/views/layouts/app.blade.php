@@ -477,9 +477,13 @@
                                 <div class="footer-cmn__cta text-center appear-down">
                                     <h2 class="title fw-7 title-animation">Join Us Today</h2>
                                     <div class="section__content-cta">
-                                        <a href="sign-in.html" class="btn btn--primary">Get Started</a>
+                                        <a href="{{ route('auth.signup') }}" class="btn btn--primary">Get Started</a>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="col-12">
+                                <iframe src="https://embeds.beehiiv.com/a9f39322-528e-4fb5-805f-e102710bc80d" data-test-id="beehiiv-embed" width="100%" height="320" frameborder="0" scrolling="no" style="border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;"></iframe>
                             </div>
                         </div>
                         <div class="row">
@@ -499,14 +503,14 @@
                                                         <li>
                                                             <a href="{{ route('about-us') }}">About Us</a>
                                                         </li>
-                                                        <li>
+                                                        {{-- <li>
                                                             <a href="shop.html">Shop</a>
+                                                        </li> --}}
+                                                        <li>
+                                                            <a href="/blog">Blog</a>
                                                         </li>
                                                         <li>
-                                                            <a href="blog.html">Blog</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ route('about-us') }}">Contact Us</a>
+                                                            <a href="{{ route('contact-us') }}">Contact Us</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -515,7 +519,9 @@
                                         <div class="col-12 col-lg-5 col-xl-4">
                                             <div class="offcanvas-info__form">
                                                 <h5 class="text-white text-center text-lg-start">Subscribe to newsletter</h5>
-                                                <form action="#" method="post" autocomplete="off">
+                                                <iframe src="https://embeds.beehiiv.com/a9f39322-528e-4fb5-805f-e102710bc80d?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+
+                                                {{-- <form action="#" method="post" autocomplete="off">
                                                     <div class="subscribe-form">
                                                         <input type="email" name="subscribe-newsletter" id="subscribeNewsletterTwo" placeholder="Email" required="">
                                                         <button type="submit" aria-label="subscribe newsletter" title="subscribe newsletter">
@@ -524,7 +530,7 @@
                                                             </i>
                                                         </button>
                                                     </div>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -540,7 +546,7 @@
                                         <p>
                                             Copyright ©
                                             <span id="copyrightYear"></span>
-                                            <a href="/">Aikeu</a>
+                                            <a href="/">Student AI Tools</a>
                                             . All Rights Reserved
                                         </p>
                                     </div>

@@ -109,7 +109,7 @@
      * 01. get device width
      * ======================================
      */
-    let device_width = window.innerWidth;
+    // let device_width = window.innerWidth;
 
     /**
      * ======================================
@@ -867,11 +867,11 @@
      * 23. smooth scroll with gsap
      * ======================================
      */
-    ScrollSmoother.create({
-      smooth: 2.2,
-      effects: true,
-      smoothTouch: 0.1,
-    });
+    // ScrollSmoother.create({
+    //   smooth: 2.2,
+    //   effects: true,
+    //   smoothTouch: 0.1,
+    // });
 
     /**
      * ======================================

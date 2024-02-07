@@ -14,21 +14,22 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Research',
-            'Writing',
-            'Reading',
-            'Tutoring',
-            'Essay Writing',
-            'Language Translation',
-            'Collaboration',
-            'Test Prep',
-            'Time Management',
-            'Data Analysis',
-            'Code Writing',
-            'Presentations',
-            'Mathematics',
-            'Productivity',
-            'Jobs/Internships',
+            'Research 🧪',
+            'Writing 🖊️',
+            'Reading 📚',
+            'Tutoring 📖',
+            'Essay Writing 📝',
+            'Chatbots 🤖',
+            'Language Translation 🌐',
+            'Collaboration 🤝',
+            'Test Prep 📝',
+            'Time Management ⏰',
+            'Data Analysis 📊',
+            'Code Writing 💻',
+            'Presentations 📊',
+            'Mathematics 🧮',
+            'Productivity 📈',
+            'Jobs/Internships 💼',
         ];
 
         foreach ($categories as $category) {

@@ -3,678 +3,1153 @@
 @section('title', 'Home')
 
 @section('content')
-<main>
-    <!-- ==== banner start ==== -->
-    <section class="banner-four">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-sm-10 col-lg-12 col-xxl-10">
-                    <div class="banner-four__content text-center">
-                        <h1 class="title-animation fw-7 text-white">
-                            Everything You Need For School In
-                            <span class="text-primary text-capitalize">One Place</span>
-                        </h1>
+<main class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="d-block d-lg-none">
+                    <button class="button profile-active mb-4 mb-lg-0 d-flex align-items-center gap-2">
+                        <i class="material-symbols-outlined mat-icon"> tune </i>
+                        <span>My profile</span>
+                    </button>
+                </div>
+                <div class="profile-sidebar cus-scrollbar p-5">
+                    <div class="d-block d-lg-none position-absolute end-0 top-0">
+                        <button class="button profile-close">
+                            <i class="material-symbols-outlined mat-icon fs-xl"> close </i>
+                        </button>
+                    </div>
+                    <div class="profile-pic d-flex gap-2 align-items-center">
+                        <div class="avatar position-relative">
+                            <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
+                        </div>
+                        <div class="text-area">
+                            <h6 class="m-0 mb-1"><a href="profile-post.html">Lerio Mao</a></h6>
+                            <p class="mdtxt">@maolio</p>
+                        </div>
+                    </div>
+                    <ul class="profile-link mt-7 mb-7 pb-7">
+                        <li>
+                            <a href="index.html" class="d-flex gap-4">
+                                <i class="material-symbols-outlined mat-icon"> home </i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="friend-request.html" class="d-flex gap-4">
+                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                <span>People</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="event.html" class="d-flex gap-4">
+                                <i class="material-symbols-outlined mat-icon"> workspace_premium </i>
+                                <span>Event</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pages.html" class="d-flex gap-4">
+                                <i class="material-symbols-outlined mat-icon"> perm_media </i>
+                                <span>Pages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="group.html" class="d-flex gap-4 active">
+                                <i class="material-symbols-outlined mat-icon"> workspaces </i>
+                                <span>Group</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="marketplace.html" class="d-flex gap-4">
+                                <i class="material-symbols-outlined mat-icon"> store </i>
+                                <span>Marketplace</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="saved-post.html" class="d-flex gap-4">
+                                <i class="material-symbols-outlined mat-icon"> sync_saved_locally </i>
+                                <span>Saved</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="favorites.html" class="d-flex gap-4">
+                                <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
+                                <span>Favorites</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="setting.html" class="d-flex gap-4">
+                                <i class="material-symbols-outlined mat-icon"> settings </i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="your-shortcuts">
+                        <h6>Your shortcuts</h6>
+                        <ul>
+                            <li>
+                                <a href="public-profile-post.html" class="d-flex align-items-center gap-3">
+                                    <img src="/images/shortcuts-1.png" alt="icon">
+                                    <span>Game Community</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="public-profile-post.html" class="d-flex align-items-center gap-3">
+                                    <img src="/images/shortcuts-2.png" alt="icon">
+                                    <span>Pixel Think (Member)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="public-profile-post.html" class="d-flex align-items-center gap-3">
+                                    <img src="/images/shortcuts-3.png" alt="icon">
+                                    <span>8 Ball Pool</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="public-profile-post.html" class="d-flex align-items-center gap-3">
+                                    <img src="/images/shortcuts-4.png" alt="icon">
+                                    <span>Gembio</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- ==== / banner end ==== -->
-    <!-- ==== product filter start ==== -->
-    <section class="section pt-0 pb-0 product-filter fade-wrapper">
-        <div class="container">
-            <div class="row gaper justify-content-end">
-                <div class="col-12 col-lg-5 col-xxl-12">
-                    <div class="product-search">
-                        <form action="{{ route('tools.index') }}" method="get">
-                            <input type="text" name="search" id="productSearch" placeholder="Search">
-                            <button type="submit">
-                                <i class="bi bi-search"></i>
-                            </button>
-                            @csrf
-                        </form>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-7 col-xxl-12 offset-xxl-1">
-                    <div class="product-filter__wrapper justify-content-start justify-content-lg-end">
-                        <button type="button" aria-label="Filter Product" data-filter="*" class="active">All</button>
-                        @foreach(\App\Models\Category::all() as $category)
-                            <a href="{{ route('categories.show', $category->slug) }}" aria-label="{{ $category->name }}" data-filter=".{{ $category->slug }}">{{ $category->name }}</a>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-
-            {{-- <div class="row">
-                <div class="col-12">
-                    <div class="product-item-wrapper masonry-grid">
-                        <div class="product-filter__single grid-item-main design creative business fade-top topy-tilt">
-                            <div class="thumb">
-                                <a href="product-single.html">
-                                    <img src="/images/one_7.png" alt="Image">
-                                </a>
-                                <button>
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="content">
-                                <h4>
-                                    <a href="product-single.html">Robo Girl</a>
-                                </h4>
-                                <h5>$25.00</h5>
-                            </div>
-                        </div>
-                        <div class="product-filter__single grid-item-main ai nft fade-top topy-tilt">
-                            <div class="thumb">
-                                <a href="product-single.html">
-                                    <img src="/images/three_8.png" alt="Image">
-                                </a>
-                                <button>
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="content">
-                                <h4>
-                                    <a href="product-single.html">Robo Girl</a>
-                                </h4>
-                                <h5>$25.00</h5>
-                            </div>
-                        </div>
-                        <div class="product-filter__single grid-item-main business ai fade-top topy-tilt">
-                            <div class="thumb">
-                                <a href="product-single.html">
-                                    <img src="/images/six.png" alt="Image">
-                                </a>
-                                <button>
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="content">
-                                <h4>
-                                    <a href="product-single.html">Robo Girl</a>
-                                </h4>
-                                <h5>$25.00</h5>
-                            </div>
-                        </div>
-                        <div class="product-filter__single grid-item-main creative ai fade-top topy-tilt">
-                            <div class="thumb">
-                                <a href="product-single.html">
-                                    <img src="/images/two_7.png" alt="Image">
-                                </a>
-                                <button>
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="content">
-                                <h4>
-                                    <a href="product-single.html">Robo Girl</a>
-                                </h4>
-                                <h5>$25.00</h5>
-                            </div>
-                        </div>
-                        <div class="product-filter__single grid-item-main design creative nft fade-top topy-tilt">
-                            <div class="thumb">
-                                <a href="product-single.html">
-                                    <img src="/images/four_6.png" alt="Image">
-                                </a>
-                                <button>
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="content">
-                                <h4>
-                                    <a href="product-single.html">Robo Girl</a>
-                                </h4>
-                                <h5>$25.00</h5>
-                            </div>
-                        </div>
-                        <div class="product-filter__single grid-item-main nft business fade-top topy-tilt">
-                            <div class="thumb">
-                                <a href="product-single.html">
-                                    <img src="/images/five_4.png" alt="Image">
-                                </a>
-                                <button>
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="content">
-                                <h4>
-                                    <a href="product-single.html">Robo Girl</a>
-                                </h4>
-                                <h5>$25.00</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-        </div>
-    </section>
-    <!-- ==== / product filter end ==== -->
-
-    <!-- ==== category start ==== -->
-    <section class="section pb-0 category">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="section__header text-center">
-                        <h2 class="title-animation fw-7 text-white">All the Category</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row gaper fade-wrapper">
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="category-overview__single fade-top">
-                        <a href="shop.html">
-                            <span>Ai</span>
-                            <img src="/images/one_8.png" alt="Images">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="category-overview__single fade-top">
-                        <a href="shop.html">
-                            <span>3D</span>
-                            <img src="/images/two_8.png" alt="Images">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="category-overview__single fade-top">
-                        <a href="shop.html">
-                            <span>Stock</span>
-                            <img src="/images/three_7.png" alt="Images">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="category-overview__single fade-top">
-                        <a href="shop.html">
-                            <span>Logos</span>
-                            <img src="/images/four_5.png" alt="Images">
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
             
-            <div class="row ">
-                <div class="col-12">
-                    <div class="category-filter">
-                        <button aria-label="Filter Product" data-filter="*" class="active">All</button>
-                        <button aria-label="Filter Product" data-filter=".chat-g">
-                            <img src="/images/chat.png" alt="Image">
-                            Chatgpt
-                        </button>
-                        <button aria-label="Filter Product" data-filter=".mid-j">
-                            <img src="/images/mid.png" alt="Image">
-                            Midjourney
-                        </button>
+            <div class="col-xl-9 col-lg-8">
+                <div class="head-area mb-5">
+                    <h6>Group</h6>
+                </div>
+                <div class="popular-area mb-5 d-center flex-wrap gap-3 justify-content-between">
+                    <ul class="nav flex-wrap gap-2 tab-area" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link d-center active" id="popular-tab" data-bs-toggle="tab" data-bs-target="#popular-tab-pane" type="button" role="tab" aria-controls="popular-tab-pane" aria-selected="true">popular</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link d-center" id="most-member-tab" data-bs-toggle="tab" data-bs-target="#most-member-tab-pane" type="button" role="tab" aria-controls="most-member-tab-pane" aria-selected="false" tabindex="-1">most-member</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link d-center" id="suggested-group-tab" data-bs-toggle="tab" data-bs-target="#suggested-group-tab-pane" type="button" role="tab" aria-controls="suggested-group-tab-pane" aria-selected="false" tabindex="-1">suggested-group</button>
+                        </li>
+                    </ul>
+                    <form action="#" class="d-flex align-items-stretch justify-content-between gap-4">
+                        <div class="input-area py-2 w-100 gap-2 d-flex align-items-center">
+                            <i class="material-symbols-outlined mat-icon">search</i>
+                            <input type="text" placeholder="Search" autocomplete="off">
+                        </div>
+                    </form>
+                    <div class="btn-item">
+                        <a href="#" class="cmn-btn gap-1">
+                            <i class="material-symbols-outlined mat-icon"> add </i>
+                            Submit Tool
+                        </a>
                     </div>
                 </div>
-            </div>
-
-            <div class="row category-masonry fade-wrapper">
-                <! -- get random tools -->
-                @foreach (App\Models\Tool::inRandomOrder()->limit(8)->get() as $tool)
-                <div class="col-12  col-md-6 col-lg-4 col-xxl-3 category-item chat-g fade-top">
-                    <div class="category__single topy-tilt">
-                        <div class="thumb">
-                            <a href="{{ route('tools.show', $tool->slug) }}" target="_blank" class="thumb-img">
-                                <img src="{{ $tool->screenshot1 }}" alt="Image">
-                            </a>
-                            <a href="{{ route('tools.show', $tool->slug) }}" class="tag">
-                                <img src="{{ $tool->favicon }}" alt="Image" width="30">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h5>
-                                <a href="{{ route('tools.show', $tool->slug) }}" target="_blank">{{ $tool->name }}</a>
-                                <a href="{{ $tool->link }}" class="ml-3" target="_blank">
-                                    <i class="bi bi-box-arrow-up-right" style="font-size: 20px"></i>
-                                </a>
-                            </h5>
-                            <p class="tertiary-text">{{ $tool->pricing }}</p>
-                        </div>
-                        <hr>
-                        <div class="meta">
-                            <div class="meta-info">
-                                <div class="meta-thumb">
-                                    <img src="{{ $tool->user->avatar }}" alt="Image">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="popular-tab-pane" role="tabpanel" aria-labelledby="popular-tab" tabindex="0">
+                        <div class="row cus-mar friend-request">
+                            @foreach(\App\Models\Tool::inRandomOrder()->limit(6)->get() as $tool)
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="{{}}" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-1.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Travel Moon</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
                                 </div>
-                                <p class="tertiary-text text-capitalize">{{ '@' . $tool->user->first_name }}</p>
                             </div>
-                            <div class="meta-review">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="section__cta text-center">
-                        <a href="{{ route('tools.index') }}" class="btn btn--primary">See more</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ==== / category end ==== -->
-
-    <!-- ==== new tools start ==== -->
-    <section class="section pb-0 new-prompts fade-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section__header text-start">
-                        <h2 class="title title-animation mt-12">New Tools</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row gaper">
-                <! -- get new tools -->
-                @foreach (App\Models\Tool::orderBy('created_at', 'desc')->limit(8)->get() as $tool)
-                <div class="col-12 col-md-6 col-lg-4 col-xxl-3 fade-top">
-                    <div class="category__single topy-tilt">
-                        <div class="thumb">
-                            <a href="{{ route('tools.show', $tool->slug) }}" target="_blank" class="thumb-img">
-                                <img src="{{ $tool->screenshot1 }}" alt="Image">
-                            </a>
-                            <a href="{{ route('tools.show', $tool->slug) }}" class="tag">
-                                <img src="{{ $tool->favicon }}" alt="Image" width="30">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h5>
-                                <a href="{{ route('tools.show', $tool->slug) }}" target="_blank">{{ $tool->name }}</a>
-                                <a href="{{ $tool->link }}" class="ml-3" target="_blank">
-                                    <i class="bi bi-box-arrow-up-right" style="font-size: 20px"></i>
-                                </a>
-                            </h5>
-                            <p class="tertiary-text">{{ $tool->pricing }}</p>
-                        </div>
-                        <hr>
-                        <div class="meta">
-                            <div class="meta-info">
-                                <div class="meta-thumb">
-                                    <img src="{{ $tool->user->avatar }}" alt="Image">
+                            @endforeach
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-2.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-2.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Car Legend Community</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
                                 </div>
-                                <p class="tertiary-text">{{ '@' . $tool->user->first_name }}</p>
                             </div>
-                            <div class="meta-review">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                        </div>
-                        {{-- <div class="cta">
-                            <a href="product-single.html" class="btn btn--quaternary">Get Prompts</a>
-                        </div> --}}
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    <!-- ==== / new tools end ==== -->
-
-    <!-- ==== text slider large start ==== -->
-    <section class="text-slider-large-wrapper section pb-0">
-        <div class="text-slider-large">
-            <div class="text-slider__single">
-                <h2 class="large-title">
-                    <a href="services.html">
-                        STUDENT AI
-                        <span class="text-stroke" data-text="Tools"> Tools</span>
-                    </a>
-                </h2>
-            </div>
-            <div class="text-slider__single">
-                <h2 class="large-title">
-                    <a href="services.html">
-                        STUDENT AI
-                        <span class="text-stroke" data-text="Tools"> Tools</span>
-                    </a>
-                </h2>
-            </div>
-            <div class="text-slider__single">
-                <h2 class="large-title">
-                    <a href="services.html">
-                        STUDENT AI
-                        <span class="text-stroke" data-text="Tools"> Tools</span>
-                    </a>
-                </h2>
-            </div>
-            <div class="text-slider__single">
-                <h2 class="large-title">
-                    <a href="services.html">
-                        STUDENT AI
-                        <span class="text-stroke" data-text="Tools"> Tools</span>
-                    </a>
-                </h2>
-            </div>
-        </div>
-    </section>
-    <!-- ==== / text slider large end ==== -->
-
-    <!-- ==== top rated tools start ==== -->
-    <section class="section pb-0 best-prompts fade-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section__header text-start">
-                        <h2 class="title title-animation mt-12">Top Rated Tools</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row gaper">
-                @foreach (App\Models\Tool::with('ratings')->get()->sortByDesc(function($tool) {
-                    return $tool->ratings->avg('rating');
-                })->take(8) as $tool)
-                <div class="col-12 col-md-6 col-lg-4 col-xxl-3 fade-top">
-                    <div class="category__single topy-tilt">
-                        <div class="thumb">
-                            <a href="{{ route('tools.show', $tool->slug) }}" target="_blank" class="thumb-img">
-                                <img src="{{ $tool->screenshot1 }}" alt="Image">
-                            </a>
-                            <a href="{{ route('tools.show', $tool->slug) }}" class="tag">
-                                <img src="{{ $tool->favicon }}" alt="Image" width="30">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h5>
-                                <a href="{{ route('tools.show', $tool->slug) }}" target="_blank">{{ $tool->name }}</a>
-                                <a href="{{ $tool->link }}" class="ml-3" target="_blank">
-                                    <i class="bi bi-box-arrow-up-right" style="font-size: 20px"></i>
-                                </a>
-                            </h5>
-                            <p class="tertiary-text">{{ $tool->pricing }}</p>
-                        </div>
-                        <hr>
-                        <div class="meta">
-                            <div class="meta-info">
-                                <div class="meta-thumb">
-                                    <img src="{{ $tool->user->avatar }}" alt="Image">
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-3.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-3.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Travel World</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
                                 </div>
-                                <p class="tertiary-text">{{ '@' . $tool->user->first_name }}</p>
                             </div>
-                            <div class="meta-review">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                        </div>
-                        {{-- <div class="cta">
-                            <a href="product-single.html" class="btn btn--quaternary">Get Prompts</a>
-                        </div> --}}
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    <!-- ==== / top rated tools end ==== -->
-
-    {{-- <!-- ==== chat tools start ==== -->
-    <section class="section pb-0 chat-prompts fade-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section__header text-start">
-                        <h2 class="title title-animation mt-12">Chat GPT Prompts</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row gaper">
-                <div class="col-12 col-md-6 col-lg-4 col-xxl-3 fade-top">
-                    <div class="category__single topy-tilt">
-                        <div class="thumb">
-                            <a href="product-single.html" class="thumb-img">
-                                <img src="/images/sixteen.png" alt="Image">
-                            </a>
-                            <a href="shop.html" class="tag">
-                                <img src="/images/chat.png" alt="Image">
-                                Chatgpt
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h5>
-                                <a href="product-single.html">Prompt Player</a>
-                            </h5>
-                            <p class="tertiary-text">$25.00</p>
-                        </div>
-                        <hr>
-                        <div class="meta">
-                            <div class="meta-info">
-                                <div class="meta-thumb">
-                                    <img src="/images/a-twelve.png" alt="Image">
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-4.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-4.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Beatty Community</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
                                 </div>
-                                <p class="tertiary-text">@Esther</p>
                             </div>
-                            <div class="meta-review">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                        </div>
-                        <div class="cta">
-                            <a href="product-single.html" class="btn btn--quaternary">Get Prompts</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 col-xxl-3 fade-top">
-                    <div class="category__single topy-tilt">
-                        <div class="thumb">
-                            <a href="product-single.html" class="thumb-img">
-                                <img src="/images/fourteen.png" alt="Image">
-                            </a>
-                            <a href="shop.html" class="tag">
-                                <img src="/images/chat.png" alt="Image">
-                                Chatgpt
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h5>
-                                <a href="product-single.html">Blog wright</a>
-                            </h5>
-                            <p class="tertiary-text">$25.00</p>
-                        </div>
-                        <hr>
-                        <div class="meta">
-                            <div class="meta-info">
-                                <div class="meta-thumb">
-                                    <img src="/images/a-eleven.png" alt="Image">
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-5.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-5.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Event Group</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
                                 </div>
-                                <p class="tertiary-text">@Esther</p>
                             </div>
-                            <div class="meta-review">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                        </div>
-                        <div class="cta">
-                            <a href="product-single.html" class="btn btn--quaternary">Get Prompts</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 col-xxl-3 fade-top">
-                    <div class="category__single topy-tilt">
-                        <div class="thumb">
-                            <a href="product-single.html" class="thumb-img">
-                                <img src="/images/thirteen.png" alt="Image">
-                            </a>
-                            <a href="shop.html" class="tag">
-                                <img src="/images/chat.png" alt="Image">
-                                Chatgpt
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h5>
-                                <a href="product-single.html">Article</a>
-                            </h5>
-                            <p class="tertiary-text">$25.00</p>
-                        </div>
-                        <hr>
-                        <div class="meta">
-                            <div class="meta-info">
-                                <div class="meta-thumb">
-                                    <img src="/images/a-ten.png" alt="Image">
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-6.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-6.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Fun Make Society</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
                                 </div>
-                                <p class="tertiary-text">@Esther</p>
                             </div>
-                            <div class="meta-review">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                        </div>
-                        <div class="cta">
-                            <a href="product-single.html" class="btn btn--quaternary">Get Prompts</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 col-xxl-3 fade-top">
-                    <div class="category__single topy-tilt">
-                        <div class="thumb">
-                            <a href="product-single.html" class="thumb-img">
-                                <img src="/images/twelve.png" alt="Image">
-                            </a>
-                            <a href="shop.html" class="tag">
-                                <img src="/images/mid.png" alt="Image">
-                                Midjourney
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h5>
-                                <a href="product-single.html">Logo Ideas</a>
-                            </h5>
-                            <p class="tertiary-text">$25.00</p>
-                        </div>
-                        <hr>
-                        <div class="meta">
-                            <div class="meta-info">
-                                <div class="meta-thumb">
-                                    <img src="/images/a-eight.png" alt="Image">
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-7.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-7.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Travel Africa</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
                                 </div>
-                                <p class="tertiary-text">@Esther</p>
                             </div>
-                            <div class="meta-review">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-8.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-8.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">World Travel Community</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-9.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-9.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Fashion Hop</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="cta">
-                            <a href="product-single.html" class="btn btn--quaternary">Get Prompts</a>
+                    </div>
+                    <div class="tab-pane fade" id="most-member-tab-pane" role="tabpanel" aria-labelledby="most-member-tab" tabindex="0">
+                        <div class="row cus-mar friend-request">
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-7.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-7.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Travel Africa</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-8.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-8.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">World Travel Community</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-9.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-9.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Fashion Hop</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-2.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-2.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Car Legend Community</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-3.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-3.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Travel World</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-4.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-4.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Beatty Community</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="suggested-group-tab-pane" role="tabpanel" aria-labelledby="suggested-group-tab" tabindex="0">
+                        <div class="row cus-mar friend-request">
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-4.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-4.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Beatty Community</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-5.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-5.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Event Group</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-6.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-6.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Fun Make Society</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-1.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-1.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Travel Moon</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-2.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-2.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Car Legend Community</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6 col-8">
+                                <div class="single-box p-5">
+                                    <div class="avatar-box position-relative">
+                                        <img class="avatar-img w-100" src="/images/group-img-3.png" alt="avatar">
+                                        <div class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end">
+                                            <div class="btn-group cus-dropdown dropend">
+                                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                </button>
+                                                <ul class="dropdown-menu p-4 pt-2">
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                            <span>Unfollow</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                            <span>Hide</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abs-avatar-item">
+                                        <img class="avatar-img max-un" src="/images/group-avatar-3.png" alt="avatar">
+                                    </div>
+                                    <a href="group-details.html">
+                                        <h6 class="m-0 mb-2 mt-3">Travel World</h6>
+                                    </a>
+                                    <p class="smtxt public-group">Public Group</p>
+                                    <div class="friends-list d-center mt-3 gap-1 text-center">
+                                        <ul class="d-center">
+                                            <li><img src="/images/avatar-2.png" alt="image"></li>
+                                            <li><img src="/images/avatar-3.png" alt="image"></li>
+                                            <li><img src="/images/avatar-4.png" alt="image"></li>
+                                        </ul>
+                                        <span class="smtxt m-0">30k Member</span>
+                                    </div>
+                                    <div class="d-center btn-border pt-5 gap-2 mt-4">
+                                        <button class="cmn-btn fourth">Joined</button>
+                                        <button class="cmn-btn alt third">Invite</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <!-- ==== / chat tools end ==== --> --}}
-
-    <!-- ==== featured tools start ==== -->
-    <section class="section pb-0 feature fade-wrapper fade-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section__header text-start">
-                        <h2 class="title title-animation mt-12">Featured Tools</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row gaper">
-                @foreach(App\Models\Tool::where('is_featured', true)->limit(4)->get() as $tool)
-                <div class="col-12 col-md-6 col-lg-4 col-xxl-3 fade-top">
-                    <div class="feature__single topy-tilt">
-                        <div class="thumb">
-                            <img src="{{ $tool->user->avatar }}" alt="Image">
-                            <span class="check">
-                                <i class="bi bi-check2"></i>
-                            </span>
-                        </div>
-                        <div class="thumb-content">
-                            <p class="fw-6 text-white">{{ '@' . $tool->user->first_name }}</p>
-                            <p>
-                                <span>4.5 /</span>
-                                05
-                            </p>
-                        </div>
-                        <hr>
-                        <div class="feature__thumb">
-                            <a href="{{ route('tools.show', $tool->slug) }}" target="_blank" class="thumb-img">
-                                <img src="{{ $tool->screenshot1 }}" alt="Image">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    <!-- ==== / featured tools end ==== -->
-
-    <!-- ==== sponsor start ==== -->
-    <div class="sponsor section overflow-hidden">
-        <div class="sponsor__slider">
-            <div class="sponsor__single text-center">
-                <img src="/images/six_2.png" alt="Image">
-            </div>
-            <div class="sponsor__single text-center">
-                <img src="/images/seven_1.png" alt="Image">
-            </div>
-            <div class="sponsor__single text-center">
-                <img src="/images/eight.png" alt="Image">
-            </div>
-            <div class="sponsor__single text-center">
-                <img src="/images/nine.png" alt="Image">
-            </div>
-            <div class="sponsor__single text-center">
-                <img src="/images/six_2.png" alt="Image">
-            </div>
-            <div class="sponsor__single text-center">
-                <img src="/images/seven_1.png" alt="Image">
-            </div>
-            <div class="sponsor__single text-center">
-                <img src="/images/eight.png" alt="Image">
-            </div>
-            <div class="sponsor__single text-center">
-                <img src="/images/nine.png" alt="Image">
             </div>
         </div>
     </div>
-    <!-- ==== / sponsor end ==== -->
 </main>
 @endsection

@@ -98,6 +98,21 @@ $(function ($) {
         return '<a class="dot" role="button" title="' + slideNumber + ' of ' + totalSlides + '"><span class="string">' + slideNumber + '/' + totalSlides + '</span></a>';
       },
     });
+
+    $(".slider-tools").not('.slick-initialized').slick({
+      infinite: true,
+      autoplay: true,
+      centerMode: false,
+      centerPadding: "0px 50px",
+      focusOnSelect: false,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      speed: 300,
+      arrows: false,
+      fade: false,
+      dots: false,
+    });
+
     $(".slider-nav").not('.slick-initialized').slick({
       slidesToShow: 3,
       slidesToScroll: 1,

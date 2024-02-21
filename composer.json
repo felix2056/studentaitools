@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.8",
         "roach-php/laravel": "^2.0",
         "spatie/browsershot": "^3.60",
+        "torann/geoip": "^3.0",
         "weidner/goutte": "^2.3"
     },
     "require-dev": {

@@ -1,4 +1,4 @@
-<div class="col-xl-3 col-lg-4">
+<div class="{{ $class }}">
     <div class="d-block d-lg-none">
         <button class="button profile-active mb-4 mb-lg-0 d-flex align-items-center gap-2">
             <i class="material-symbols-outlined mat-icon"> tune </i>
@@ -16,70 +16,102 @@
         @auth
         <div class="profile-pic d-flex gap-2 align-items-center">
             <div class="avatar position-relative">
-                <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
+                <img class="avatar-img max-un" src="{{ Auth::user()->avatar }}" width="48" height="48" alt="avatar">
             </div>
             <div class="text-area">
-                <h6 class="m-0 mb-1"><a href="profile-post.html">Lerio Mao</a></h6>
-                <p class="mdtxt">@maolio</p>
+                <h6 class="m-0 mb-1"><a href="profile-post.html">{{ Auth::user()->full_name }}</a></h6>
+                <p class="mdtxt">{{ '@' . Auth::user()->username }}</p>
             </div>
         </div>
         @endauth
+
         <ul class="profile-link mt-7 mb-7 pb-7">
             <li>
-                <a href="index.html" class="d-flex gap-4">
+                <a href="/" class="d-flex gap-4 @if(request()->is('/')) active @endif">
                     <i class="material-symbols-outlined mat-icon"> home </i>
                     <span>Home</span>
                 </a>
             </li>
             <li>
+                <a href="{{ route('tools.index') }}" class="d-flex gap-4">
+                    <i class="material-symbols-outlined mat-icon"> integration_instructions </i>
+                    <span>AI Tools</span>
+                </a>
+            </li>
+            {{-- <li>
+                <a href="/newsfeed" class="d-flex gap-4">
+                    <i class="material-symbols-outlined mat-icon"> article </i>
+                    <span>Newsfeed</span>
+                </a>
+            </li> --}}
+            <li>
+                <a href="{{ route('requests.index') }}" class="d-flex gap-4 @if(request()->is('requests*')) active @endif">
+                    <i class="material-symbols-outlined mat-icon"> add_task </i>
+                    <span>Requests</span>
+                </a>
+            </li>
+            {{-- <li>
                 <a href="friend-request.html" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> person </i>
                     <span>People</span>
                 </a>
-            </li>
+            </li> --}}
             <li>
-                <a href="event.html" class="d-flex gap-4">
+                <a href="{{ route('events.index') }}" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> workspace_premium </i>
-                    <span>Event</span>
+                    <span>Events</span>
                 </a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="pages.html" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> perm_media </i>
                     <span>Pages</span>
                 </a>
-            </li>
-            <li>
-                <a href="group.html" class="d-flex gap-4 active">
+            </li> --}}
+            {{-- <li>
+                <a href="group.html" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> workspaces </i>
                     <span>Group</span>
                 </a>
-            </li>
-            <li>
+            </li> --}}
+            {{-- <li>
                 <a href="marketplace.html" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> store </i>
                     <span>Marketplace</span>
                 </a>
-            </li>
-            <li>
+            </li> --}}
+            {{-- <li>
                 <a href="saved-post.html" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> sync_saved_locally </i>
                     <span>Saved</span>
                 </a>
-            </li>
+            </li> --}}
             <li>
-                <a href="favorites.html" class="d-flex gap-4">
+                <a href="{{ route('favorites') }}" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
-                    <span>Favorites</span>
+                    <span>My Saves</span>
                 </a>
             </li>
             <li>
-                <a href="setting.html" class="d-flex gap-4">
+                <a href="most-favorited.html" class="d-flex gap-4">
+                    <i class="material-symbols-outlined mat-icon"> bookmark_added </i>
+                    <span>Most Saved</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('auth.settings') }}" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> settings </i>
                     <span>Settings</span>
                 </a>
             </li>
+            <li>
+                <a href="https://discord.gg/8v3dZg6" class="d-flex gap-4">
+                    <i class="material-symbols-outlined"> rss_feed </i>
+                    <span>Follow Us</span>
+                </a>
+            </li>
         </ul>
+
         <div class="your-shortcuts">
             <h6>Your shortcuts</h6>
             <ul>

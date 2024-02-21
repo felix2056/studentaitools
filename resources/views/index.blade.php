@@ -10,7 +10,7 @@
 <main class="main-content">
     <div class="container">
         <div class="row">
-            @include('includes.sidebar')
+            @include('includes.sidebar', ['class' => 'col-xl-3 col-lg-4'])
             
             <div class="col-xl-9 col-lg-8">
                 <section class="banner-section" id="top">
@@ -27,7 +27,7 @@
                                     <h2 class="title odometer odometer-auto-theme" data-odometer-final="{{ \App\Models\Tool::count() }}">
                                         <div class="odometer-inside">
                                             <span class="odometer-digit">
-                                                <span class="odometer-digit-spacer">{{ \App\Models\Tool::count() }}</span>
+                                                <span class="odometer-digit-spacer">{{ \App\Models\Tool::count() + 300 }}</span>
                                             </span>
                                         </div>
                                     </h2>
@@ -44,7 +44,7 @@
                                     <h2 class="title odometer odometer-auto-theme" data-odometer-final="{{ \App\Models\Category::count() }}">
                                         <div class="odometer-inside">
                                             <span class="odometer-digit">
-                                                <span class="odometer-digit-spacer">{{ \App\Models\Category::count() }}</span>
+                                                <span class="odometer-digit-spacer">{{ \App\Models\Category::count() + 20 }}</span>
                                             </span>
                                         </div>
                                     </h2>
@@ -61,7 +61,7 @@
                                     <h2 class="title odometer odometer-auto-theme" data-odometer-final="{{ \App\Models\User::count() }}">
                                         <div class="odometer-inside">
                                             <span class="odometer-digit">
-                                                <span class="odometer-digit-spacer">{{ \App\Models\User::count() * 20 }}</span>
+                                                <span class="odometer-digit-spacer">{{ \App\Models\User::count() + 1000 }}</span>
                                             </span>
                                         </div>
                                     </h2>
@@ -96,12 +96,17 @@
                             <button class="nav-link d-center" id="suggested-group-tab" data-bs-toggle="tab" data-bs-target="#suggested-group-tab-pane" type="button" role="tab" aria-controls="suggested-group-tab-pane" aria-selected="false" tabindex="-1">suggested-group</button>
                         </li>
                     </ul>
-                    <form action="#" class="d-flex align-items-stretch justify-content-between gap-4">
+
+                    @php
+                        $random_tool_name = \App\Models\Tool::inRandomOrder()->first()->name;
+                    @endphp
+                    <form action="{{ route('tools.search', $random_tool_name) }}" class="d-flex align-items-stretch justify-content-between gap-4" name="search-form" method="GET">
                         <div class="input-area py-2 w-100 gap-2 d-flex align-items-center">
                             <i class="material-symbols-outlined mat-icon">search</i>
-                            <input type="text" placeholder="Type and hit enter" autocomplete="off">
+                            <input type="text" class="search-input" placeholder="Type and hit enter" autocomplete="off">
                         </div>
                     </form>
+                    
                     <div class="btn-item">
                         <a href="#" class="cmn-btn gap-1">
                             <i class="material-symbols-outlined mat-icon"> add </i>
@@ -161,11 +166,19 @@
                                     </div>
 
                                     <div class="d-center btn-border pt-5 gap-2 mt-4">
-                                        <button class="cmn-btn fourth">
+                                        <input type="hidden" name="tool_slug" value="{{ $tool->slug }}">
+                                        <button class="cmn-btn save-favorite-btn fourth">
                                             <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
-                                            Save
+                                            @if(auth()->user() && auth()->user()->favorites->contains($tool->id))
+                                                Saved
+                                            @else
+                                                Save
+                                            @endif
                                         </button>
-                                        <button class="cmn-btn alt third">Invite</button>
+                                        <button class="cmn-btn alt third">
+                                            <i class="material-symbols-outlined mat-icon"> share </i>
+                                            Share
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -750,4 +763,24 @@
         </div>
     </div>
 </main>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        // on enter key press
+        $('input.search-input').on('keypress', function(event) {
+            if (event.which === 13) { 
+                event.preventDefault();
+
+                var search = $(this).val();
+                if (search.length > 0) {
+                    window.location.href = '/tools/search/' + search;
+                } else {
+                    window.location.href = '/tools';
+                }
+            }
+        });
+    });
+</script>
 @endsection

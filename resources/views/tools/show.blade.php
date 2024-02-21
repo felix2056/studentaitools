@@ -1,496 +1,1167 @@
 @extends('layouts.app')
 
-@section('title', $tool->name)
+@section('title',  $tool->name)
 
 @section('content')
-<main>
-    <!-- ==== banner start ==== -->
-    <section class="cmn-banner" data-background="/images/cmn-bg.png">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-10 col-xxl-8">
-                    <div class="cmn-banner__content text-center">
-                        <h2 class="light-title fw-7 text-white title-animation">{{ $tool->name }}</h2>
+<main class="main-content">
+    <div class="container">
+        <div class="row">
+            @include('includes.sidebar', ['class' => 'col-xl-3 col-lg-4'])
+
+            <div class="col-xl-9 col-lg-8">
+                <div class="banner-area pages-create mb-5">
+                    <div class="single-box p-5">
+                        <div class="slider-tools">
+                            <div class="single-slide avatar-area">
+                                <img class="avatar-img w-100" src="{{ $tool->screenshot1 }}" alt="image">
+                            </div>
+                            <div class="single-slide avatar-area">
+                                <img class="avatar-img w-100" src="{{ $tool->screenshot2 }}" alt="image">
+                            </div>
+                            <div class="single-slide avatar-area">
+                                <img class="avatar-img w-100" src="{{ $tool->screenshot3 }}" alt="image">
+                            </div>
+                        </div>
+
+                        <div class="top-area py-4 d-center flex-wrap gap-3 justify-content-between">
+                            <div class="d-flex gap-3 align-items-center">
+                                <div class="abs-avatar-item m-0">
+                                    <img class="avatar-img max-un" src="{{ $tool->favicon }}" width="57" height="57" alt="avatar">
+                                </div>
+                                <div class="text-area text-start">
+                                    <h5 class="m-0 mb-1">{{ $tool->name }}</h5>
+                                    <p class="mdtxt">{{ $tool->category_name }}</p>
+                                </div>
+                            </div>
+                            <div class="btn-item d-center gap-3">
+                                <a href="{{ route('tools.favorite', $tool->slug) }}" class="cmn-btn fourth gap-1">
+                                    <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
+                                    @if(auth()->user() && auth()->user()->favorites->contains($tool->id))
+                                        Saved
+                                    @else
+                                        Save
+                                    @endif
+                                </a>
+
+                                <a href="{{ $tool->link }}" target="_blank" class="cmn-btn third gap-1">
+                                    <i class="material-symbols-outlined mat-icon fs-xl"> open_in_new </i>
+                                    Visit site
+                                </a>
+
+                                <a href="#shareMod" data-bs-toggle="modal" data-bs-target="#shareMod" class="cmn-btn third gap-1">
+                                    <i class="material-symbols-outlined mat-icon fs-xl"> share </i>
+                                    Share
+                                </a>
+
+                                <div class="btn-group cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                <span>Unfollow</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                <span>Hide</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="friends-list d-flex flex-wrap gap-2 align-items-center text-center">
+                            <ul class="d-flex align-items-center justify-content-center">
+                                <li><img src="/images/avatar-3.png" alt="image"></li>
+                                <li><img src="/images/avatar-2.png" alt="image"></li>
+                                <li><img src="/images/avatar-4.png" alt="image"></li>
+                                <li><img src="/images/avatar-5.png" alt="image"></li>
+                                <li><img src="/images/avatar-6.png" alt="image"></li>
+                                <li><img src="/images/avatar-7.png" alt="image"></li>
+                                <li><img src="/images/avatar-8.png" alt="image"></li>
+                                <li><img src="/images/avatar-9.png" alt="image"></li>
+                                <li><img src="/images/avatar-10.png" alt="image"></li>
+                            </ul>
+                            <span class="mdtxt d-center">Rezeka, Martiola, Larmjio, and 10+ more favorited</span>
+                        </div>
+                        <div class="page-details">
+                            <ul class="nav mt-5 pt-4 flex-wrap gap-2 tab-area" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link d-center active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about-tab-pane" type="button" role="tab" aria-controls="about-tab-pane" aria-selected="false">about</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link d-center" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane" type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">reviews</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link d-center" id="pros-cons-tab" data-bs-toggle="tab" data-bs-target="#pros-cons-tab-pane" type="button" role="tab" aria-controls="pros-cons-tab-pane" aria-selected="false">pros & cons</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link d-center" id="saves-tab" data-bs-toggle="tab" data-bs-target="#saves-tab-pane" type="button" role="tab" aria-controls="saves-tab-pane" aria-selected="false">saves</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link d-center" id="media-tab" data-bs-toggle="tab" data-bs-target="#media-tab-pane" type="button" role="tab" aria-controls="media-tab-pane" aria-selected="false">media</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link d-center" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos-tab-pane" type="button" role="tab" aria-controls="videos-tab-pane" aria-selected="false">videos</button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="thumb-left">
-            <img src="/images/cmn-thumb-left.png" alt="Image">
-        </div>
-        <div class="thumb-right">
-            <img src="/images/cmn-thumb-right.png" alt="Image">
-        </div>
-    </section>
-    <!-- ==== / banner end ==== -->
 
-    <!-- ==== case study details start ==== -->
-    <section class="section case-details">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="case-details__inner">
-                        <div class="poster-img mb-0 slide-top">
-                            <img src="{{ $tool->screenshot1 }}" alt="Image">
-                        </div>
-                        <div class="case-details-meta">
-                            <div class="row gaper align-items-center">
-                                <div class="col-12 col-xl-5">
-                                    <div class="case-meta-left">
-                                        <h2 class="title-animation fw-7 text-white">{{ $tool->name }}</h2>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="about-tab-pane" role="tabpanel" aria-labelledby="about-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-xxl-8 col-xl-7">
+                                <div class="single-box p-3 p-sm-5">
+                                    <div class="head-area text-start">
+                                        <h6>Overview</h6>
+                                        <p class="mdtxt mt-6">{!! $tool->content !!}</p>
                                     </div>
-                                </div>
-                                <div class="col-12 col-xl-7">
-                                    <div class="case-meta-right justify-content-start justify-content-xl-end">
-                                        <div class="case-meta-single">
-                                            <p class="tertiary-text text-primary">Category</p>
-                                            <h5 class="fw-6 text-white">AI</h5>
-                                        </div>
-                                        <span class="line"></span>
-                                        <div class="case-meta-single">
-                                            <p class="tertiary-text text-primary">Pricing</p>
-                                            <h5 class="fw-6 text-white">{{ $tool->pricing }}</h5>
-                                        </div>
-                                        {{-- <span class="line"></span>
-                                        <div class="case-meta-single">
-                                            <p class="tertiary-text text-primary">Service</p>
-                                            <h5 class="fw-6 text-white">AI</h5>
-                                        </div> --}}
-                                        <span class="line"></span>
-                                        <div class="case-meta-single">
-                                            <p class="tertiary-text text-primary">Website</p>
-                                            <h5 class="fw-6 text-white">
-                                                <a href="{{ $tool->link }}" target="_blank">
-                                                    {{ $tool->domain }}
-                                                    <i class="bi bi-box-arrow-up-right" style="font-size: 20px"></i>
-                                                </a>
-                                            </h5>
-                                        </div>
-                                        @auth
-                                            @if (Auth::user()->id == $tool->user_id)
-                                            <span class="line"></span>
-                                            <div class="case-meta-single">
-                                                <a href="{{ route('tools.edit', $tool->slug) }}" class="btn btn--primary" aria-label="Edit tool" title="Edit tool">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                            </div>
 
-                                            <span class="line"></span>
-                                            <div class="case-meta-single">
-                                                <form action="/tools/{{ $tool->slug }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn--primary" onclick="return confirm('Are you sure you want to delete this tool?')" aria-label="Delete tool" title="Delete tool">
-                                                        <i class="bi bi-trash"></i>
+                                    <ul class="d-grid gap-3 mt-4">
+                                        <li class="d-center gap-3 justify-content-between">
+                                            <div class="info-area d-flex align-items-center gap-2">
+                                                <i class="material-symbols-outlined mat-icon"> integration_instructions </i>
+                                                <span class="mdtxt">Developer</span>
+                                            </div>
+                                            <div class="input-item d-center text-start">
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
                                                     </button>
-                                                </form>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                                <span>Public</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                                <span>Only me</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                                <span>Share</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                                <span>Edit</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                                <span>Delete</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            @endif
-                                        @endauth
-                                    </div>
+                                        </li>
+                                        <li class="d-center gap-3 justify-content-between">
+                                            <div class="info-area d-flex align-items-center gap-2">
+                                                <i class="material-symbols-outlined mat-icon"> school </i>
+                                                <span class="mdtxt">Master's degree</span>
+                                            </div>
+                                            <div class="input-item d-center text-start">
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                                <span>Public</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                                <span>Only me</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                                <span>Share</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                                <span>Edit</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                                <span>Delete</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-center gap-3 justify-content-between">
+                                            <div class="info-area d-flex align-items-center gap-2">
+                                                <i class="material-symbols-outlined mat-icon"> flag </i>
+                                                <span class="mdtxt link"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="592d3c2a2d1934383035773a3634">[email&#160;protected]</a></span>
+                                            </div>
+                                            <div class="input-item d-center text-start">
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                                <span>Public</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                                <span>Only me</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                                <span>Share</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                                <span>Edit</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                                <span>Delete</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-center gap-3 justify-content-between">
+                                            <div class="info-area d-flex align-items-center gap-2">
+                                                <i class="material-symbols-outlined mat-icon"> language </i>
+                                                <span class="mdtxt link">www.wisoky.com</span>
+                                            </div>
+                                            <div class="input-item d-center text-start">
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                                <span>Public</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                                <span>Only me</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                                <span>Share</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                                <span>Edit</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                                <span>Delete</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-center gap-3 justify-content-between">
+                                            <div class="info-area d-flex align-items-center gap-2">
+                                                <i class="material-symbols-outlined mat-icon"> call </i>
+                                                <span class="mdtxt">(316) 555-0116</span>
+                                            </div>
+                                            <div class="input-item d-center text-start">
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                                <span>Public</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                                <span>Only me</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                                <span>Share</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                                <span>Edit</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                                <span>Delete</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-center gap-3 justify-content-between">
+                                            <div class="info-area d-flex align-items-center gap-2">
+                                                <i class="material-symbols-outlined mat-icon"> pin_drop </i>
+                                                <span class="mdtxt">USA</span>
+                                            </div>
+                                            <div class="input-item d-center text-start">
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                                <span>Public</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                                <span>Only me</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                                <span>Share</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                                <span>Edit</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                                <span>Delete</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-center gap-3 justify-content-between">
+                                            <div class="info-area d-flex align-items-center gap-2">
+                                                <i class="material-symbols-outlined mat-icon"> house </i>
+                                                <span class="mdtxt">775 Rolling Green Rd.</span>
+                                            </div>
+                                            <div class="input-item d-center text-start">
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                                <span>Public</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                                <span>Only me</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                                <span>Share</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="group-btn cus-dropdown dropend">
+                                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu p-4 pt-2">
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                                <span>Edit</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                                <span>Delete</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="case-details__content">
-                            <div class="row gaper">
-                                <div class="col-12 col-lg-2">
-                                    <div class="case-d-content-left">
-                                        <p class="tertiary-text text-white">Share</p>
-                                        <div class="social">
-                                            <a href="https://www.facebook.com/" target="_blank" aria-label="share us on facebook" title="facebook">
-                                                <i class="bi bi-facebook"></i>
-                                            </a>
-                                            <a href="https://www.twitter.com/" target="_blank" aria-label="share us on twitter" title="twitter">
-                                                <i class="bi bi-twitter"></i>
-                                            </a>
-                                            <a href="https://www.linkedin.com/" target="_blank" aria-label="share us on pinterest" title="linkedin">
-                                                <i class="bi bi-linkedin"></i>
-                                            </a>
-                                            <a href="https://www.instagram.com/" target="_blank" aria-label="share us on instagram" title="instagram">
-                                                <i class="bi bi-instagram"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-10">
-                                    <div class="case-d-content-right">
-                                        {!! $tool->content !!}
-
-                                        <div class="text-group">
-                                            <div class="img-group fade-wrapper">
-                                                <div class="poster-img mb-0 fade-top">
-                                                    <img src="{{ $tool->screenshot1 }}" alt="Image">
-                                                </div>
-                                                <div class="poster-img mb-0 fade-top">
-                                                    <img src="{{ $tool->screenshot2 }}" alt="Image">
-                                                </div>
-                                                <div class="poster-img mb-0 fade-top">
-                                                    <img src="{{ $tool->screenshot3 }}" alt="Image">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- <div class="text-group">
-                                            <div class="quote-group">
-                                                <img src="/images/quote.png" alt="Image">
-                                                <div class="content">
-                                                    <q class="primary-text text-white">And the day came when the risk to
-                                                        remain tight in a bud was more painful than the risk it took to
-                                                        blossom.</q>
-                                                    <p class="tertiary-text">Alen Marlo</p>
-                                                </div>
-                                            </div>
-                                            <p>Prepare to embark on thrilling adventures, engage in strategic battles,
-                                                and explore captivating narratives, all enriched by the seamless
-                                                integration of artificial intelligence. Our commitment to innovation and
-                                                cutting-edge technology ensures that each gaming experience is tailored
-                                                to your preferences</p>
-                                        </div> --}}
-                                    </div>
-                                </div>
-                            </div>
+                            @include('includes.tools.sidebar', ['tool' => $tool, 'active' => 'about'])
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ==== / case study details end ==== -->
 
-    <!-- ==== tool reviews start ==== -->
-    <section class="section pb-0 p-details">
-        <div class="container">
-            <div class="case-details__reviews">
-                <div class="row gaper align-items-center">
-                    <div class="col-12">
-                        <div class="p-details__tab">
-                            <div class="p-details__tab-btn">
-                                <button data-target="#pReview" class="p-d-t-btn p-d-t-btn-active">Reviews</button>
-                                <button data-target="#pAuthor" class="p-d-t-btn">Owners / Devs</button>
-                            </div>
-                            <div class="p-d-t-wrapper">
-                                <div class="p-details__tab-single" id="pReview">
-                                    <div class="review-content">
-                                        <div class="row">
-                                            <div class="col-12 col-xl-9">
-                                                <div class="b-comment__wrapper">
-                                                    @foreach($tool->ratings()->orderBy('created_at', 'desc')->get() as $rating)
-                                                    <div class="b-comment-single">
-                                                        <div class="thumb">
-                                                            <img src="{{ $rating->user->avatar }}" alt="Image">
+                    <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-xxl-8 col-xl-7">
+                                <div class="single-box p-3 p-sm-5">
+                                    <div class="customer-reviews">
+                                        @if ($tool->ratings->count() > 0)
+                                            @foreach ($tool->ratings as $rating)
+                                                <div class="single-review">
+                                                    <div class="head-area d-flex align-items-center justify-content-between">
+                                                        <div class="star-area d-flex align-items-center">
+                                                            @for ($i = 0; $i < $rating->rating; $i++)
+                                                                <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                            @endfor
                                                         </div>
-                                                        <div class="content">
-                                                            <div class="intro">
-                                                                <h4 class="text-white">{{ '@' . $rating->user->first_name }}</h4>
-                                                                <span class="tertiary-text">{{ $rating->created_at->diffForHumans() }}</span>
-                                                            </div>
+                                                        <div class="date">
+                                                            <span class="fs-6">{{ $rating->created_at->format('F j, Y') }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-area d-flex my-5 gap-3">
+                                                        <div class="img-area">
+                                                            <img src="{{ $rating->user->avatar }}" alt="image">
+                                                        </div>
+                                                        <div class="text-area">
+                                                            <h6><a href="public-profile-post.html">{{ $rating->user->username }}</a></h6>
+                                                            <span class="fs-6">{{ $rating->user->country }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="review-text text-left">
+                                                        <h6>{{ $rating->title }}...</h6>
+                                                        <p>{{ $rating->review }}</p>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="single-review">
+                                                <div class="review-text text-left">
+                                                    <p>No reviews yet</p>
+                                                </div>
+                                            </div>
+                                        @endif
 
-                                                            <p>{{ $rating->review }}</p>
+                                        <div class="review-box">
+                                            <div class="add-review">
+                                                <h5>Add A Review</h5>
+                                                <form action="{{ route('tools.review', $tool->slug) }}" method="POST">
+                                                    @csrf
+                                                    <div class="d-md-flex align-items-center my-4 mb-60">
+                                                        <p>Your Rating:</p>
+                                                        <div class="star-head d-flex mx-3 gap-4 flex-wrap align-items-center">
+                                                            <div class="star-item">
+                                                                <label>
+                                                                    <input type="radio" name="stars" value="1" />
+                                                                    <span class="icon">★</span>
+                                                                </label>
+                                                                <label>
+                                                                    <input type="radio" name="stars" value="2" />
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                </label>
+                                                                <label>
+                                                                    <input type="radio" name="stars" value="3" />
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                </label>
+                                                                <label>
+                                                                    <input type="radio" name="stars" value="4" />
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                </label>
+                                                                <label>
+                                                                    <input type="radio" name="stars" value="5" />
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                    <span class="icon">★</span>
+                                                                </label>
 
-                                                            <div class="content-meta">
-                                                                <button class="open-reply">
-                                                                    Reply
-                                                                </button>
-                                                                <a href="index.html">
-                                                                    Share
-                                                                    <span class="material-symbols-outlined">
-                                                                        send
-                                                                    </span>
-                                                                </a>
-                                                            </div>
 
-                                                            <div class="reply-box-wrapper">
-                                                                @foreach($rating->replies()->orderBy('created_at', 'desc')->get() as $reply)
-                                                                <div class="reply-box border-none">
-                                                                    <img src="{{ $reply->user->avatar }}" alt="Image">
-                                                                    <p>{{ $reply->reply }}</p>
-                                                                </div>
-                                                                @endforeach
-
-                                                                @auth
-                                                                <div class="reply-box">
-                                                                    <img src="{{ Auth::user()->avatar }}" alt="Image">
-                                                                    <form action="{{ route('tools.reply', [ $tool->slug, $rating->id ]) }}" method="post">
-                                                                        @csrf
-                                                                        <input type="text" name="reply" id="remplyMeTwo" placeholder="Respond to review" required="">
-                                                                        <button>
-                                                                            <span class="material-symbols-outlined">
-                                                                                send
-                                                                            </span>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                                @endauth
+                                                                {{-- <div class="star-head d-flex mx-3 gap-4 flex-wrap align-items-center">
+                                                                    <div class="star-item">
+                                                                        <input type="radio" name="rating" value="1" />
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                    </div>
+                                                                    <div class="star-item">
+                                                                        <input type="radio" name="rating" value="2" />
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                    </div>
+                                                                    <div class="star-item">
+                                                                        <input type="radio" name="rating" value="3" />
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                    </div>
+                                                                    <div class="star-item">
+                                                                        <input type="radio" name="rating" value="4" />
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                    </div>
+                                                                    <div class="star-item">
+                                                                        <input type="radio" name="rating" value="5" />
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                        <a href="javascript:void(0)"><i class="fas fa-star"></i></a>
+                                                                    </div>
+                                                                </div> --}}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @endforeach
+
+                                                    <div class="row">
+                                                        {{-- @guest
+                                                        <div class="col-sm-6">
+                                                            <div class="single-input">
+                                                                <input type="text" name="name" placeholder="Enter Your Name" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="single-input">
+                                                                <input type="email" name="email" placeholder="Enter Your Email" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                        @endguest --}}
+
+                                                        <div class="col-sm-12">
+                                                            <div class="single-input">
+                                                                <textarea name="review" cols="30" rows="5" placeholder="Enter Your Message"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btn-area text-center">
+                                                        <button type="submit" class="cmn-btn">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @include('includes.tools.sidebar', ['tool' => $tool, 'active' => 'reviews'])
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pros-cons-tab-pane" role="tabpanel" aria-labelledby="pros-cons-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-xxl-8 col-xl-7">
+                                <div class="single-box p-3 p-sm-5">
+                                    <div class="head-area text-start">
+                                        <h6>Pros</h6>
+                                    </div>
+
+                                    <ul class="d-grid gap-3 mt-4">
+                                        @foreach ($tool->pros as $pro)
+                                            <li class="d-center gap-3 justify-content-between">
+                                                <div class="info-area d-flex align-items-center gap-2">
+                                                    <i class="material-symbols-outlined mat-icon"> integration_instructions </i>
+                                                    <span class="mdtxt">{{ $pro }}</span>
                                                 </div>
+                                                <div class="input-item d-center text-start">
+                                                    <i class="material-symbols-outlined mat-icon"> check </i>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
 
-                                                <div class="w-comment">
-                                                    <h3 class="fw-7 title-animation text-white">Write a review</h3>
-                                                    <form action="{{ route('tools.review', $tool->slug) }}" method="post">
-                                                        @csrf
-                                                        {{-- <div class="input-group">
-                                                            <div class="input-single">
-                                                                <input type="text" name="a-name" id="aName" placeholder="Your Name" required="">
+                                <div class="single-box p-3 p-sm-5 mt-5">
+                                    <div class="head-area text-start">
+                                        <h6>Cons</h6>
+                                    </div>
+
+                                    <ul class="d-grid gap 3 mt-4">
+                                        @foreach ($tool->cons as $con)
+                                            <li class="d-center gap-3 justify-content-between">
+                                                <div class="info-area d-flex align-items-center gap-2">
+                                                    <i class="material-symbols-outlined mat-icon"> school </i>
+                                                    <span class="mdtxt">{{ $con }}</span>
+                                                </div>
+                                                <div class="input-item d-center text-start">
+                                                    <i class="material-symbols-outlined mat-icon"> close </i>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+
+                            @include('includes.tools.sidebar', ['tool' => $tool, 'active' => 'pros-cons'])
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="saves-tab-pane" role="tabpanel" aria-labelledby="saves-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-xxl-8">
+                                <div class="single-box p-5">
+                                    <ul class="nav flex-wrap gap-2 tab-area" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link d-center active" id="favorites-tab" data-bs-toggle="tab" data-bs-target="#favorites-tab-pane" type="button" role="tab" aria-controls="favorites-tab-pane" aria-selected="true">favorites</button>
+                                        </li>
+                                        {{-- <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="following-tab" data-bs-toggle="tab" data-bs-target="#following-tab-pane" type="button" role="tab" aria-controls="following-tab-pane" aria-selected="false" tabindex="-1">following</button>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="favorites-tab-pane" role="tabpanel" aria-labelledby="favorites-tab" tabindex="0">
+                                        <div class="search-area d-center my-7 flex-wrap gap-2 justify-content-between">
+                                            <div class="total-followers">
+                                                <h6>{{ $tool->favorites->count() }} Saves</h6>
+                                            </div>
+                                            <form action="#" class="d-flex align-items-stretch justify-content-between gap-4">
+                                                <div class="input-area py-2 w-100 gap-2 d-flex align-items-center">
+                                                    <i class="material-symbols-outlined mat-icon">search</i>
+                                                    <input type="text" placeholder="Search" autocomplete="off">
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="row">
+                                            @foreach ($tool->favorites as $favorite)
+                                                <div class="col-md-6">
+                                                    <div class="single-box member-single p-3">
+                                                        <div class="profile-area d-center justify-content-between">
+                                                            <div class="avatar-item d-flex gap-3 align-items-center">
+                                                                <div class="avatar-item">
+                                                                    <img class="avatar-img max-un" src="{{ $favorite->user->avatar }}" alt="avatar">
+                                                                </div>
+                                                                <div class="info-area text-start">
+                                                                    <h6 class="m-0"><a href="public-profile-post.html">{{ $favorite->user->username }}</a></h6>
+                                                                    {{-- <p class="mdtxt status">10 Mutual Friends</p> --}}
+                                                                </div>
                                                             </div>
-                                                            <div class="input-single">
-                                                                <input type="email" name="a-email" id="aemail" placeholder="Your Email" required="">
+
+                                                            <div class="group-btn cus-dropdown">
+                                                                <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                                </button>
+                                                                <ul class="dropdown-menu p-4 pt-2">
+                                                                    <li>
+                                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                                            <span>Unfollow</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                                            <span>Hide Contact</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
-                                                        </div> --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                            <div class="col-12 my-5 text-center">
+                                                <button class="cmn-btn alt third fw-600">Load More</button>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                                        <div class="input-group">
-                                                            <div class="rate">
-                                                                <input type="radio" id="star5" name="rate" value="5" />
-                                                                <label for="star5" title="text">5 stars</label>
-                                                                <input type="radio" id="star4" name="rate" value="4" />
-                                                                <label for="star4" title="text">4 stars</label>
-                                                                <input type="radio" id="star3" name="rate" value="3" />
-                                                                <label for="star3" title="text">3 stars</label>
-                                                                <input type="radio" id="star2" name="rate" value="2" />
-                                                                <label for="star2" title="text">2 stars</label>
-                                                                <input type="radio" id="star1" name="rate" value="1" />
-                                                                <label for="star1" title="text">1 star</label>
+                                    {{-- <div class="tab-pane fade" id="following-tab-pane" role="tabpanel" aria-labelledby="following-tab" tabindex="0">
+                                        <div class="search-area d-center my-7 flex-wrap gap-2 justify-content-between">
+                                            <div class="total-followers">
+                                                <h6>30k Followers</h6>
+                                            </div>
+                                            <form action="#" class="d-flex align-items-stretch justify-content-between gap-4">
+                                                <div class="input-area py-2 w-100 gap-2 d-flex align-items-center">
+                                                    <i class="material-symbols-outlined mat-icon">search</i>
+                                                    <input type="text" placeholder="Search" autocomplete="off">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-box member-single p-3">
+                                                    <div class="profile-area d-center justify-content-between">
+                                                        <div class="avatar-item d-flex gap-3 align-items-center">
+                                                            <div class="avatar-item">
+                                                                <img class="avatar-img max-un" src="/images/followers-img-6.png" alt="avatar">
                                                             </div>
-                                                            @error('rating')
-                                                            <span class="invalid-feedback d-block" role="alert">
-                                                                <strong class="text-danger">{{ $message }}</strong>
-                                                            </span>
-                                                            @enderror
+                                                            <div class="info-area text-start">
+                                                                <h6 class="m-0"><a href="public-profile-post.html">Arlene McCoy</a></h6>
+                                                                <p class="mdtxt status">10 Mutual Friends</p>
+                                                            </div>
                                                         </div>
+                                                        <div class="group-btn cus-dropdown">
+                                                            <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                            </button>
+                                                            <ul class="dropdown-menu p-4 pt-2">
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                                        <span>Unfollow</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                                        <span>Hide Contact</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-box member-single p-3">
+                                                    <div class="profile-area d-center justify-content-between">
+                                                        <div class="avatar-item d-flex gap-3 align-items-center">
+                                                            <div class="avatar-item">
+                                                                <img class="avatar-img max-un" src="/images/followers-img-7.png" alt="avatar">
+                                                            </div>
+                                                            <div class="info-area text-start">
+                                                                <h6 class="m-0"><a href="public-profile-post.html">Devon Lane</a></h6>
+                                                                <p class="mdtxt status">10 Mutual Friends</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="group-btn cus-dropdown">
+                                                            <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                            </button>
+                                                            <ul class="dropdown-menu p-4 pt-2">
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                                        <span>Unfollow</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                                        <span>Hide Contact</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-box member-single p-3">
+                                                    <div class="profile-area d-center justify-content-between">
+                                                        <div class="avatar-item d-flex gap-3 align-items-center">
+                                                            <div class="avatar-item">
+                                                                <img class="avatar-img max-un" src="/images/followers-img-8.png" alt="avatar">
+                                                            </div>
+                                                            <div class="info-area text-start">
+                                                                <h6 class="m-0"><a href="public-profile-post.html">Ronald Richards</a></h6>
+                                                                <p class="mdtxt status">10 Mutual Friends</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="group-btn cus-dropdown">
+                                                            <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                            </button>
+                                                            <ul class="dropdown-menu p-4 pt-2">
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                                        <span>Unfollow</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                                        <span>Hide Contact</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-box member-single p-3">
+                                                    <div class="profile-area d-center justify-content-between">
+                                                        <div class="avatar-item d-flex gap-3 align-items-center">
+                                                            <div class="avatar-item">
+                                                                <img class="avatar-img max-un" src="/images/followers-img-9.png" alt="avatar">
+                                                            </div>
+                                                            <div class="info-area text-start">
+                                                                <h6 class="m-0"><a href="public-profile-post.html">Kathryn Murphy</a></h6>
+                                                                <p class="mdtxt status">10 Mutual Friends</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="group-btn cus-dropdown">
+                                                            <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                            </button>
+                                                            <ul class="dropdown-menu p-4 pt-2">
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                                        <span>Unfollow</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                                        <span>Hide Contact</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-box member-single p-3">
+                                                    <div class="profile-area d-center justify-content-between">
+                                                        <div class="avatar-item d-flex gap-3 align-items-center">
+                                                            <div class="avatar-item">
+                                                                <img class="avatar-img max-un" src="/images/followers-img-3.png" alt="avatar">
+                                                            </div>
+                                                            <div class="info-area text-start">
+                                                                <h6 class="m-0"><a href="public-profile-post.html">Brooklyn Simmons</a></h6>
+                                                                <p class="mdtxt status">10 Mutual Friends</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="group-btn cus-dropdown">
+                                                            <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                            </button>
+                                                            <ul class="dropdown-menu p-4 pt-2">
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                                        <span>Unfollow</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                                        <span>Hide Contact</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-box member-single p-3">
+                                                    <div class="profile-area d-center justify-content-between">
+                                                        <div class="avatar-item d-flex gap-3 align-items-center">
+                                                            <div class="avatar-item">
+                                                                <img class="avatar-img max-un" src="/images/followers-img-13.png" alt="avatar">
+                                                            </div>
+                                                            <div class="info-area text-start">
+                                                                <h6 class="m-0"><a href="public-profile-post.html">Cameron Williamson</a></h6>
+                                                                <p class="mdtxt status">10 Mutual Friends</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="group-btn cus-dropdown">
+                                                            <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                            </button>
+                                                            <ul class="dropdown-menu p-4 pt-2">
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                                        <span>Unfollow</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                                        <span>Hide Contact</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-box member-single p-3">
+                                                    <div class="profile-area d-center justify-content-between">
+                                                        <div class="avatar-item d-flex gap-3 align-items-center">
+                                                            <div class="avatar-item">
+                                                                <img class="avatar-img max-un" src="/images/followers-img-14.png" alt="avatar">
+                                                            </div>
+                                                            <div class="info-area text-start">
+                                                                <h6 class="m-0"><a href="public-profile-post.html">Wade Warren</a></h6>
+                                                                <p class="mdtxt status">10 Mutual Friends</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="group-btn cus-dropdown">
+                                                            <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                                            </button>
+                                                            <ul class="dropdown-menu p-4 pt-2">
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                                                        <span>Unfollow</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                                        <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                                                        <span>Hide Contact</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 my-5 text-center">
+                                                <button class="cmn-btn alt third fw-600">Load More</button>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </div>
+                            </div>
 
-                                                        <div class="input-single">
-                                                            <textarea name="review" id="aComment" cols="30" rows="10" placeholder="Let people know what you think about {{ $tool->name }}" required=""></textarea>
-                                                            @error('review')
-                                                            <span class="invalid-feedback d-block" role="alert">
-                                                                <strong class="text-danger">{{ $message }}</strong>
-                                                            </span>
-                                                            @enderror
-                                                        </div>
+                            @include('includes.tools.sidebar', ['tool' => $tool, 'active' => 'saves'])
+                        </div>
+                    </div>
 
-                                                        <div class="section__content-cta">
-                                                            <button type="submit" class="btn btn--primary">Submit Now</button>
+                    <div class="tab-pane fade" id="media-tab-pane" role="tabpanel" aria-labelledby="media-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-xxl-8">
+                                <div class="single-box p-5">
+                                    <div class="row cus-mar">
+                                        @foreach($tool->image_urls as $image)
+                                            <div class="col-md-4 col-6">
+                                                <div class="single-box">
+                                                    <img class="w-100" src="{{ $image }}" alt="image">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                            @include('includes.tools.sidebar', ['tool' => $tool, 'active' => 'media'])
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="videos-tab-pane" role="tabpanel" aria-labelledby="videos-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-xxl-8 col-xl-8">
+                                <div class="single-box p-5">
+                                    <div class="row cus-mar">
+                                        <div class="col-md-6">
+                                            <div class="single-box">
+                                                <div class="magnific-area position-relative d-flex align-items-center justify-content-around">
+                                                    <div class="bg-area w-100">
+                                                        <img class="bg-item w-100" src="/images/video-bg-1.png" alt="image">
+                                                    </div>
+                                                    <div class="content-area text-center position-absolute d-flex align-items-center justify-content-center">
+                                                        <div class="content-box">
+                                                            <a class="mfp-iframe popupvideo d-flex align-items-center justify-content-center" href="https://www.youtube.com/watch?v=Djz8Nc0Qxwk">
+                                                                <i class="material-symbols-outlined mat-icon fs-1"> play_arrow </i>
+                                                            </a>
                                                         </div>
-                                                    </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-box">
+                                                <div class="magnific-area position-relative d-flex align-items-center justify-content-around">
+                                                    <div class="bg-area w-100">
+                                                        <img class="bg-item w-100" src="/images/video-bg-2.png" alt="image">
+                                                    </div>
+                                                    <div class="content-area text-center position-absolute d-flex align-items-center justify-content-center">
+                                                        <div class="content-box">
+                                                            <a class="mfp-iframe popupvideo d-flex align-items-center justify-content-center" href="https://www.youtube.com/watch?v=Djz8Nc0Qxwk">
+                                                                <i class="material-symbols-outlined mat-icon fs-1"> play_arrow </i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-box">
+                                                <div class="magnific-area position-relative d-flex align-items-center justify-content-around">
+                                                    <div class="bg-area w-100">
+                                                        <img class="bg-item w-100" src="/images/video-bg-3.png" alt="image">
+                                                    </div>
+                                                    <div class="content-area text-center position-absolute d-flex align-items-center justify-content-center">
+                                                        <div class="content-box">
+                                                            <a class="mfp-iframe popupvideo d-flex align-items-center justify-content-center" href="https://www.youtube.com/watch?v=Djz8Nc0Qxwk">
+                                                                <i class="material-symbols-outlined mat-icon fs-1"> play_arrow </i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-box">
+                                                <div class="magnific-area position-relative d-flex align-items-center justify-content-around">
+                                                    <div class="bg-area w-100">
+                                                        <img class="bg-item w-100" src="/images/video-bg-4.png" alt="image">
+                                                    </div>
+                                                    <div class="content-area text-center position-absolute d-flex align-items-center justify-content-center">
+                                                        <div class="content-box">
+                                                            <a class="mfp-iframe popupvideo d-flex align-items-center justify-content-center" href="https://www.youtube.com/watch?v=Djz8Nc0Qxwk">
+                                                                <i class="material-symbols-outlined mat-icon fs-1"> play_arrow </i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-box">
+                                                <div class="magnific-area position-relative d-flex align-items-center justify-content-around">
+                                                    <div class="bg-area w-100">
+                                                        <img class="bg-item w-100" src="/images/video-bg-5.png" alt="image">
+                                                    </div>
+                                                    <div class="content-area text-center position-absolute d-flex align-items-center justify-content-center">
+                                                        <div class="content-box">
+                                                            <a class="mfp-iframe popupvideo d-flex align-items-center justify-content-center" href="https://www.youtube.com/watch?v=Djz8Nc0Qxwk">
+                                                                <i class="material-symbols-outlined mat-icon fs-1"> play_arrow </i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-box">
+                                                <div class="magnific-area position-relative d-flex align-items-center justify-content-around">
+                                                    <div class="bg-area w-100">
+                                                        <img class="bg-item w-100" src="/images/video-bg-6.png" alt="image">
+                                                    </div>
+                                                    <div class="content-area text-center position-absolute d-flex align-items-center justify-content-center">
+                                                        <div class="content-box">
+                                                            <a class="mfp-iframe popupvideo d-flex align-items-center justify-content-center" href="https://www.youtube.com/watch?v=Djz8Nc0Qxwk">
+                                                                <i class="material-symbols-outlined mat-icon fs-1"> play_arrow </i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="p-details__tab-single author-content" id="pAuthor">
-                                    <div class="thumb">
-                                        <img src="{{ $tool->user->avatar }}" alt="{{ $tool->user->name }}">
-                                    </div>
-                                    <div class="content">
-                                        <h4>{{ '@' . $tool->user->first_name }}</h4>'
-                                        <p class="tertiary-text">Product: 24</p>
-                                        <p class="tertiary-text">Review: 4.5/5</p>
-                                    </div>
-                                </div>
                             </div>
+                            
+                            @include('includes.tools.sidebar', ['tool' => $tool, 'active' => 'videos'])
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- ==== / tool reviews end ==== -->
-
-    <div>
-        <div class="container">
-            <hr class="horizon">
         </div>
     </div>
-
-    <!-- ==== related product start ==== -->
-    <section class="section new-prompts fade-wrapper" data-background="/images/s-j-bg.png">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section__header--secondary">
-                        <div class="row align-items-center gaper">
-                            <div class="col-12 col-lg-8">
-                                <div class="section__header mb-0 text-center text-lg-start">
-                                    <h2 class="title mt-12 title-animation">Related Student Tools</h2>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4">
-                                <div class="text-center text-lg-end">
-                                    <a href="shop.html" class="btn btn--primary">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row gaper">
-                @foreach (App\Models\Tool::inRandomOrder()->limit(3)->get() as $tool)
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="category__single fade-top">
-                        <div class="thumb">
-                            <a href="{{ route('tools.show', $tool->slug) }}" target="_blank" class="thumb-img">
-                                <img src="{{ $tool->screenshot1 }}" alt="Image">
-                            </a>
-                            <a href="shop.html" class="tag">
-                                <img src="/images/chat.png" alt="Image">
-                                Chatgpt
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h5>
-                                <a href="{{ route('tools.show', $tool->slug) }}" target="_blank">{{ $tool->name }}</a>
-                                <a href="{{ $tool->link }}" class="ml-3" target="_blank">
-                                    <i class="bi bi-box-arrow-up-right" style="font-size: 20px"></i>
-                                </a>
-                            </h5>
-                            {{-- <p class="tertiary-text">$25.00</p> --}}
-                        </div>
-                        <hr>
-                        <div class="meta">
-                            <div class="meta-info">
-                                <div class="meta-thumb">
-                                    <img src="{{ $tool->user->avatar }}" alt="Image">
-                                </div>
-                                <p class="tertiary-text text-capitalize">{{ '@' . $tool->user->first_name }}</p>
-                            </div>
-                            <div class="meta-review">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                        </div>
-                        {{-- <div class="cta">
-                            <a href="product-single.html" class="btn btn--quaternary">Get Prompts</a>
-                        </div> --}}
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    <!-- ==== / related product end ==== -->
-
-    {{-- <!-- ==== case study start ==== -->
-    <section class="section h-s-case-alter fade-wrapper" data-background="assets/images/s-j-bg.png">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section__header--secondary">
-                        <div class="row align-items-center gaper">
-                            <div class="col-12 col-lg-5">
-                                <div class="section__header mb-0 text-center text-lg-start">
-                                    <h2 class="title mt-12 title-animation">Related Projects</h2>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-7">
-                                <div class="text-center text-lg-end">
-                                    <a href="case-study.html" class="btn btn--primary">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row gaper">
-                <div class="col-12 col-md-6 fade-top">
-                    <div class="h-s-case-single topy-tilt">
-                        <div class="thumb">
-                            <a href="case-study-single.html">
-                                <img src="/images/one_9.png" alt="Image">
-                            </a>
-                        </div>
-                        <div class="h-case-content">
-                            <div class="case-title">
-                                <h2 class="light-title">
-                                    <a href="case-study-single.html">Ai Club x</a>
-                                </h2>
-                            </div>
-                            <div class="h-c-continent">
-                                <p>AI-powered inpainting algorithms seamlessly restore the beauty and completeness
-                                </p>
-                                <a href="case-study-single.html" class="cta">
-                                    <span class="arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 fade-top">
-                    <div class="h-s-case-single topy-tilt">
-                        <div class="thumb">
-                            <a href="case-study-single.html">
-                                <img src="/images/two_9.png" alt="Image">
-                            </a>
-                        </div>
-                        <div class="h-case-content">
-                            <div class="case-title">
-                                <h2 class="light-title">
-                                    <a href="case-study-single.html">Soal xp</a>
-                                </h2>
-                            </div>
-                            <div class="h-c-continent">
-                                <p>AI-powered inpainting algorithms seamlessly restore the beauty and completeness
-                                </p>
-                                <a href="case-study-single.html" class="cta">
-                                    <span class="arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 fade-top">
-                    <div class="h-s-case-single topy-tilt">
-                        <div class="thumb">
-                            <a href="case-study-single.html">
-                                <img src="/images/three_9.png" alt="Image">
-                            </a>
-                        </div>
-                        <div class="h-case-content">
-                            <div class="case-title">
-                                <h2 class="light-title">
-                                    <a href="case-study-single.html">Robo x pro</a>
-                                </h2>
-                            </div>
-                            <div class="h-c-continent">
-                                <p>AI-powered inpainting algorithms seamlessly restore the beauty and completeness
-                                </p>
-                                <a href="case-study-single.html" class="cta">
-                                    <span class="arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 fade-top">
-                    <div class="h-s-case-single  topy-tilt">
-                        <div class="thumb">
-                            <a href="case-study-single.html">
-                                <img src="/images/four_7.png" alt="Image">
-                            </a>
-                        </div>
-                        <div class="h-case-content">
-                            <div class="case-title">
-                                <h2 class="light-title">
-                                    <a href="case-study-single.html">Manto ai</a>
-                                </h2>
-                            </div>
-                            <div class="h-c-continent">
-                                <p>AI-powered inpainting algorithms seamlessly restore the beauty and completeness
-                                </p>
-                                <a href="case-study-single.html" class="cta">
-                                    <span class="arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ==== / case study end ==== --> --}}
 </main>
 @endsection

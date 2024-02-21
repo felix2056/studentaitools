@@ -179,3 +179,47 @@
     </div>
 </div>
 <!-- Go Live Popup end -->
+
+<!-- Share Popup start -->
+<div class="go-live-popup">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="modal cmn-modal fade" id="shareMod">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content p-5">
+                            <div class="modal-header justify-content-center">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="material-symbols-outlined mat-icon xxltxt"> close </i>
+                                </button>
+                            </div>
+                            <div class="top-content pb-5">
+                                <h5>Share</h5>
+                            </div>
+                            <div class="mid-area">
+                                <div class="file-upload">
+                                    <label>Select platform to share</label>
+                                    <div class="d-flex gap gap-3">
+                                        <button type="button" class="btn d-center">
+                                            <i class="material-symbols-outlined mat-icon"> facebook </i>
+                                        </button>
+                                        <button type="button" class="btn d-center">
+                                            <i class="material-symbols-outlined mat-icon"> twitter </i>
+                                        </button>
+                                        <button type="button" class="btn d-center">
+                                            <i class="material-symbols-outlined mat-icon"> linkedin </i>
+                                        </button>
+                                        <button type="button" class="btn d-center">
+                                            <i class="material-symbols-outlined mat-icon"> whatsapp </i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Share Popup end -->

@@ -25,4 +25,25 @@ class Rating extends Model
     {
         return $this->hasMany(Reply::class);
     }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
+    }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
+
+    public function scopeSpam($query)
+    {
+        return $query->where('is_spam', true);
+    }
+
+    public function getTitleAttribute()
+    {
+        // get the first 10 characters of the review
+        return substr($this->review, 0, 10);
+    }
 }

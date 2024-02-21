@@ -25,9 +25,12 @@ return new class extends Migration
             $table->string('screenshot1')->nullable();
             $table->string('screenshot2')->nullable();
             $table->string('screenshot3')->nullable();
+            $table->integer('views')->default(0);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_featured')->default(false);
             $table->enum('pricing', ['free', 'freemium', 'paid'])->default('free');
+            $table->json('pros')->nullable();
+            $table->json('cons')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

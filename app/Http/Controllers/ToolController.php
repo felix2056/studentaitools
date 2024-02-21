@@ -10,24 +10,64 @@ use Spatie\Browsershot\Browsershot;
 
 class ToolController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->input('search');
-        if ($search) {
-            $tools = Tool::where('name', 'like', "%$search%")->orWhere('content', 'like', "%$search%")->paginate(16);
-            return view('tools.index', compact('tools'));
+        $latest = Tool::where('is_active', true)->latest()->paginate(16);
+        $popular = Tool::where('is_active', true)->orderBy('views', 'desc')->paginate(16);
+        $featured = Tool::where('is_active', true)->where('is_featured', true)->latest()->paginate(16);
+
+        return view('tools.index', compact('latest', 'popular', 'featured'));
+    }
+
+    public function search($query)
+    {
+        if (!$query) return redirect()->route('tools.index');
+
+        $tools = Tool::where('name', 'like', "%$query%")->orWhere('content', 'like', "%$query%")->paginate(16);
+        return view('tools.search', compact('tools', 'query'));
+    }
+
+    public function favorite(Request $request, $slug)
+    {
+        $tool = Tool::where('slug', $slug)->firstOrFail();
+        if (!$tool) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Tool not found.',
+                ]);
+            }
+
+            return redirect()->back()->with('error', 'Tool not found.');
         }
 
-        $category = $request->input('category');
-        if ($category) {
-            $tools = Tool::whereHas('categories', function ($query) use ($category) {
-                $query->where('slug', $category);
-            })->paginate(16);
-            return view('tools.index', compact('tools'));
+        $user = User::find(auth()->id());
+
+        if ($user->favorites()->where('tool_id', $tool->id)->exists()) {
+            $user->favorites()->detach($tool->id);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'unfavorited',
+                    'message' => 'Tool removed from favorites.',
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Tool removed from favorites.');
         }
 
-        $tools = Tool::where('is_active', true)->paginate(16);
-        return view('tools.index', compact('tools'));
+        $user->favorites()->attach($tool->id);
+
+        if ($request->ajax()) {
+            if ($user->favorites()->where('tool_id', $tool->id)->exists()) {
+                return response()->json([
+                    'status' => 'favorited',
+                    'message' => 'Tool added to favorites.',
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Tool added to favorites.');
     }
 
     public function show($slug)
@@ -115,7 +155,7 @@ class ToolController extends Controller
     {
         $request->validate([
             'review' => 'required|string',
-            'rating' => 'required|integer|between:1,5',
+            'stars' => 'required|integer|between:1,5',
         ]);
 
         $tool = Tool::where('slug', $slug)->firstOrFail();
@@ -124,7 +164,7 @@ class ToolController extends Controller
         $tool->ratings()->create([
             'user_id' => auth()->id(),
             'review' => $request->input('review'),
-            'rating' => $request->input('rating'),
+            'rating' => $request->input('stars'),
         ]);
 
         return back();

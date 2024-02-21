@@ -33,9 +33,19 @@ class Tool extends Model
         return $this->belongsToMany(Category::class, 'tool_categories');
     }
 
+    public function images()
+    {
+        return $this->hasMany(ToolImage::class);
+    }
+
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'user_favorites', 'tool_id', 'user_id')->withTimestamps();
     }
 
     // public function bookmarks()
@@ -47,6 +57,21 @@ class Tool extends Model
     // {
     //     return $this->hasMany(Like::class);
     // }
+
+    public function getCategoryListAttribute()
+    {
+        return $this->categories->pluck('id');
+    }
+
+    public function getCategoryNamesAttribute()
+    {
+        return $this->categories->pluck('name');
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        return $this->categories->first()->name ?? 'No Category';
+    }
 
     public function getTagsAttribute($value)
     {
@@ -100,5 +125,28 @@ class Tool extends Model
     {
         $color = substr(md5($this->name), 0, 6);
         return $value ? asset('screenshots/' . $value) : 'https://via.placeholder.com/640x480.png?text=' . $this->name . '&bg=' . $color;
+    }
+
+    public function getImageUrlsAttribute()
+    {
+        $screenshots = [
+            $this->screenshot1,
+            $this->screenshot2,
+            $this->screenshot3,
+        ];
+
+        $images = $this->images->pluck('path')->toArray() ?? [];
+
+        return array_merge($screenshots, $images);
+    }
+
+    public function getProsAttribute($value)
+    {
+        return json_decode($value) ?? [];
+    }
+
+    public function getConsAttribute($value)
+    {
+        return json_decode($value) ?? [];
     }
 }

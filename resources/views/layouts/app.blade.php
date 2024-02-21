@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') | Student AI Tools</title>
 
-    <link rel="shortcut icon" href="/images/fav.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo/png/white_logo_transparent_background_favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/style.css">
 
     @yield('styles')
@@ -33,21 +33,24 @@
             <div class="container">
                 <nav class="navbar w-100 navbar-expand-lg justify-content-betweenm">
                     <a href="index.html" class="navbar-brand">
-                        <img src="images/logo.png" class="logo" alt="logo">
+                        <img src="/images/logo/png/white_logo_transparent_background_favicon.png" class="logo" alt="logo" width="60" height="60">
                     </a>
+
                     <button class="button search-active d-block d-md-none">
                         <i class="d-center material-symbols-outlined fs-xxl mat-icon"> search </i>
                     </button>
+
                     <div class="search-form">
                         <form action="#" class="input-area d-flex align-items-center">
                             <i class="material-symbols-outlined mat-icon">search</i>
-                            <input type="text" placeholder="Search Circlehubtio" autocomplete="off">
+                            <input type="text" placeholder="Search Student AI Tools" autocomplete="off">
                         </form>
                     </div>
+
                     <ul
                         class="navbar-nav feed flex-row gap-xl-20 gap-lg-10 gap-sm-7 gap-1 py-4 py-lg-0 m-lg-auto ms-auto ms-aut align-self-center">
                         <li>
-                            <a href="index-2.html" class="nav-icon home active"><i
+                            <a href="/" class="nav-icon home active"><i
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">home</i></a>
                         </li>
                         <li>
@@ -55,14 +58,16 @@
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">feed</i></a>
                         </li>
                         <li>
-                            <a href="group.html" class="nav-icon"><i
-                                    class="mat-icon fs-xxl material-symbols-outlined mat-icon">group</i></a>
+                            <a href="{{ route('tools.index') }}" class="nav-icon"><i
+                                    class="mat-icon fs-xxl material-symbols-outlined mat-icon">integration_instructions</i></a>
                         </li>
                         <li>
                             <a href="videos.html" class="nav-icon"><i
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">smart_display</i></a>
                         </li>
                     </ul>
+
+                    @auth
                     <div class="right-area position-relative d-flex gap-3 gap-xxl-6 align-items-center">
                         <div class="single-item d-none d-lg-block messages-area">
                             <div class="messages-btn cmn-head">
@@ -71,12 +76,13 @@
                                     <span class="abs-area position-absolute d-center mdtxt">4</span>
                                 </div>
                             </div>
+
                             <div class="main-area p-5 messages-content">
                                 <h5 class="mb-8">Messages</h5>
                                 <div class="single-box p-0 mb-7">
                                     <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
-                                            <img class="avatar-img max-un" src="images/avatar-7.png" alt="avatar">
+                                            <img class="avatar-img max-un" src="/images/avatar-7.png" alt="avatar">
                                         </div>
                                         <div class="text-area">
                                             <div class="title-area position-relative d-inline-flex align-items-center">
@@ -90,7 +96,7 @@
                                 <div class="single-box p-0 mb-7">
                                     <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
-                                            <img class="avatar-img max-un" src="images/avatar-1.png" alt="avatar">
+                                            <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
                                         </div>
                                         <div class="text-area">
                                             <h6 class="m-0 mb-1">Annette Black</h6>
@@ -101,7 +107,7 @@
                                 <div class="single-box p-0 mb-7">
                                     <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
-                                            <img class="avatar-img max-un" src="images/avatar-2.png" alt="avatar">
+                                            <img class="avatar-img max-un" src="/images/avatar-2.png" alt="avatar">
                                         </div>
                                         <div class="text-area">
                                             <h6 class="m-0 mb-1">Ralph Edwards</h6>
@@ -112,7 +118,7 @@
                                 <div class="single-box p-0 mb-7">
                                     <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
-                                            <img class="avatar-img max-un" src="images/avatar-3.png" alt="avatar">
+                                            <img class="avatar-img max-un" src="/images/avatar-3.png" alt="avatar">
                                         </div>
                                         <div class="text-area">
                                             <h6 class="m-0 mb-1">Darrell Steward</h6>
@@ -123,7 +129,7 @@
                                 <div class="single-box p-0 mb-7">
                                     <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
-                                            <img class="avatar-img max-un" src="images/avatar-4.png" alt="avatar">
+                                            <img class="avatar-img max-un" src="/images/avatar-4.png" alt="avatar">
                                         </div>
                                         <div class="text-area">
                                             <h6 class="m-0 mb-1">Wade Warren</h6>
@@ -134,7 +140,7 @@
                                 <div class="single-box p-0 mb-7">
                                     <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
-                                            <img class="avatar-img max-un" src="images/avatar-5.png" alt="avatar">
+                                            <img class="avatar-img max-un" src="/images/avatar-5.png" alt="avatar">
                                         </div>
                                         <div class="text-area">
                                             <h6 class="m-0 mb-1">Kathryn Murphy</h6>
@@ -145,7 +151,7 @@
                                 <div class="single-box p-0 mb-7">
                                     <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
-                                            <img class="avatar-img max-un" src="images/avatar-6.png" alt="avatar">
+                                            <img class="avatar-img max-un" src="/images/avatar-6.png" alt="avatar">
                                         </div>
                                         <div class="text-area">
                                             <h6 class="m-0 mb-1">Jacob Jones</h6>
@@ -158,6 +164,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="single-item d-none d-lg-block messages-area notification-area">
                             <div class="notification-btn cmn-head position-relative">
                                 <div class="icon-area d-center position-relative">
@@ -165,6 +172,7 @@
                                     <span class="abs-area position-absolute d-center mdtxt">3</span>
                                 </div>
                             </div>
+
                             <div class="main-area p-5 notification-content">
                                 <h5 class="mb-8">Notification</h5>
                                 <div class="single-box p-0 mb-7">
@@ -172,9 +180,9 @@
                                         class="d-flex justify-content-between align-items-center">
                                         <div class="left-item position-relative d-inline-flex gap-3">
                                             <div class="avatar position-relative d-inline-flex">
-                                                <img class="avatar-img max-un" src="images/avatar-1.png" alt="avatar">
+                                                <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
                                                 <img class="abs-item position-absolute max-un"
-                                                    src="images/speech-bubble.png" alt="icon">
+                                                    src="/images/speech-bubble.png" alt="icon">
                                             </div>
                                             <div class="text-area">
                                                 <h6 class="m-0 mb-1">Piter Maio</h6>
@@ -191,9 +199,9 @@
                                         class="d-flex justify-content-between align-items-center">
                                         <div class="left-item position-relative d-inline-flex gap-3">
                                             <div class="avatar position-relative d-inline-flex">
-                                                <img class="avatar-img max-un" src="images/avatar-2.png" alt="avatar">
+                                                <img class="avatar-img max-un" src="/images/avatar-2.png" alt="avatar">
                                                 <img class="abs-item position-absolute max-un"
-                                                    src="images/emoji-love.png" alt="icon">
+                                                    src="/images/emoji-love.png" alt="icon">
                                             </div>
                                             <div class="text-area">
                                                 <h6 class="m-0 mb-1">Kathryn Murphy</h6>
@@ -210,9 +218,9 @@
                                         class="d-flex justify-content-between align-items-center">
                                         <div class="left-item position-relative d-inline-flex gap-3">
                                             <div class="avatar position-relative d-inline-flex">
-                                                <img class="avatar-img max-un" src="images/avatar-3.png" alt="avatar">
+                                                <img class="avatar-img max-un" src="/images/avatar-3.png" alt="avatar">
                                                 <img class="abs-item position-absolute max-un"
-                                                    src="images/emoji-love.png" alt="icon">
+                                                    src="/images/emoji-love.png" alt="icon">
                                             </div>
                                             <div class="text-area">
                                                 <h6 class="m-0 mb-1">Jacob Jones</h6>
@@ -233,9 +241,9 @@
                                         class="d-flex justify-content-between align-items-center">
                                         <div class="left-item position-relative d-inline-flex gap-3">
                                             <div class="avatar position-relative d-inline-flex">
-                                                <img class="avatar-img max-un" src="images/avatar-4.png" alt="avatar">
+                                                <img class="avatar-img max-un" src="/images/avatar-4.png" alt="avatar">
                                                 <img class="abs-item position-absolute max-un"
-                                                    src="images/emoji-love.png" alt="icon">
+                                                    src="/images/emoji-love.png" alt="icon">
                                             </div>
                                             <div class="text-area">
                                                 <h6 class="m-0 mb-1">Kathryn Murphy</h6>
@@ -252,21 +260,23 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="single-item d-none d-lg-block profile-area position-relative">
                             <div class="profile-pic d-flex align-items-center">
                                 <span class="avatar cmn-head active-status">
-                                    <img class="avatar-img max-un" src="images/avatar-1.png" alt="avatar">
+                                    <img class="avatar-img max-un" src="{{ Auth::user()->avatar }}" width="48" height="48" alt="avatar">
                                 </span>
                             </div>
+
                             <div class="main-area p-5 profile-content">
                                 <div class="head-area">
                                     <div class="d-flex gap-3 align-items-center">
                                         <div class="avatar-item">
-                                            <img class="avatar-img max-un" src="images/avatar-1.png" alt="avatar">
+                                            <img class="avatar-img max-un" src="{{ Auth::user()->avatar }}" width="50" height="50" alt="avatar">
                                         </div>
                                         <div class="text-area">
-                                            <h6 class="m-0 mb-1">Lori Ferguson</h6>
-                                            <p class="mdtxt">Web Developer</p>
+                                            <h6 class="m-0 mb-1">{{ Auth::user()->username }}</h6>
+                                            {{-- <p class="mdtxt">Web Developer</p> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +291,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="mdtxt">
+                                        <a href="{{ route('auth.signout') }}" class="mdtxt">
                                             <i class="material-symbols-outlined mat-icon"> power_settings_new </i>
                                             Sign Out
                                         </a>
@@ -299,6 +309,12 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                    <div class="right-area position-relative d-flex gap-2 gap-xxl-3 align-items-center">
+                        <a href="{{ route('auth.signin') }}" class="cmn-btn">Sign in</a>
+                        <a href="{{ route('auth.signup') }}" class="cmn-btn fourth alt">Sign Up</a>
+                    </div>
+                    @endauth
                 </nav>
             </div>
         </nav>
@@ -320,7 +336,7 @@
                     <div class="single-box p-0 mb-7">
                         <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
-                                <img class="avatar-img max-un" src="images/avatar-7.png" alt="avatar">
+                                <img class="avatar-img max-un" src="/images/avatar-7.png" alt="avatar">
                             </div>
                             <div class="text-area">
                                 <div class="title-area position-relative d-inline-flex align-items-center">
@@ -334,7 +350,7 @@
                     <div class="single-box p-0 mb-7">
                         <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
-                                <img class="avatar-img max-un" src="images/avatar-1.png" alt="avatar">
+                                <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
                             </div>
                             <div class="text-area">
                                 <h6 class="m-0 mb-1">Annette Black</h6>
@@ -345,7 +361,7 @@
                     <div class="single-box p-0 mb-7">
                         <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
-                                <img class="avatar-img max-un" src="images/avatar-2.png" alt="avatar">
+                                <img class="avatar-img max-un" src="/images/avatar-2.png" alt="avatar">
                             </div>
                             <div class="text-area">
                                 <h6 class="m-0 mb-1">Ralph Edwards</h6>
@@ -356,7 +372,7 @@
                     <div class="single-box p-0 mb-7">
                         <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
-                                <img class="avatar-img max-un" src="images/avatar-3.png" alt="avatar">
+                                <img class="avatar-img max-un" src="/images/avatar-3.png" alt="avatar">
                             </div>
                             <div class="text-area">
                                 <h6 class="m-0 mb-1">Darrell Steward</h6>
@@ -367,7 +383,7 @@
                     <div class="single-box p-0 mb-7">
                         <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
-                                <img class="avatar-img max-un" src="images/avatar-4.png" alt="avatar">
+                                <img class="avatar-img max-un" src="/images/avatar-4.png" alt="avatar">
                             </div>
                             <div class="text-area">
                                 <h6 class="m-0 mb-1">Wade Warren</h6>
@@ -378,7 +394,7 @@
                     <div class="single-box p-0 mb-7">
                         <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
-                                <img class="avatar-img max-un" src="images/avatar-5.png" alt="avatar">
+                                <img class="avatar-img max-un" src="/images/avatar-5.png" alt="avatar">
                             </div>
                             <div class="text-area">
                                 <h6 class="m-0 mb-1">Kathryn Murphy</h6>
@@ -389,7 +405,7 @@
                     <div class="single-box p-0 mb-7">
                         <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
-                                <img class="avatar-img max-un" src="images/avatar-6.png" alt="avatar">
+                                <img class="avatar-img max-un" src="/images/avatar-6.png" alt="avatar">
                             </div>
                             <div class="text-area">
                                 <h6 class="m-0 mb-1">Jacob Jones</h6>
@@ -415,8 +431,8 @@
                         <a href="profile-notification.html" class="d-flex justify-content-between align-items-center">
                             <div class="left-item position-relative d-inline-flex gap-3">
                                 <div class="avatar position-relative d-inline-flex">
-                                    <img class="avatar-img max-un" src="images/avatar-1.png" alt="avatar">
-                                    <img class="abs-item position-absolute max-un" src="images/speech-bubble.png"
+                                    <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
+                                    <img class="abs-item position-absolute max-un" src="/images/speech-bubble.png"
                                         alt="icon">
                                 </div>
                                 <div class="text-area">
@@ -433,8 +449,8 @@
                         <a href="profile-notification.html" class="d-flex justify-content-between align-items-center">
                             <div class="left-item position-relative d-inline-flex gap-3">
                                 <div class="avatar position-relative d-inline-flex">
-                                    <img class="avatar-img max-un" src="images/avatar-2.png" alt="avatar">
-                                    <img class="abs-item position-absolute max-un" src="images/emoji-love.png"
+                                    <img class="avatar-img max-un" src="/images/avatar-2.png" alt="avatar">
+                                    <img class="abs-item position-absolute max-un" src="/images/emoji-love.png"
                                         alt="icon">
                                 </div>
                                 <div class="text-area">
@@ -451,8 +467,8 @@
                         <a href="profile-notification.html" class="d-flex justify-content-between align-items-center">
                             <div class="left-item position-relative d-inline-flex gap-3">
                                 <div class="avatar position-relative d-inline-flex">
-                                    <img class="avatar-img max-un" src="images/avatar-3.png" alt="avatar">
-                                    <img class="abs-item position-absolute max-un" src="images/emoji-love.png"
+                                    <img class="avatar-img max-un" src="/images/avatar-3.png" alt="avatar">
+                                    <img class="abs-item position-absolute max-un" src="/images/emoji-love.png"
                                         alt="icon">
                                 </div>
                                 <div class="text-area">
@@ -473,8 +489,8 @@
                         <a href="profile-notification.html" class="d-flex justify-content-between align-items-center">
                             <div class="left-item position-relative d-inline-flex gap-3">
                                 <div class="avatar position-relative d-inline-flex">
-                                    <img class="avatar-img max-un" src="images/avatar-4.png" alt="avatar">
-                                    <img class="abs-item position-absolute max-un" src="images/emoji-love.png"
+                                    <img class="avatar-img max-un" src="/images/avatar-4.png" alt="avatar">
+                                    <img class="abs-item position-absolute max-un" src="/images/emoji-love.png"
                                         alt="icon">
                                 </div>
                                 <div class="text-area">
@@ -495,14 +511,14 @@
             <div class="single-item profile-area position-relative">
                 <div class="profile-pic d-flex align-items-center">
                     <span class="avatar cmn-head active-status">
-                        <img class="avatar-img max-un" src="images/avatar-1.png" alt="avatar">
+                        <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
                     </span>
                 </div>
                 <div class="main-area p-5 profile-content">
                     <div class="head-area">
                         <div class="d-flex gap-3 align-items-center">
                             <div class="avatar-item">
-                                <img class="avatar-img max-un" src="images/avatar-1.png" alt="avatar">
+                                <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
                             </div>
                             <div class="text-area">
                                 <h6 class="m-0 mb-1">Lori Ferguson</h6>
@@ -553,11 +569,58 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/slick.js"></script>
     <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
     <script src="/js/plyr.js"></script>
     <script src="/js/apexcharts.js"></script>
     <script src="/js/wow.min.js"></script>
     <script src="/js/plugin.js"></script>
     <script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.search-active').click(function () {
+                $('.search-form').toggleClass('active');
+            });
+        });
+    </script>
+
+    @auth
+    <script>
+        $(document).ready(function () {
+            // save favorite tool
+            $('.save-favorite-btn').click(function () {
+                var tool_slug = $(this).prev().val();
+                var button = $(this);
+                $.ajax({
+                    url: '/tools/' + tool_slug + '/favorite',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        if (response.status == 'favorited') {
+                            // change 'Save' to 'Saved'
+                            button.html('<i class="material-symbols-outlined mat-icon"> bookmark_added </i> Saved');
+                        } else if (response.status == 'unfavorited') {
+                            // change 'Saved' to 'Save'
+                            button.html('<i class="material-symbols-outlined mat-icon"> bookmark_add </i> Save');
+                        } else {
+                            alert('An error occurred. Please try again.');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    @else
+    <script>
+        $(document).ready(function () {
+            $('.save-favorite-btn').click(function () {
+                window.location.href = '{{ route('auth.signin') }}';
+            });
+        });
+    </script>
+    @endauth
 
     @yield('scripts')
 </body>

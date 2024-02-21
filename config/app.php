@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \Torann\GeoIP\GeoIPServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -184,6 +185,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
         'Goutte' => Weidner\Goutte\GoutteFacade::class,
     ])->toArray(),
 

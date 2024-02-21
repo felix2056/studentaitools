@@ -512,7 +512,7 @@
             <div class="single-item profile-area position-relative">
                 <div class="profile-pic d-flex align-items-center">
                     <span class="avatar cmn-head active-status">
-                        <img class="avatar-img max-un" src="{{ Auth::user()->avatar }}" alt="avatar">
+                        <img class="avatar-img max-un" src="{{ Auth::user()->avatar }}" width="48" height="48" alt="avatar">
                     </span>
                 </div>
                 <div class="main-area p-5 profile-content">

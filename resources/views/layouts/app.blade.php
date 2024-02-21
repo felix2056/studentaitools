@@ -321,6 +321,7 @@
     </header>
     <!-- header-section end -->
 
+    @auth
     <!-- Bottom Menu start -->
     <div class="header-menu py-3 header-menu d-block d-lg-none position-fixed bottom-0 w-100 cus-z">
         <div class="right-area position-relative d-flex justify-content-around gap-3 gap-xxl-6 align-items-center">
@@ -511,18 +512,18 @@
             <div class="single-item profile-area position-relative">
                 <div class="profile-pic d-flex align-items-center">
                     <span class="avatar cmn-head active-status">
-                        <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
+                        <img class="avatar-img max-un" src="{{ Auth::user()->avatar }}" alt="avatar">
                     </span>
                 </div>
                 <div class="main-area p-5 profile-content">
                     <div class="head-area">
                         <div class="d-flex gap-3 align-items-center">
                             <div class="avatar-item">
-                                <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
+                                <img class="avatar-img max-un" src="{{ Auth::user()->avatar }}" alt="avatar">
                             </div>
                             <div class="text-area">
-                                <h6 class="m-0 mb-1">Lori Ferguson</h6>
-                                <p class="mdtxt">Web Developer</p>
+                                <h6 class="m-0 mb-1">{{ Auth::user()->username }}</h6>
+                                {{-- <p class="mdtxt">Web Developer</p> --}}
                             </div>
                         </div>
                     </div>
@@ -531,13 +532,13 @@
                     </div>
                     <ul>
                         <li>
-                            <a href="profile-edit.html" class="mdtxt">
+                            <a href="{{ route('auth.settings') }}" class="mdtxt">
                                 <i class="material-symbols-outlined mat-icon"> settings </i>
                                 Settings &amp; Privacy
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="mdtxt">
+                            <a href="{{ route('auth.signout') }}" class="mdtxt">
                                 <i class="material-symbols-outlined mat-icon"> power_settings_new </i>
                                 Sign Out
                             </a>
@@ -557,6 +558,7 @@
         </div>
     </div>
     <!-- Bottom Menu end -->
+    @endauth
 
     <!-- Main Content start -->
     @yield('content')

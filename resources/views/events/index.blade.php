@@ -98,7 +98,7 @@
                                             @endif
                                         </a>
                                         @else
-                                            <a class="cmn-btn" href="{{ route('login') }}">
+                                            <a class="cmn-btn" href="{{ route('auth.signin') }}">
                                                 <i class="material-symbols-outlined mat-icon"> grade </i>
                                                 interested
                                             </a>

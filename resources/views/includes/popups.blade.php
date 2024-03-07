@@ -1,3 +1,149 @@
+<!-- link popup start -->
+<div class="go-live-popup video-popup">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="modal cmn-modal fade" id="linkMod">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content p-5">
+                            <div class="modal-header justify-content-center">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="material-symbols-outlined mat-icon xxltxt"> close </i>
+                                </button>
+                            </div>
+                            <div class="top-content pb-5">
+                                <h5>Add link</h5>
+                            </div>
+                            <div class="mid-area">
+                                <div class="d-flex mb-5 gap-3">
+                                    <div class="profile-box">
+                                        <a href="#">
+                                            <img src="/images/add-post-avatar.png" class="max-un" alt="icon">
+                                        </a>
+                                    </div>
+                                    <textarea name="link" cols="10" rows="2" placeholder="Paste a link.."></textarea>
+                                </div>
+
+                                <div class="file-upload">
+                                    <label>Link preview</label>
+                                    <label class="file mt-1">
+                                        <span class="file-custom pt-8 pb-8 d-grid text-center">
+                                            <i class="material-symbols-outlined mat-icon"> perm_media </i>
+                                            <span>Drag here or click to upload image.</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="footer-area pt-5">
+                                <div class="btn-area d-flex justify-content-end gap-2">
+                                    <button type="button" class="cmn-btn alt" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                    <button class="cmn-btn">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- link popup end -->
+
+<!-- image popup start -->
+<div class="go-live-popup video-popup">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="modal cmn-modal fade" id="imageMod">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content p-5">
+                            <div class="modal-header justify-content-center">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="material-symbols-outlined mat-icon xxltxt"> close </i>
+                                </button>
+                            </div>
+                            <div class="top-content pb-5">
+                                <h5>Add images</h5>
+                            </div>
+                            <div class="mid-area">
+                                <div class="file-upload">
+                                    <label>Upload images</label>
+                                    <label class="file mt-1">
+                                        <input name="images" type="file">
+                                        <span class="file-custom pt-8 pb-8 d-grid text-center">
+                                            <i class="material-symbols-outlined mat-icon"> perm_media </i>
+                                            <span>Drag here or click to upload image.</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="footer-area pt-5">
+                                <div class="btn-area d-flex justify-content-end gap-2">
+                                    <button type="button" class="cmn-btn alt" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                    <button class="cmn-btn">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- image popup end -->
+
+<!-- youtube popup start -->
+<div class="go-live-popup video-popup">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="modal cmn-modal fade" id="youtubeMod">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content p-5">
+                            <div class="modal-header justify-content-center">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="material-symbols-outlined mat-icon xxltxt"> close </i>
+                                </button>
+                            </div>
+                            <div class="top-content pb-5">
+                                <h5>Add Youtube Video</h5>
+                            </div>
+                            <div class="mid-area">
+                                <div class="d-flex mb-5 gap-3">
+                                    <div class="profile-box">
+                                        <a href="#">
+                                            <img src="/images/add-post-avatar.png" class="max-un" alt="icon">
+                                        </a>
+                                    </div>
+                                    <textarea name="youtube" cols="10" rows="2" placeholder="Paste youtube video link.."></textarea>
+                                </div>
+
+                                <div class="file-upload">
+                                    <label>Youtube preview</label>
+                                    <label class="file mt-1">
+                                        <div class="post-img video-item">
+                                            <div class="plyr__video-embed player">
+                                                <iframe src="#"></iframe>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="footer-area pt-5">
+                                <div class="btn-area d-flex justify-content-end gap-2">
+                                    <button type="button" class="cmn-btn alt" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                    <button class="cmn-btn">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- youtube popup end -->
+
 <!-- Go Live Popup start -->
 <div class="go-live-popup">
     <div class="container">
@@ -17,7 +163,7 @@
                             <div class="mid-area">
                                 <div class="d-flex mb-5 gap-3">
                                     <div class="profile-box">
-                                        <a href="#"><img src="images/add-post-avatar.png" class="max-un"
+                                        <a href="#"><img src="/images/add-post-avatar.png" class="max-un"
                                                 alt="icon"></a>
                                     </div>
                                     <textarea cols="10" rows="2"
@@ -69,7 +215,7 @@
                             <div class="mid-area">
                                 <div class="d-flex mb-5 gap-3">
                                     <div class="profile-box">
-                                        <a href="#"><img src="images/add-post-avatar.png" class="max-un"
+                                        <a href="#"><img src="/images/add-post-avatar.png" class="max-un"
                                                 alt="icon"></a>
                                     </div>
                                     <textarea cols="10" rows="2"
@@ -121,7 +267,7 @@
                             <div class="mid-area">
                                 <div class="d-flex mb-5 gap-3">
                                     <div class="profile-box">
-                                        <a href="#"><img src="images/add-post-avatar.png" class="max-un"
+                                        <a href="#"><img src="/images/add-post-avatar.png" class="max-un"
                                                 alt="icon"></a>
                                     </div>
                                     <textarea cols="10" rows="2"

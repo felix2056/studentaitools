@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-lg p-0">
             <div class="container">
                 <nav class="navbar w-100 navbar-expand-lg justify-content-betweenm">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="{{ route('index') }}" class="navbar-brand">
                         <img src="/images/logo/png/white_logo_transparent_background_favicon.png" class="logo" alt="logo" width="60" height="60">
                     </a>
 
@@ -50,21 +50,21 @@
                     <ul
                         class="navbar-nav feed flex-row gap-xl-20 gap-lg-10 gap-sm-7 gap-1 py-4 py-lg-0 m-lg-auto ms-auto ms-aut align-self-center">
                         <li>
-                            <a href="/" class="nav-icon home active"><i
+                            <a href="{{ route('index') }}" class="nav-icon home active"><i
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">home</i></a>
                         </li>
                         <li>
-                            <a href="#news-feed" class="nav-icon feed"><i
+                            <a href="{{ route('newsfeed') }}" class="nav-icon feed"><i
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">feed</i></a>
                         </li>
                         <li>
                             <a href="{{ route('tools.index') }}" class="nav-icon"><i
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">integration_instructions</i></a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="videos.html" class="nav-icon"><i
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">smart_display</i></a>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     @auth
@@ -310,7 +310,7 @@
                         </div>
                     </div>
                     @else
-                    <div class="right-area position-relative d-flex gap-2 gap-xxl-3 align-items-center">
+                    <div class="right-area position-relative d-flex d-none d-sm-block gap-2 gap-xxl-3 align-items-center">
                         <a href="{{ route('auth.signin') }}" class="cmn-btn">Sign in</a>
                         <a href="{{ route('auth.signup') }}" class="cmn-btn fourth alt">Sign Up</a>
                     </div>

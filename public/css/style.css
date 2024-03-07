@@ -1554,6 +1554,9 @@ li {
   top: -4px;
   left: -4px;
 }
+.main-content .post-item .post-single-box p.description a {
+  color: var(--primary-color);
+}
 .main-content .post-item .post-single-box .top-area .status {
   color: var(--para-1st-color);
 }

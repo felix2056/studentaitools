@@ -17,7 +17,24 @@ Route::middleware('guest')->group(function () {
     Route::match(['get', 'post'], 'signup', 'AuthController@signup')->name('auth.signup');
 });
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('index');
+
+Route::prefix('newsfeed')->group(function () {
+    Route::get('', 'NewsfeedController@newsfeed')->name('newsfeed');
+
+    Route::group(['middleware' => 'auth'], function () {
+        Route::post('create', 'NewsfeedController@create')->name('newsfeed.create');
+        Route::get('{newsfeed}', 'NewsfeedController@show')->name('newsfeed.show');
+        Route::get('{newsfeed}/edit', 'NewsfeedController@edit')->name('newsfeed.edit');
+        Route::post('{newsfeed}/update', 'NewsfeedController@update')->name('newsfeed.update');
+        Route::get('{newsfeed}/delete', 'NewsfeedController@destroy')->name('newsfeed.destroy');
+        Route::post('{newsfeed}/like', 'NewsfeedController@like')->name('newsfeed.like');
+        Route::post('{newsfeed}/unlike', 'NewsfeedController@unlike')->name('newsfeed.unlike');
+        Route::post('{newsfeed}/comment', 'NewsfeedController@comment')->name('newsfeed.comment');
+        Route::post('{newsfeed}/comment/{comment}/reply', 'NewsfeedController@reply')->name('newsfeed.reply');
+    });
+});
+
 Route::match(['get', 'post'], 'submit-tool', 'ToolController@create')->middleware('auth')->name('tools.create');
 Route::get('about-us', 'HomeController@aboutUs')->name('about-us');
 Route::get('contact-us', 'HomeController@contactUs')->name('contact-us');

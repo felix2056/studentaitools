@@ -48,6 +48,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function newsfeeds()
+    {
+        return $this->hasMany(Newsfeed::class);
+    }
+
     public function tools()
     {
         return $this->hasMany(Tool::class);

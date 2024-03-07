@@ -27,9 +27,15 @@
 
         <ul class="profile-link mt-7 mb-7 pb-7">
             <li>
-                <a href="/" class="d-flex gap-4 @if(request()->is('/')) active @endif">
+                <a href="{{ route('index') }}" class="d-flex gap-4 @if(request()->is('/')) active @endif">
                     <i class="material-symbols-outlined mat-icon"> home </i>
                     <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('newsfeed') }}" class="d-flex gap-4">
+                    <i class="material-symbols-outlined mat-icon"> article </i>
+                    <span>Newsfeed</span>
                 </a>
             </li>
             <li>
@@ -38,12 +44,6 @@
                     <span>AI Tools</span>
                 </a>
             </li>
-            {{-- <li>
-                <a href="/newsfeed" class="d-flex gap-4">
-                    <i class="material-symbols-outlined mat-icon"> article </i>
-                    <span>Newsfeed</span>
-                </a>
-            </li> --}}
             <li>
                 <a href="{{ route('requests.index') }}" class="d-flex gap-4 @if(request()->is('requests*')) active @endif">
                     <i class="material-symbols-outlined mat-icon"> add_task </i>
@@ -110,6 +110,20 @@
                     <span>Follow Us</span>
                 </a>
             </li>
+            @guest
+            <li>
+                <a href="{{ route('auth.signin') }}" class="d-flex gap-4">
+                    <i class="material-symbols-outlined mat-icon"> login </i>
+                    <span>Sign Up</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('auth.signup') }}" class="d-flex gap-4">
+                    <i class="material-symbols-outlined mat-icon"> person_add </i>
+                    <span>Sign In</span>
+                </a>
+            </li>
+            @endguest
         </ul>
 
         <div class="your-shortcuts">

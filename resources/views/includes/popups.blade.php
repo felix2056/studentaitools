@@ -369,3 +369,31 @@
     </div>
 </div>
 <!-- Share Popup end -->
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        alert('test');
+        // handle paste link on link modal
+        $('#linkMod').on('shown.bs.modal', function() {
+            $('textarea[name="link"]').focus();
+
+            $('textarea[name="link"]').on('input', function() {
+                var self = $(this);
+                setTimeout(function() {
+                    var link = self.val();
+                    if (link) {
+                        var preview = '<div class="post-img"><img src="https://via.placeholder.com/150" alt="image"></div>';
+                        self.closest('.mid-area').find('.file-upload').append(preview);
+                    }
+                }, 100);
+            });
+        });
+
+        // handle paste youtube link on youtube modal
+        $('#youtubeMod').on('shown.bs.modal', function() {
+            $('textarea[name="youtube"]').focus();
+        });
+    });
+</script>
+@endpush

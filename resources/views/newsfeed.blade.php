@@ -115,7 +115,7 @@
                                 <span>Image</span>
                             </li>
                             <li class="d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#youtubeMod">
-                                <img src="/images/video.png" class="max-un" alt="icon">
+                                <img src="/images/youtube.png" class="max-un" alt="icon">
                                 <span>Video</span>
                             </li>
                             {{-- <li class="d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#goLiveMod">

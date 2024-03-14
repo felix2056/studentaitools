@@ -871,6 +871,11 @@ li {
   color: var(--para-1st-color);
 }
 
+.file-upload .file .link-custom {
+  border-radius: 20px;
+  border: 2px solid var(--border-color);
+}
+
 .slick-arrow {
   position: absolute;
   outline: none;

@@ -625,6 +625,7 @@
     @endauth
 
     @yield('scripts')
+    @stack('incscripts')
 </body>
 
 </html>

@@ -100,6 +100,32 @@
                     <form action="{{ route('newsfeed.create') }}" class="newsfeed-form w-100 position-relative" method="POST" enctype="multipart/form-data">
                         @csrf
                         <textarea name="content" cols="10" rows="2" placeholder="Write something on Student AI Tools. Hit ENTER to post.."></textarea>
+
+                        <div class="newsfeed-link-preview file-upload mb-5 d-none">
+                            <label class="file mt-1">
+                                <span class="link-custom pt-8 pb-8 d-grid text-center">
+                                    <a href="#" target="_blank" class="link-url row d-flex gap-3">
+                                        <div class="col-12 post-img">
+                                            <img src="https://via.placeholder.com/150" class="link-img max-un w-100" alt="image">
+                                        </div>
+                                        <div class="col-12 text-area">
+                                            <h6 class="link-title m-0">Link Title</h6>
+                                            <p class="link-desc mdtxt">Link Description</p>
+                                        </div>
+                                    </a>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="newsfeed-youtube-preview file-upload mb-5 d-none">
+                            <label class="file mt-1">
+                                <div class="post-img video-item">
+                                    <div class="plyr__video-embed player">
+                                        <iframe src="#" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
                         
                         <div class="abs-area position-absolute d-none d-sm-block">
                             <i class="material-symbols-outlined mat-icon xxltxt"> sentiment_satisfied </i>
@@ -109,14 +135,23 @@
                             <li class="d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#linkMod">
                                 <img src="/images/link.png" class="max-un" alt="icon">
                                 <span>Link</span>
+
+                                <input type="hidden" name="link">
+                                <input type="hidden" name="link_title">
+                                <input type="hidden" name="link_desc">
+                                <input type="hidden" name="link_img">
                             </li>
                             <li class="d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#imageMod">
                                 <img src="/images/vgallery.png" class="max-un" alt="icon">
                                 <span>Image</span>
+
+                                <input type="file" name="images[]" class="images d-none" multiple max="4" accept="image/*">
                             </li>
                             <li class="d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#youtubeMod">
                                 <img src="/images/youtube.png" class="max-un" alt="icon">
                                 <span>Video</span>
+
+                                <input type="hidden" name="youtube">
                             </li>
                             {{-- <li class="d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#goLiveMod">
                                 <img src="/images/live-video.png" class="max-un" alt="icon">
@@ -244,6 +279,19 @@
                                 <div class="plyr__video-embed player">
                                     <iframe src="{{ $post->video_embed }}"></iframe>
                                 </div>
+                            </div>
+                            @elseif ($post->link != null)
+                            <div class="post-img">
+                                <a href="{{ $post->link }}" class="w-100" target="_blank">
+                                    <img src="{{ $post->link_img }}" class="w-100" alt="image">
+                                </a>
+                            </div>
+
+                            <div class="link-area mt-2">
+                                <a href="{{ $post->link }}" target="_blank">
+                                    <h6 class="link-title m-0">{{ $post->link_title }}</h6>
+                                    <p class="link-desc mdtxt">{{ $post->link_desc }}</p>
+                                </a>
                             </div>
                             @endif
                         </div>

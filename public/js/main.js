@@ -172,9 +172,7 @@ $(function ($) {
 
     // Always Scroll to bottom
     $('.main-chat-box').scrollTop( $(document).height() );
-
   });
-
 });
 
 // Tooltip Active

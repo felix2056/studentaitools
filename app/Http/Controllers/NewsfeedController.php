@@ -35,12 +35,15 @@ class NewsfeedController extends Controller
             $newsfeed->image = $name;
         }
 
-        if ($request->has('video')) {
-            $newsfeed->video = $request->video;
+        if (!empty($request->youtube)) {
+            $newsfeed->video = $request->youtube;
         }
 
-        if ($request->has('link')) {
+        if (!empty($request->link)) {
             $newsfeed->link = $request->link;
+            $newsfeed->link_title = $request->link_title;
+            $newsfeed->link_desc = $request->link_desc;
+            $newsfeed->link_img = $request->link_img;
         }
 
         $newsfeed->save();

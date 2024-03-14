@@ -18,6 +18,9 @@ return new class extends Migration
             $table->json('images')->nullable();
             $table->string('video')->nullable();
             $table->string('link')->nullable();
+            $table->string('link_title')->nullable();
+            $table->string('link_desc')->nullable();
+            $table->string('link_img')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

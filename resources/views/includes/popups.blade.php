@@ -495,7 +495,10 @@
 
         // handle images drag, drop and click
         $('#imageMod').on('shown.bs.modal', function() {
-            let fileInput = $('#imageMod input[type="file"])
+            let fileInput = $('#imageMod input[type="file"]')
+            fileInput.change(function() {
+
+            });
 
             let dropzone = $('#imageMod .image-dropzone')
             dropzone.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {

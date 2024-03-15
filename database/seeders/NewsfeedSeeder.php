@@ -13,7 +13,7 @@ class NewsfeedSeeder extends Seeder
      */
     public function run(): void
     {
-        $newsfeed = [
+        $posts = [
             [
                 'content' => '🚀 Elevate your study game with Student AI Tools! From smart note-taking to AI-powered study aids, we\'ve got you covered. Start maximizing your learning potential today! #StudentAI #Education #AI #StudySmart"',
                 'images' => [
@@ -60,12 +60,12 @@ class NewsfeedSeeder extends Seeder
             ]
         ];
 
-        foreach ($newsfeed as $news) {
+        foreach ($posts as $post) {
             $user = User::inRandomOrder()->first();
-            $user->newsfeeds()->create([
-                'content' => $news['content'],
-                'images' => json_encode($news['images']),
-                'video' => $news['video'],
+            $user->posts()->create([
+                'content' => $post['content'],
+                'images' => json_encode($post['images']),
+                'video' => $post['video'],
             ]);
         }
     }

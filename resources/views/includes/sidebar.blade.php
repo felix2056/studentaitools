@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('newsfeed') }}" class="d-flex gap-4">
+                <a href="{{ route('newsfeed.index') }}" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> article </i>
                     <span>Newsfeed</span>
                 </a>

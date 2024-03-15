@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Newsfeed extends Model
+class Post extends Model
 {
     use HasFactory;
 
@@ -22,6 +22,11 @@ class Newsfeed extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(UserLike::class);
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -35,5 +40,10 @@ class Newsfeed extends Model
     public function getVideoEmbedAttribute()
     {
         return str_replace('watch?v=', 'embed/', $this->video);
+    }
+
+    public function getLikesCountAttribute()
+    {
+        return $this->likes->count();
     }
 }

@@ -20,18 +20,17 @@ Route::middleware('guest')->group(function () {
 Route::get('/', 'HomeController@index')->name('index');
 
 Route::prefix('newsfeed')->group(function () {
-    Route::get('', 'NewsfeedController@newsfeed')->name('newsfeed');
+    Route::get('', 'NewsfeedController@index')->name('newsfeed.index');
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::post('create', 'NewsfeedController@create')->name('newsfeed.create');
-        Route::get('{newsfeed}', 'NewsfeedController@show')->name('newsfeed.show');
-        Route::get('{newsfeed}/edit', 'NewsfeedController@edit')->name('newsfeed.edit');
-        Route::post('{newsfeed}/update', 'NewsfeedController@update')->name('newsfeed.update');
-        Route::get('{newsfeed}/delete', 'NewsfeedController@destroy')->name('newsfeed.destroy');
-        Route::post('{newsfeed}/like', 'NewsfeedController@like')->name('newsfeed.like');
-        Route::post('{newsfeed}/unlike', 'NewsfeedController@unlike')->name('newsfeed.unlike');
-        Route::post('{newsfeed}/comment', 'NewsfeedController@comment')->name('newsfeed.comment');
-        Route::post('{newsfeed}/comment/{comment}/reply', 'NewsfeedController@reply')->name('newsfeed.reply');
+        Route::post('create', 'NewsfeedController@create')->name('newsfeed.post.create');
+        Route::get('{post}', 'NewsfeedController@show')->name('newsfeed.post.show');
+        Route::get('{post}/edit', 'NewsfeedController@edit')->name('newsfeed.post.edit');
+        Route::post('{post}/update', 'NewsfeedController@update')->name('newsfeed.post.update');
+        Route::get('{post}/delete', 'NewsfeedController@destroy')->name('newsfeed.post.destroy');
+        Route::post('{post}/like-toggle', 'NewsfeedController@likeToggle')->name('newsfeed.post.like');
+        Route::post('{post}/comment', 'NewsfeedController@comment')->name('newsfeed.post.comment');
+        Route::post('{post}/comment/{comment}/reply', 'NewsfeedController@reply')->name('newsfeed.post.reply');
     });
 });
 

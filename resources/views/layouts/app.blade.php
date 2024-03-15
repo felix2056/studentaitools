@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- CSRF-TOKEN -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="student ai tools, student ai, student artificial intelligence, SAT">
     <meta name="description" content="Student AI Tools is a A directory of all the tools you'll ever need as student. Subscribe to our newsletter for weekly updates on the latest tools to save you time.">
@@ -54,7 +58,7 @@
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">home</i></a>
                         </li>
                         <li>
-                            <a href="{{ route('newsfeed') }}" class="nav-icon feed"><i
+                            <a href="{{ route('newsfeed.index') }}" class="nav-icon feed"><i
                                     class="mat-icon fs-xxl material-symbols-outlined mat-icon">feed</i></a>
                         </li>
                         <li>

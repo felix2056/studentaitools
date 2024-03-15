@@ -13,8 +13,8 @@ class Tag extends Model
         'name',
     ];
 
-    public function newsfeeds()
+    public function posts()
     {
-        return $this->belongsToMany(Newsfeed::class);
+        return $this->belongsToMany(Post::class);
     }
 }

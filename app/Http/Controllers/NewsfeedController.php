@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Newsfeed;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NewsfeedController extends Controller
 {
-    public function newsfeed()
+    public function index()
     {
-        $newsfeed = Newsfeed::latest()->paginate(16);
-        return view('newsfeed', compact('newsfeed'));
+        $posts = Post::latest()->paginate(16);
+        return view('newsfeed', compact('posts'));
     }
 
     public function create(Request $request)
@@ -23,32 +23,53 @@ class NewsfeedController extends Controller
 
         $user = User::find(Auth::id());
 
-        $newsfeed = new Newsfeed();
-        $newsfeed->user_id = $user->id;
-        $newsfeed->content = $request->content;
+        $post = new Post();
+        $post->user_id = $user->id;
+        $post->content = $request->content;
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $name = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/images');
             $image->move($destinationPath, $name);
-            $newsfeed->image = $name;
+            $post->image = $name;
         }
 
         if (!empty($request->youtube)) {
-            $newsfeed->video = $request->youtube;
+            $post->video = $request->youtube;
         }
 
         if (!empty($request->link)) {
-            $newsfeed->link = $request->link;
-            $newsfeed->link_title = $request->link_title;
-            $newsfeed->link_desc = $request->link_desc;
-            $newsfeed->link_img = $request->link_img;
+            $post->link = $request->link;
+            $post->link_title = $request->link_title;
+            $post->link_desc = $request->link_desc;
+            $post->link_img = $request->link_img;
         }
 
-        $newsfeed->save();
+        $post->save();
 
-        // $newsfeed->tags()->sync($request->tags);
+        // $post->tags()->sync($request->tags);
+
+        return redirect()->back();
+    }
+
+    public function likeToggle(Request $request, $post)
+    {
+        $user = User::find(Auth::id());
+        $post = Post::find($post);
+
+        if ($post->likes->contains('user_id', $user->id)) {
+            $post->likes()->where('user_id', $user->id)->delete();
+        } else {
+            $post->likes()->create(['user_id' => $user->id]);
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Like toggled.',
+            ]);
+        }
 
         return redirect()->back();
     }

@@ -97,7 +97,7 @@
                         @endauth
                     </div>
 
-                    <form action="{{ route('newsfeed.create') }}" class="newsfeed-form w-100 position-relative" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('newsfeed.post.create') }}" class="newsfeed-form w-100 position-relative" method="POST" enctype="multipart/form-data">
                         @csrf
                         <textarea name="content" cols="10" rows="2" placeholder="Write something on Student AI Tools. Hit ENTER to post.."></textarea>
 
@@ -170,8 +170,8 @@
                 </div>
 
                 <div class="post-item d-flex flex-column gap-5 gap-md-7" id="news-feed">
-                    @foreach ($newsfeed as $post)
-                    <div class="post-single-box p-3 p-sm-5">
+                    @foreach ($posts as $post)
+                    <div class="post-{{ $post->id }} post-single-box p-3 p-sm-5">
                         <div class="top-area pb-5">
                             <div class="profile-area d-center justify-content-between">
                                 <div class="avatar-item d-flex gap-3 align-items-center">
@@ -299,10 +299,15 @@
                         <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
                             <div class="friends-list d-flex gap-3 align-items-center text-center">
                                 <ul class="d-flex align-items-center justify-content-center">
-                                    <li><img src="/images/avatar-2.png" alt="image"></li>
-                                    <li><img src="/images/avatar-3.png" alt="image"></li>
-                                    <li><img src="/images/avatar-4.png" alt="image"></li>
-                                    <li><span class="mdtxt d-center">8+</span></li>
+                                    @foreach ($post->likes->take(3) as $like)
+                                    <li><img src="{{ $like->user->avatar }}" alt="image"></li>
+                                    @endforeach
+
+                                    @if ($post->likes->count() > 3)
+                                    <li>
+                                        <span class="mdtxt d-center">{{ ($post->likes->count() > 3) ? '+' . ($post->likes->count() - 3) : '' }}</span>
+                                    </li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
@@ -312,10 +317,18 @@
                         </div>
                         
                         <div class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
-                            <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                <i class="material-symbols-outlined mat-icon"> favorite </i>
+                            @if ($post->likes->contains('user_id', Auth::id()))
+                            <button class="newsfeed-like-btn d-center gap-1 gap-sm-2 mdtxt active" data-id="{{ $post->id }}">
+                                <i class="newsfeed-like-icon material-symbols-outlined mat-icon"> favorite </i>
+                                Unlike
+                            </button>
+                            @else
+                            <button class="newsfeed-like-btn d-center gap-1 gap-sm-2 mdtxt" data-id="{{ $post->id }}">
+                                <i class="newsfeed-like-icon material-symbols-outlined mat-icon"> favorite </i>
                                 Like
                             </button>
+                            @endif
+
                             <button class="d-center gap-1 gap-sm-2 mdtxt">
                                 <i class="material-symbols-outlined mat-icon"> chat </i>
                                 Comment
@@ -325,6 +338,7 @@
                                 Share
                             </button>
                         </div>
+
                         <form action="#">
                             <div class="d-flex mt-5 gap-3">
                                 <div class="profile-box d-none d-xxl-block">
@@ -1534,6 +1548,35 @@
             }
         });
 
+        // like and unlike toggle functionality
+        $('.newsfeed-like-btn').click(function() {
+            var button = $(this);
+            var postId = button.data('id');
+            var likeIcon = button.find('.newsfeed-like-icon');
+
+            // Simulate like/unlike functionality (replace with actual like/unlike logic)
+            if (button.hasClass('active')) {
+                button.removeClass('active');
+                button.html('<i class="material-symbols-outlined mat-icon newsfeed-like-icon"> favorite_border </i> Like');
+            } else {
+                button.addClass('active');
+                button.html('<i class="material-symbols-outlined mat-icon newsfeed-like-icon"> favorite_border </i> Unlike');
+            }
+
+            // send an AJAX request to like/unlike the post (replace with your backend logic)
+            $.ajax({
+                url: '/newsfeed/' + postId + '/like-toggle',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {},
+                error: function(error) {
+                    console.error("Error liking the post:", error);
+                }
+            });
+        });
+        
         // handle images drag and drop
         form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
             e.preventDefault();

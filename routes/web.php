@@ -29,7 +29,7 @@ Route::prefix('newsfeed')->group(function () {
         Route::post('{post}/update', 'NewsfeedController@update')->name('newsfeed.post.update');
         Route::get('{post}/delete', 'NewsfeedController@destroy')->name('newsfeed.post.destroy');
         Route::post('{post}/like-toggle', 'NewsfeedController@likeToggle')->name('newsfeed.post.like');
-        Route::post('{post}/comment', 'NewsfeedController@comment')->name('newsfeed.post.comment');
+        Route::post('{post}/comment', 'NewsfeedController@comment')->name('newsfeed.post.comment.create');
         Route::post('{post}/comment/{comment}/reply', 'NewsfeedController@reply')->name('newsfeed.post.reply');
     });
 });

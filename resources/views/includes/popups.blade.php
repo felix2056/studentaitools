@@ -26,9 +26,15 @@
                             <div class="mid-area">
                                 <div class="d-flex mb-5 gap-3">
                                     <div class="profile-box">
+                                        @auth
+                                        <a href="#">
+                                            <img src="{{ Auth::user()->avatar }}" class="max-un" alt="icon">
+                                        </a>
+                                        @else
                                         <a href="#">
                                             <img src="/images/add-post-avatar.png" class="max-un" alt="icon">
                                         </a>
+                                        @endauth
                                     </div>
                                     <textarea name="link" cols="10" rows="2" placeholder="Paste a link.."></textarea>
                                 </div>
@@ -131,9 +137,15 @@
                             <div class="mid-area">
                                 <div class="d-flex mb-5 gap-3">
                                     <div class="profile-box">
+                                        @auth
+                                        <a href="#">
+                                            <img src="{{ Auth::user()->avatar }}" class="max-un" alt="icon">
+                                        </a>
+                                        @else
                                         <a href="#">
                                             <img src="/images/add-post-avatar.png" class="max-un" alt="icon">
                                         </a>
+                                        @endauth
                                     </div>
                                     <textarea name="youtube" cols="10" rows="2" placeholder="Paste youtube video link.."></textarea>
                                 </div>

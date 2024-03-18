@@ -28,12 +28,14 @@ class NewsfeedController extends Controller
         $post->user_id = $user->id;
         $post->content = $request->content;
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $post->image = $name;
+        // get images[]
+        if ($request->hasFile('images')) {
+            $images = [];
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
+                $images[] = '/storage/' . $path;
+            }
+            $post->images = json_encode($images);
         }
 
         if (!empty($request->youtube)) {

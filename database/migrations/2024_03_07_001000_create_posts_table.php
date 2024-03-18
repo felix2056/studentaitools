@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->string('content');
-            $table->json('images')->nullable();
+            $table->json('images')->default('[]');
             $table->string('video')->nullable();
             $table->string('link')->nullable();
             $table->string('link_title')->nullable();

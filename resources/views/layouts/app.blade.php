@@ -628,7 +628,10 @@
     </script>
     @endauth
 
+    <!-- Main Scripts -->
     @yield('scripts')
+
+    <!-- Include Additional Scripts -->
     @stack('incscripts')
 </body>
 

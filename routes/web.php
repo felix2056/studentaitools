@@ -83,6 +83,12 @@ Route::prefix('requests')->group(function () {
     Route::match(['get', 'post'], 'create', 'RequestController@create')->name('requests.create');
 });
 
+Route::prefix('profile')->group(function () {
+    Route::get('{username}', 'ProfileController@show')->name('profile.show');
+    Route::get('{username}/about', 'ProfileController@about')->name('profile.about');
+    Route::get('{username}/photos', 'ProfileController@photos')->name('profile.photos');
+});
+
 Route::middleware('auth')->group(function () {
     Route::match(['get', 'post'], 'choose-username', 'AuthController@chooseUsername')->name('auth.choose-username');
     Route::match(['get', 'post'], 'change-username', 'xxxxxxxxxxxxxx@xxxxxxxxxxxxxx')->name('auth.change-username');

@@ -118,4 +118,9 @@ class User extends Authenticatable
     {
         return $value ? $value : '/images/profile-cover.png';
     }
+
+    public function getImagesAttribute()
+    {
+        return $this->posts->pluck('images')->toArray();
+    }
 }

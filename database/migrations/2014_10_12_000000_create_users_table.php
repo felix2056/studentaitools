@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->string('cover')->nullable();
+            $table->text('bio')->nullable();
             $table->enum('gender', ['male', 'female', 'other']);
             $table->boolean('agree_terms')->default(false);
             $table->timestamp('last_login_at')->nullable();

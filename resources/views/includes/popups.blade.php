@@ -106,7 +106,7 @@
                             <div class="footer-area pt-5">
                                 <div class="btn-area d-flex justify-content-end gap-2">
                                     <button type="button" class="cmn-btn alt" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                                    <button class="cmn-btn">Post</button>
+                                    <button class="add-images-btn cmn-btn">Post</button>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                                     <label class="file mt-1">
                                         <div class="post-img video-item">
                                             <div class="plyr__video-embed player">
-                                                <iframe src="#" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                                <iframe src="javascript:;" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                             </div>
                                         </div>
                                         <p class="badge bg-danger d-none">Invalid youtube link</p>
@@ -463,6 +463,50 @@
                 // hide link modal
                 $('#linkMod').modal('hide');
             });
+
+            function isValidURL(url) {
+                // regular expression for validating URL
+                var urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+                return url.match(urlRegex);
+            }
+
+            function fetchLinkPreview(url, textarea) {
+                // show loader
+                textarea.closest('.mid-area').find('.link-preview-loader').removeClass('d-none');
+
+                // AJAX request to fetch URL preview
+                $.ajax({
+                    url: 'https://api.linkpreview.net',
+                    dataType: 'jsonp',
+                    data: { q: url, key: "2f6891cf2fb01285939f0b6996296c3d", fields: "image, title, description" },
+                    success: function(response) {
+                        // hide loader
+                        textarea.closest('.mid-area').find('.link-preview-loader').addClass('d-none');
+
+                        var linkPreview = textarea.closest('.mid-area').find('.link-preview');
+                        var linkCustom = linkPreview.find('.link-custom');
+                        var linkImg = linkCustom.find('.link-img');
+                        var linkTitle = linkCustom.find('.link-title');
+                        var linkDesc = linkCustom.find('.link-desc');
+                        var linkBadge = linkPreview.find('.badge');
+
+                        if (response.error) {
+                            linkBadge.removeClass('d-none');
+                            return;
+                        }
+
+                        linkBadge.addClass('d-none');
+                        linkCustom.attr('href', url);
+                        linkImg.attr('src', response.image);
+                        linkTitle.text(response.title);
+                        linkDesc.text(response.description);
+                        linkPreview.removeClass('d-none');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching URL preview:', error);
+                    }
+                });
+            }
         });
 
         // handle paste youtube link on youtube modal
@@ -503,13 +547,41 @@
                 // hide youtube modal
                 $('#youtubeMod').modal('hide');
             });
+
+            function isValidYoutubeURL(url) {
+                // regular expression for validating youtube URL
+                var youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/
+                return url.match(youtubeRegex);
+            }
+
+            function fetchYoutubePreview(url, textarea) {
+                // show loader
+                textarea.closest('.mid-area').find('.youtube-preview-loader').removeClass('d-none');
+
+                // convert youtube link to embed link
+                var youtubeEmbedLink = url.replace('watch?v=', 'embed/');
+
+                let iframe = textarea.closest('.mid-area').find('.youtube-preview .video-item iframe');
+                iframe.attr('src', youtubeEmbedLink);
+
+                // wait 3 seconds
+                setTimeout(function() {
+                    // hide loader
+                    textarea.closest('.mid-area').find('.youtube-preview-loader').addClass('d-none');
+
+                    // show youtube preview
+                    textarea.closest('.mid-area').find('.youtube-preview').removeClass('d-none');
+                }, 3000);
+            }
         });
 
         // handle images drag, drop and click
         $('#imageMod').on('shown.bs.modal', function() {
+            let allFiles = [];
+
             let fileInput = $('#imageMod input[type="file"]')
             fileInput.change(function() {
-
+                handleFiles(this.files);
             });
 
             let dropzone = $('#imageMod .image-dropzone')
@@ -528,88 +600,74 @@
                     handleFiles(files);
                 }
             })
-        });
 
-        function isValidURL(url) {
-            // regular expression for validating URL
-            var urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
-            return url.match(urlRegex);
-        }
+            // dropzone.click(function(e) {
+            //     e.preventDefault();
+            //     fileInput.click();
+            // });
 
-        function isValidYoutubeURL(url) {
-            // regular expression for validating youtube URL
-            var youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/
-            return url.match(youtubeRegex);
-        }
+            // post images to newsfeed
+            $('#imageMod button.add-images-btn').on('click', function() {
+                // clone the file input and append to form
+                let clonedFileInput = fileInput.clone();
+                clonedFileInput.addClass('images d-none');
+                $('.images-area').append(clonedFileInput);
 
-        function fetchLinkPreview(url, textarea) {
-            // show loader
-            textarea.closest('.mid-area').find('.link-preview-loader').removeClass('d-none');
+                // preview images under newsfeed input
+                // <label class="row file mt-1">
+                //     <div class="col-4 post-img mb-2">
+                //         <img src="https://via.placeholder.com/150" class="max-un w-100" alt="image">
+                //     </div>
+                // </label>
+                
+                let newsfeed_images_preview = $('.newsfeed-images-preview');
+                let row = document.createElement('label');
+                row.className = 'row file mt-1';
 
-            // AJAX request to fetch URL preview
-            $.ajax({
-                url: 'https://api.linkpreview.net',
-                dataType: 'jsonp',
-                data: { q: url, key: "2f6891cf2fb01285939f0b6996296c3d", fields: "image, title, description" },
-                success: function(response) {
-                    // hide loader
-                    textarea.closest('.mid-area').find('.link-preview-loader').addClass('d-none');
+                for (let i = 0; i < allFiles.length; i++) {
+                    let col = document.createElement('div');
+                    col.className = 'col-4 post-img mb-2';
 
-                    var linkPreview = textarea.closest('.mid-area').find('.link-preview');
-                    var linkCustom = linkPreview.find('.link-custom');
-                    var linkImg = linkCustom.find('.link-img');
-                    var linkTitle = linkCustom.find('.link-title');
-                    var linkDesc = linkCustom.find('.link-desc');
-                    var linkBadge = linkPreview.find('.badge');
+                    let img = document.createElement('img');
+                    img.src = URL.createObjectURL(allFiles[i]);
+                    img.className = 'max-un w-100';
+                    img.alt = 'image';
 
-                    if (response.error) {
-                        linkBadge.removeClass('d-none');
-                        return;
-                    }
-
-                    linkBadge.addClass('d-none');
-                    linkCustom.attr('href', url);
-                    linkImg.attr('src', response.image);
-                    linkTitle.text(response.title);
-                    linkDesc.text(response.description);
-                    linkPreview.removeClass('d-none');
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching URL preview:', error);
+                    col.appendChild(img);
+                    row.appendChild(col);
                 }
+
+                newsfeed_images_preview.append(row);
+                newsfeed_images_preview.removeClass('d-none');
+
+                // append all files to cloned file input
+                // for (let i = 0; i < allFiles.length; i++) {
+                //     clonedFileInput[0].files = allFiles;
+                // }
+
+                // hide image modal
+                $('#imageMod').modal('hide');
             });
-        }
 
-        function fetchYoutubePreview(url, textarea) {
-            // show loader
-            textarea.closest('.mid-area').find('.youtube-preview-loader').removeClass('d-none');
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    fetchImagesPreview(files);
 
-            // convert youtube link to embed link
-            var youtubeEmbedLink = url.replace('watch?v=', 'embed/');
+                    for (let i = 0; i < files.length; i++) {
+                        allFiles.push(files[i]);
+                    }
+                }
+            }
 
-            let iframe = textarea.closest('.mid-area').find('.youtube-preview .video-item iframe');
-            iframe.attr('src', youtubeEmbedLink);
-
-            // wait 3 seconds
-            setTimeout(function() {
-                // hide loader
-                textarea.closest('.mid-area').find('.youtube-preview-loader').addClass('d-none');
-
-                // show youtube preview
-                textarea.closest('.mid-area').find('.youtube-preview').removeClass('d-none');
-            }, 3000);
-        }
-
-        function handleFiles(files) {
-            if (files.length > 0) {
+            function fetchImagesPreview(images) {
                 let container = document.createElement('div');
                 container.className = 'container position-relative mt-2';
 
                 let row = document.createElement('div');
                 row.className = 'row';
 
-                for (let i = 0; i < files.length; i++) {
-                    let file = files[i];
+                for (let i = 0; i < images.length; i++) {
+                    let file = images[i];
                     let reader = new FileReader();
 
                     reader.onload = function(e) {
@@ -631,7 +689,7 @@
                 container.appendChild(row);
                 $('#imageMod .image-dropzone').append(container);
             }
-        }
+        });
     });
 </script>
 @endpush

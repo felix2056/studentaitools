@@ -30,9 +30,31 @@ Route::prefix('newsfeed')->group(function () {
         Route::get('{post}/delete', 'NewsfeedController@destroy')->name('newsfeed.post.destroy');
         Route::post('{post}/like-toggle', 'NewsfeedController@likeToggle')->name('newsfeed.post.like');
         Route::post('{post}/comment', 'NewsfeedController@comment')->name('newsfeed.post.comment.create');
+        Route::post('{post}/comment/gif', 'NewsfeedController@commentGif')->name('newsfeed.post.comment.gif');
+        Route::post('{post}/comment/file', 'NewsfeedController@commentFile')->name('newsfeed.post.comment.file');
         Route::post('{post}/comment/{comment}/reply', 'NewsfeedController@reply')->name('newsfeed.post.reply');
     });
 });
+
+Route::group(['prefix' => 'people', 'middleware' => 'auth'], function () {
+    Route::get('', 'PeopleController@index')->name('people.index');
+    Route::get('requests', 'PeopleController@requests')->name('people.requests');
+    Route::get('friends', 'PeopleController@friends')->name('people.friends');
+    Route::get('blocked', 'PeopleController@blocked')->name('people.blocked');
+
+    // ajax
+    Route::post('add-friend', 'PeopleController@addFriend')->name('people.add-friend');
+    Route::post('accept-friend', 'PeopleController@acceptFriend')->name('people.accept-friend');
+    Route::post('reject-friend', 'PeopleController@rejectFriend')->name('people.reject-friend');
+    Route::post('unfriend', 'PeopleController@unfriend')->name('people.unfriend');
+
+    Route::post('follow', 'PeopleController@follow')->name('people.follow');
+    Route::post('unfollow', 'PeopleController@unfollow')->name('people.unfollow');
+
+    Route::post('block', 'PeopleController@block')->name('people.block');
+    Route::post('unblock', 'PeopleController@unblock')->name('people.unblock');
+});
+
 
 Route::match(['get', 'post'], 'submit-tool', 'ToolController@create')->middleware('auth')->name('tools.create');
 Route::get('about-us', 'HomeController@aboutUs')->name('about-us');

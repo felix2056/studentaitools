@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Hootlex\Friendships\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Hootlex\Friendships\Traits\Friendable;
@@ -84,6 +86,36 @@ class User extends Authenticatable
         return $this->belongsToMany(Event::class, 'user_events')->withPivot('status');
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follows', 'following_id', 'user_id')->withTimestamps();
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'user_follows', 'user_id', 'following_id')->withTimestamps();
+    }
+
+    public function isFollowing($user)
+    {
+        return $this->followings->contains($user->id);
+    }
+
+    public function isFollowedBy($user)
+    {
+        return $this->followers->contains($user->id);
+    }
+
+    public function addFollowing($user)
+    {
+        $this->followings()->attach($user->id);
+    }
+
+    public function removeFollowing($user)
+    {
+        $this->followings()->detach($user->id);
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
@@ -122,5 +154,48 @@ class User extends Authenticatable
     public function getImagesAttribute()
     {
         return $this->posts->pluck('images')->toArray();
+    }
+
+    public function getPendingFriendsCount($groupSlug = '')
+    {
+        $friendsCount = $this->findFriendships(Status::PENDING, $groupSlug)->count();
+        return $friendsCount;
+    }
+
+    public function getFollowersCountAttribute()
+    {
+        // count them in 'K' format
+        $count = $this->followers()->count();
+        if ($count >= 1000) {
+            return number_format($count / 1000, 1) . 'K';
+        } else {
+            return $count;
+        }
+    }
+
+    public function getFollowingsCountAttribute()
+    {
+        // count them in 'K' format
+        $count = $this->followings()->count();
+        if ($count >= 1000) {
+            return number_format($count / 1000, 1) . 'K';
+        } else {
+            return $count;
+        }
+    }
+
+    public function getLanguagesAttribute($value)
+    {
+        return json_decode($value) ?: [];
+    }
+
+    public function getLearningPreferencesAttribute($value)
+    {
+        return json_decode($value) ?: [];
+    }
+
+    public function getPreferredStudyToolsAttribute($value)
+    {
+        return json_decode($value) ?: [];
     }
 }

@@ -16,6 +16,9 @@
 
     <link rel="shortcut icon" href="/images/logo/png/white_logo_transparent_background_favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="/css/nice-select.css">
+    <link rel="stylesheet" href="/css/nice-search-multiple.css">
 
     @yield('styles')
 </head>
@@ -285,7 +288,7 @@
                                     </div>
                                 </div>
                                 <div class="view-profile my-2">
-                                    <a href="profile-post.html" class="mdtxt w-100 text-center py-2">View profile</a>
+                                    <a href="{{ route('profile.show', Auth::user()->username) }}" class="mdtxt w-100 text-center py-2">View profile</a>
                                 </div>
                                 <ul>
                                     <li>
@@ -575,6 +578,7 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/slick.js"></script>
     <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery.nice-select-with-search-multiple.js"></script>
     <script src="/js/jquery.magnific-popup.min.js"></script>
     <script src="/js/plyr.js"></script>
     <script src="/js/apexcharts.js"></script>

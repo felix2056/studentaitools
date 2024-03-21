@@ -28,11 +28,11 @@
                                     <div class="profile-box">
                                         @auth
                                         <a href="#">
-                                            <img src="{{ Auth::user()->avatar }}" class="max-un" alt="icon">
+                                            <img src="{{ Auth::user()->avatar }}" class="max-un" alt="icon" width="50" height="50">
                                         </a>
                                         @else
                                         <a href="#">
-                                            <img src="/images/add-post-avatar.png" class="max-un" alt="icon">
+                                            <img src="/images/add-post-avatar.png" class="max-un" alt="icon" width="50" height="50">
                                         </a>
                                         @endauth
                                     </div>
@@ -139,11 +139,11 @@
                                     <div class="profile-box">
                                         @auth
                                         <a href="#">
-                                            <img src="{{ Auth::user()->avatar }}" class="max-un" alt="icon">
+                                            <img src="{{ Auth::user()->avatar }}" class="max-un" alt="icon" width="50" height="50" width="50" height="50">
                                         </a>
                                         @else
                                         <a href="#">
-                                            <img src="/images/add-post-avatar.png" class="max-un" alt="icon">
+                                            <img src="/images/add-post-avatar.png" class="max-un" alt="icon" width="50" height="50">
                                         </a>
                                         @endauth
                                     </div>

@@ -947,8 +947,9 @@ li {
   display: flex;
   align-items: center;
   line-height: initial;
-  height: 100%;
-  width: 100%;
+  min-height: 44px !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 .nice-select:focus, .nice-select:hover {
   border-color: transparent;
@@ -1011,7 +1012,7 @@ li {
 .checkbox-single .checkmark::after {
   width: 16px;
   height: 11px;
-  background-image: url(../images/check.png);
+  background-image: url(/images/check.png);
   background-repeat: no-repeat;
 }
 .checkbox-single input:checked ~ .checkmark:after {
@@ -1080,6 +1081,9 @@ li {
 }
 .input-area.second input {
   font-size: 16px;
+}
+.input-area.is-invalid, .select-area.is-invalid {
+  border: 1px solid #FF4949;
 }
 .input-area i {
   color: var(--para-3rd-color);
@@ -2146,6 +2150,11 @@ li {
 }
 .main-content .contact-information .form-group {
   margin-bottom: 15px;
+}
+
+.preview-cover {
+  height: 250px !important;
+  object-fit: cover;
 }
 
 .go-live-popup .tooltips-area button {

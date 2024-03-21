@@ -36,11 +36,11 @@
                                     <h6>Cover Image</h6>
                                 </div>
                                 <div class="profile-picture text-start">
-                                    <img class="preview-image w-100" src="{{ $user->cover }}" alt="Preview Image">
+                                    <img class="preview-cover w-100" src="{{ $user->cover }}" alt="Preview Image" width="926" height="250">
                                 </div>
                                 <div class="file-upload">
                                     <label class="file text-start mt-2">
-                                        <input type="file">
+                                        <input type="file" name="cover">
                                         <span class="cmn-btn">Change Cover photo</span>
                                     </label>
                                 </div>
@@ -59,63 +59,264 @@
                             <div class="col-sm-6">
                                 <div class="single-input text-start">
                                     <label for="first_name">First Name</label>
-                                    <div class="input-area second">
-                                        <input type="text" name="first_name" value="{{ $user->first_name }}" placeholder="Type first name" autocomplete="off">
+                                    <div class="input-area second @error('first_name') is-invalid @enderror">
+                                        <input type="text" name="first_name" value="{{ $user->first_name }}" placeholder="Type first name" autocomplete="off" required class="@error('first_name') is-invalid @enderror">
                                     </div>
+                                    @error('first_name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="single-input text-start">
                                     <label for="last_name">Last Name</label>
-                                    <div class="input-area second">
-                                        <input type="text" name="last_name" value="{{ $user->last_name }}" placeholder="Type last name" autocomplete="off">
+                                    <div class="input-area second @error('last_name') is-invalid @enderror">
+                                        <input type="text" name="last_name" value="{{ $user->last_name }}" placeholder="Type last name" autocomplete="off" required class="@error('last_name') is-invalid @enderror">
                                     </div>
+                                    @error('last_name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="row">
                             <div class="col-sm-6">
                                 <div class="single-input text-start">
                                     <label for="email">Email</label>
-                                    <div class="input-area second">
-                                        <input type="text" value="{{ $user->email }}" placeholder="Email" autocomplete="off">
+                                    <div class="input-area second @error('email') is-invalid @enderror">
+                                        <input type="text" name="email" value="{{ $user->email }}" placeholder="Email" autocomplete="off" readonly required class="@error('email') is-invalid @enderror">
                                     </div>
-                                    <small class="text-muted text-danger">Email must be verified</small>
+                                    <small class="text-muted">Email must be verified.</small>
+                                    @error('email')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="single-input text-start">
-                                    <label for="gender">Gender</label>
-                                    <div class="input-area second">
-                                        <select name="gender">
-                                            <option value="male" @if ($user->gender == 'male') selected @endif> Male</option>
-                                            <option value="female" @if ($user->gender == 'female') selected @endif>Female</option>
-                                            <option value="other" @if ($user->gender == 'other') selected @endif>Other</option>
-                                        </select>
+                                    <label for="username">Username</label>
+                                    <div class="input-area second @error('username') is-invalid @enderror">
+                                        <input type="text" name="username" value="{{ $user->username }}" placeholder="Type username" autocomplete="off" required class="@error('username') is-invalid @enderror">
                                     </div>
+                                    <small class="text-muted">Username must be unique.</small>
+                                    @error('username')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="single-input text-start">
+                                    <label for="gender">Gender</label>
+                                    <div class="@if ($user->gender != 'male' && $user->gender != 'female' && $user->gender != NULL) input-area @else select-area @endif second @error('gender') is-invalid @enderror">
+                                        <select name="gender" required class="@error('gender') is-invalid @enderror">
+                                            <option value="male" @if ($user->gender == 'male') selected @endif> Male</option>
+                                            <option value="female" @if ($user->gender == 'female') selected @endif>Female</option>
+                                            <option value="other" @if ($user->gender != 'male' && $user->gender != 'female' && $user->gender != NULL) selected @endif>Other</option>
+                                        </select>
+                                        <input type="text" name="other_gender" class="@if ($user->gender == 'male' || $user->gender == 'female' || empty($user->gender)) d-none @endif other_gender" value="{{ $user->gender }}" placeholder="Type your gender" autocomplete="off">
+                                    </div>
+                                    @error('gender')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="single-input text-start">
+                                    <label for="preferred_pronouns">Preferred Pronouns</label>
+                                    <div class="@if ($user->preferred_pronouns != 'he_him' && $user->preferred_pronouns != 'she_her' && $user->preferred_pronouns != 'they_them' && $user->preferred_pronouns != NULL) input-area @else select-area @endif second @error('preferred_pronouns') is-invalid @enderror">
+                                        <select name="preferred_pronouns" required class="@error('preferred_pronouns') is-invalid @enderror">
+                                            <option value="he/him" @if ($user->preferred_pronouns == 'he_him') selected @endif>He/Him</option>
+                                            <option value="she/her" @if ($user->preferred_pronouns == 'she_her') selected @endif>She/Her</option>
+                                            <option value="they/them" @if ($user->preferred_pronouns == 'they_them') selected @endif>They/Them</option>
+                                            <option value="other" @if ($user->preferred_pronouns != 'he_him' && $user->preferred_pronouns != 'she_her' && $user->preferred_pronouns != 'they_them' && $user->preferred_pronouns != NULL) selected @endif>Other</option>
+                                        </select>
+                                        <input type="text" name="other_pronouns" class="@if ($user->preferred_pronouns == 'he_him' || $user->preferred_pronouns == 'she_her' || $user->preferred_pronouns == 'they_them' || empty($user->preferred_pronouns)) d-none @endif other_pronouns" value="{{ $user->preferred_pronouns }}" placeholder="Type your pronouns" autocomplete="off">
+                                    </div>
+                                    @error('preferred_pronouns')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="single-input text-start">
+                                    <label for="learning_preference">Learning Preference</label>
+                                    <div class="select-area second @error('learning_preferences') is-invalid @enderror">
+                                        <select name="learning_preferences[]" multiple class="@error('learning_preferences') is-invalid @enderror">
+                                            <option value="visual" @if (in_array('visual', $user->learning_preferences)) selected @endif>Visual Learner</option>
+                                            <option value="auditory" @if (in_array('auditory', $user->learning_preferences)) selected @endif>Auditory Learner</option>
+                                            <option value="reading_writing" @if (in_array('reading_writing', $user->learning_preferences)) selected @endif>Reading/Writing</option>
+                                            <option value="kinesthetic" @if (in_array('kinesthetic', $user->learning_preferences)) selected @endif>Kinesthetic Learner</option>
+                                            <option value="collaborative" @if (in_array('collaborative', $user->learning_preferences)) selected @endif>Collaborative Learner</option>
+                                            <option value="solitary" @if (in_array('solitary', $user->learning_preferences)) selected @endif>Solitary Learner</option>
+                                            <option value="self_paced" @if (in_array('self_paced', $user->learning_preferences)) selected @endif>Self-Paced Learner</option>
+                                            <option value="project_based" @if (in_array('project_based', $user->learning_preferences)) selected @endif>Project-Based Learner</option>
+                                            <option value="online" @if (in_array('online_courses', $user->learning_preferences)) selected @endif>Online Courses</option>
+                                            <option value="in_person" @if (in_array('in_person', $user->learning_preferences)) selected @endif>In-Person Classes</option>
+                                        </select>
+                                    </div>
+                                    @error('learning_preferences')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="single-input text-start">
+                                    <label for="preferred_study_tools">Preferred Study Tools</label>
+                                    <div class="select-area second @error('preferred_study_tools') is-invalid @enderror">
+                                        <select name="preferred_study_tools[]" multiple class="@error('preferred_study_tools') is-invalid @enderror">
+                                           <optgroup label="General">
+                                                <option value="flashcards" @if (in_array('flashcards', $user->preferred_study_tools)) selected @endif>Flashcards</option>
+                                                <option value="mind_maps" @if (in_array('mind_maps', $user->preferred_study_tools)) selected @endif>Mind Mapping</option>
+                                                <option value="note_taking" @if (in_array('note_taking', $user->preferred_study_tools)) selected @endif>Note-taking Apps</option>
+                                                <option value="ai_tools" @if (in_array('ai_tools', $user->preferred_study_tools)) selected @endif>AI-powered Study Apps</option>
+                                                <option value="online_tutorials" @if (in_array('online_tutorials', $user->preferred_study_tools)) selected @endif>Online Tutorials</option>
+                                                <option value="textbooks" @if (in_array('textbooks', $user->preferred_study_tools)) selected @endif>Textbooks</option>
+                                                <option value="videos" @if (in_array('videos', $user->preferred_study_tools)) selected @endif>Videos Lectures</option>
+                                                <option value="study_groups" @if (in_array('study_groups', $user->preferred_study_tools)) selected @endif>Study Groups</option>
+                                            </optgroup>
+                                            <optgroup label="ai_tools">
+                                                @foreach (\App\Models\Tool::orderBy('name')->get() as $tool)
+                                                <option value="{{ $tool->slug }}" @if (in_array($tool->slug, $user->preferred_study_tools)) selected @endif>{{ $tool->name }}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    @error('preferred_study_tools')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="single-input text-start">
+                                    <label for="education">Education</label>
+                                    <div class="input-area second @error('education') is-invalid @enderror">
+                                        <input type="text" name="education" value="{{ $user->education }}" placeholder="Ex: BSc in Computer Science" class="@error('education') is-invalid @enderror">
+                                    </div>
+                                    @error('education')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="single-input text-start">
+                                    <label for="awards">Awards</label>
+                                    <div class="input-area second @error('awards') is-invalid @enderror">
+                                        <input type="text" name="awards" value="{{ $user->awards }}" placeholder="Ex: Five-Star Honors" class="@error('awards') is-invalid @enderror">
+                                    </div>
+                                    @error('awards')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="single-input text-start">
+                                    <label for="skills">Skills</label>
+                                    <div class="input-area second @error('skills') is-invalid @enderror">
+                                        <input type="text" name="skills" value="{{ $user->skills }}" placeholder="Ex: Web Development, Graphic Design, Digital Marketing, SEO, Photography" class="@error('skills') is-invalid @enderror">
+                                    </div>
+                                    @error('skills')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="single-input text-start">
+                                    <label for="hobbies">Hobbies</label>
+                                    <div class="input-area second @error('hobbies') is-invalid @enderror">
+                                        <input type="text" name="hobbies" value="{{ $user->hobbies }}" placeholder="Ex: Cooking, Dancing, Gaming, Music, Writing, Traveling, Hiking" class="@error('hobbies') is-invalid @enderror">
+                                    </div>
+                                    @error('hobbies')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="single-input text-start">
+                                    <label for="languages">Languages</label>
+                                    <div class="select-area second @error('languages') is-invalid @enderror">
+                                        <select name="languages[]" multiple class="@error('languages') is-invalid @enderror">
+                                            <option value="english" @if (in_array('english', $user->languages)) selected @endif>English</option>
+                                            <option value="spanish" @if (in_array('spanish', $user->languages)) selected @endif>Spanish</option>
+                                            <option value="french" @if (in_array('french', $user->languages)) selected @endif>French</option>
+                                            <option value="german" @if (in_array('german', $user->languages)) selected @endif>German</option>
+                                            <option value="chinese" @if (in_array('chinese', $user->languages)) selected @endif>Chinese</option>
+                                            <option value="japanese" @if (in_array('japanese', $user->languages)) selected @endif>Japanese</option>
+                                            <option value="arabic" @if (in_array('arabic', $user->languages)) selected @endif>Arabic</option>
+                                            <option value="russian" @if (in_array('russian', $user->languages)) selected @endif>Russian</option>
+                                            <option value="portuguese" @if (in_array('portuguese', $user->languages)) selected @endif>Portuguese</option>
+                                            <option value="italian" @if (in_array('italian', $user->languages)) selected @endif>Italian</option>
+                                            <option value="hindi" @if (in_array('hindi', $user->languages)) selected @endif>Hindi</option>
+                                            <option value="korean" @if (in_array('korean', $user->languages)) selected @endif>Korean</option>
+                                            <option value="turkish" @if (in_array('turkish', $user->languages)) selected @endif>Turkish</option>
+                                            <option value="dutch" @if (in_array('dutch', $user->languages)) selected @endif>Dutch</option>
+                                            <option value="swedish" @if (in_array('swedish', $user->languages)) selected @endif>Swedish</option>
+                                            <option value="norwegian" @if (in_array('norwegian', $user->languages)) selected @endif>Norwegian</option>
+                                            <option value="danish" @if (in_array('danish', $user->languages)) selected @endif>Danish</option>
+                                            <option value="finnish" @if (in_array('finnish', $user->languages)) selected @endif>Finnish</option>
+                                            <option value="greek" @if (in_array('greek', $user->languages)) selected @endif>Greek</option>
+                                            <option value="polish" @if (in_array('polish', $user->languages)) selected @endif>Polish</option>
+                                            <option value="hungarian" @if (in_array('hungarian', $user->languages)) selected @endif>Hungarian</option>
+                                            <option value="czech" @if (in_array('czech', $user->languages)) selected @endif>Czech</option>
+                                            <option value="slovak" @if (in_array('slovak', $user->languages)) selected @endif>Slovak</option>
+                                            <option value="bulgarian" @if (in_array('bulgarian', $user->languages)) selected @endif>Bulgarian</option>
+                                            <option value="romanian" @if (in_array('romanian', $user->languages)) selected @endif>Romanian</option>
+                                            <option value="croatian" @if (in_array('croatian', $user->languages)) selected @endif>Croatian</option>
+                                            <option value="serbian" @if (in_array('serbian', $user->languages)) selected @endif>Serbian</option>
+                                            <option value="slovenian" @if (in_array('slovenian', $user->languages)) selected @endif>Slovenian</option>
+                                            <option value="lithuanian" @if (in_array('lithuanian', $user->languages)) selected @endif>Lithuanian</option>
+                                            <option value="latvian" @if (in_array('latvian', $user->languages)) selected @endif>Latvian</option>
+                                            <option value="estonian" @if (in_array('estonian', $user->languages)) selected @endif>Estonian</option>
+                                            <option value="maltese" @if (in_array('maltese', $user->languages)) selected @endif>Maltese</option>
+                                        </select>
+                                    </div>
+                                    @error('languages')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="single-input text-start">
                                     <label for="city">City</label>
-                                    <div class="input-area second">
-                                        <input type="text" name="city" value="{{ $user->city }}" placeholder="Type city">
+                                    <div class="input-area second @error('city') is-invalid @enderror">
+                                        <input type="text" name="city" value="{{ $user->city }}" placeholder="Type city" required class="@error('city') is-invalid @enderror">
                                     </div>
+                                    @error('city')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="single-input text-start">
                                     <label for="state">State</label>
-                                    <div class="input-area second">
-                                        <input type="text" name="state" value="{{ $user->state }}" placeholder="Type state">
+                                    <div class="input-area second @error('state') is-invalid @enderror">
+                                        <input type="text" name="state" value="{{ $user->state }}" placeholder="Type state" required class="@error('state') is-invalid @enderror">
                                     </div>
+                                    @error('state')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="single-input text-start">
                                     <label for="country">Country</label>
-                                    <div class="input-area second">
-                                        <select name="country">
+                                    <div class="select-area second @error('country') is-invalid @enderror">
+                                        <select name="country" required class="@error('country') is-invalid @enderror">
                                             <option value="Afghanistan" @if ($user->country == 'Afghanistan') selected @endif>Afghanistan</option>
                                             <option value="Albania" @if ($user->country == 'Albania') selected @endif>Albania</option>
                                             <option value="Algeria" @if ($user->country == 'Algeria') selected @endif>Algeria</option>
@@ -313,21 +514,31 @@
                                             <option value="Zimbabwe" @if ($user->country == 'Zimbabwe') selected @endif>Zimbabwe</option>
                                         </select>
                                     </div>
+                                    @error('country')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="row">
                             <div class="col-12 mt-4">
                                 <div class="single-input text-start">
                                     <h6>Bio</h6>
-                                    <div class="input-area second">
-                                        <textarea name="bio" placeholder="Type your bio">{{ $user->bio }}</textarea>
+                                    <div class="input-area second @error('bio') is-invalid @enderror">
+                                        <textarea name="bio" placeholder="Type your bio" class="@error('bio') is-invalid @enderror">{{ $user->bio }}</textarea>
                                     </div>
+                                    @error('bio')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
-                            
+                        </div>
+                        
+                        <div class="row">
                             <div class="col-sm-12 mt-4">
                                 <div class="btn-area text-end">
-                                    <button class="cmn-btn">Saved Change</button>
+                                    <button type="submit" class="cmn-btn">Save Changes</button>
                                 </div>
                             </div>
                         </div>
@@ -341,40 +552,70 @@
 
 @section('scripts')
 <script>
-    const avatarInput = document.querySelector('input[name="avatar"]');
-    avatarInput.addEventListener('change', function() {
-        let formData = new FormData();
-        formData.append('avatar', avatarInput.files[0]);
-        formData.append('_token', '{{ csrf_token() }}');
+    $(document).ready(function() {
+        $('input[name="avatar"]').on('change', function() {
+            let formData = new FormData();
+            formData.append('avatar', $(this).prop('files')[0]);
+            formData.append('_token', '{{ csrf_token() }}');
 
-        fetch('/upload-avatar', {
-            method: 'POST',
-            body: formData
-        })
-        // .then(response => response.json())
-        // .then(data => {
-        //     if (data.status === 'success') {
-        //         document.querySelector('.preview-image').src = data.path;
-        //     }
-        // });
-    });
+            $.ajax({
+                url: '/upload-avatar',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    // if (data.status === 'success') {
+                    //     $('.preview-image').attr('src', data.path);
+                    // }
+                }
+            });
+        });
+    
+        $('input[name="cover"]').on('change', function() {
+            let formData = new FormData();
+            formData.append('cover', $(this).prop('files')[0]);
+            formData.append('_token', '{{ csrf_token() }}');
 
-    const coverInput = document.querySelector('input[name="cover"]');
-    coverInput.addEventListener('change', function() {
-        let formData = new FormData();
-        formData.append('cover', coverInput.files[0]);
-        formData.append('_token', '{{ csrf_token() }}');
+            $.ajax({
+                url: '/upload-cover',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    // if (data.status === 'success') {
+                    //     $('.preview-image').attr('src', data.path);
+                    // }
+                }
+            });
+        });
+        
+        $('select[name="gender"]').on('change', function() {
+            // update nice select
+            $(this).niceSelect('update');
 
-        fetch('/upload-cover', {
-            method: 'POST',
-            body: formData
-        })
-        // .then(response => response.json())
-        // .then(data => {
-        //     if (data.status === 'success') {
-        //         document.querySelector('.preview-image').src = data.path;
-        //     }
-        // });
+            if ($(this).val() === 'other') {
+                $('input.other_gender').parent().removeClass('select-area').addClass('input-area');
+                $('input.other_gender').removeClass('d-none');
+            } else {
+                $('input.other_gender').parent().removeClass('input-area').addClass('select-area');
+                $('input.other_gender').addClass('d-none');
+            }
+        });
+
+        $('select[name="preferred_pronouns"]').on('change', function() {
+            // update nice select
+            $(this).niceSelect('update');
+            
+            if ($(this).val() === 'other') {
+                $('input.other_pronouns').parent().removeClass('select-area').addClass('input-area');
+                $('input.other_pronouns').removeClass('d-none');
+            } else {
+                $('input.other_pronouns').parent().removeClass('input-area').addClass('select-area');
+                $('input.other_pronouns').addClass('d-none');
+            }
+        });
     });
 </script>
 @endsection

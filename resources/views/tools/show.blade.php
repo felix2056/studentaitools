@@ -520,7 +520,7 @@
                                                             <img src="{{ $rating->user->avatar }}" alt="image">
                                                         </div>
                                                         <div class="text-area">
-                                                            <h6><a href="public-profile-post.html">{{ $rating->user->username }}</a></h6>
+                                                            <h6><a href="{{ route('profile.show', $rating->user->username) }}">{{ $rating->user->username }}</a></h6>
                                                             <span class="fs-6">{{ $rating->user->country }}</span>
                                                         </div>
                                                     </div>
@@ -734,7 +734,7 @@
                                                                     <img class="avatar-img max-un" src="{{ $favorite->user->avatar }}" alt="avatar">
                                                                 </div>
                                                                 <div class="info-area text-start">
-                                                                    <h6 class="m-0"><a href="public-profile-post.html">{{ $favorite->user->username }}</a></h6>
+                                                                    <h6 class="m-0"><a href="{{ route('profile.show', $faborite->user->username) }}">{{ $favorite->user->username }}</a></h6>
                                                                     {{-- <p class="mdtxt status">10 Mutual Friends</p> --}}
                                                                 </div>
                                                             </div>

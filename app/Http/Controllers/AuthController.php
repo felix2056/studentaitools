@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -105,6 +106,20 @@ class AuthController extends Controller
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
                 'email' => 'required|email|unique:users,email,' . Auth::id(),
+                'username' => 'required|string|unique:users,username,' . Auth::id(),
+                'gender' => 'nullable|string',
+                'preferred_pronouns' => 'nullable|string',
+                'learning_preferences' => 'nullable|array',
+                'preferred_study_tools' => 'nullable|array',
+                'education' => 'nullable|string',
+                'awards' => 'nullable|string',
+                'skills' => 'nullable|string',
+                'hobbies' => 'nullable|string',
+                'languages' => 'nullable|array',
+                'city' => 'nullable|string',
+                'state' => 'nullable|string',
+                'country' => 'nullable|string',
+                'bio' => 'nullable|string',
             ]);
 
             $user->first_name = $request->input('first_name');
@@ -115,7 +130,43 @@ class AuthController extends Controller
                 $user->email_verified_at = null;
             }
 
+            if ($user->username !== $request->input('username')) {
+                $user->username = $request->input('username');
+            }
+
+            $user->gender = $request->input('gender');
+            if ($request->gender == 'other') {
+                $request->validate([
+                    'other_gender' => 'required|string',
+                ]);
+
+                $user->gender = str_replace(' ', '_', strtolower($request->input('other_gender')));
+            }
+
+            $user->preferred_pronouns = $request->input('preferred_pronouns');
+            if ($request->preferred_pronouns == 'other') {
+                $request->validate([
+                    'other_pronouns' => 'required|string',
+                ]);
+
+                $user->preferred_pronouns = str_replace(' ', '/', strtolower($request->input('other_pronouns')));
+            }
+
+            $user->learning_preferences = $request->input('learning_preferences');
+            $user->preferred_study_tools = $request->input('preferred_study_tools');
+            $user->education = $request->input('education');
+            $user->awards = $request->input('awards');
+            $user->skills = $request->input('skills');
+            $user->hobbies = $request->input('hobbies');
+            $user->languages = $request->input('languages');
+            $user->city = $request->input('city');
+            $user->state = $request->input('state');
+            $user->country = $request->input('country');
+            $user->bio = $request->input('bio');
+            
             $user->save();
+
+            return redirect()->back()->with('success', 'Settings updated successfully.');
         }
 
         return view('auth.settings', compact('user'));
@@ -124,7 +175,7 @@ class AuthController extends Controller
     public function uploadAvatar(Request $request)
     {
         $request->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
         $user = User::find(Auth::id());
@@ -135,6 +186,13 @@ class AuthController extends Controller
         // save path to database
         $user->avatar = '/storage/uploads/avatars/' . $avatarName;
         $user->save();
+
+        // create a new post
+        $post = new Post();
+        $post->user_id = $user->id;
+        $post->content = $user->first_name . ' updated their profile picture.';
+        $post->images = json_encode([$user->avatar]);
+        $post->save();
 
         if ($request->ajax()) {
             return response()->json([
@@ -150,7 +208,7 @@ class AuthController extends Controller
     public function uploadCover(Request $request)
     {
         $request->validate([
-            'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8192',
         ]);
 
         $user = User::find(Auth::id());
@@ -161,6 +219,13 @@ class AuthController extends Controller
         // save path to database
         $user->cover = '/storage/uploads/covers/' . $coverName;
         $user->save();
+
+        // create a new post
+        $post = new Post();
+        $post->user_id = $user->id;
+        $post->content = $user->first_name . ' updated their cover photo.';
+        $post->images = json_encode([$user->cover]);
+        $post->save();
 
         if ($request->ajax()) {
             return response()->json([

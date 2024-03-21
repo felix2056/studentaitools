@@ -119,4 +119,82 @@ class NewsfeedController extends Controller
 
         return redirect()->back();
     }
+
+    public function commentGif(Request $request, $post)
+    {
+        $request->validate([
+            'gif' => 'required|file|mimes:gif|max:8192',
+        ]);
+
+        $user = User::find(Auth::id());
+        $post = Post::find($post);
+        if (!$post) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Post not found.',
+                ]);
+            }
+
+            return redirect()->back();
+        }
+
+        $path = $request->file('gif')->store('gifs', 'public');
+
+        $comment = new UserComment();
+        $comment->user_id = $user->id;
+        $comment->post_id = $post->id;
+        $comment->body = '/storage/' . $path;
+        $comment->is_approved = true;
+        $comment->save();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Gif created',
+                'comment' => $comment->load('user'),
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function commentFile(Request $request, $post)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $user = User::find(Auth::id());
+        $post = Post::find($post);
+        if (!$post) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Post not found.',
+                ]);
+            }
+
+            return redirect()->back();
+        }
+
+        $path = $request->file('file')->store('files', 'public');
+
+        $comment = new UserComment();
+        $comment->user_id = $user->id;
+        $comment->post_id = $post->id;
+        $comment->body = '/storage/' . $path;
+        $comment->is_approved = true;
+        $comment->save();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'File created',
+                'comment' => $comment->load('user'),
+            ]);
+        }
+
+        return redirect()->back();
+    }
 }

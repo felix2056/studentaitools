@@ -19,7 +19,7 @@
                 <img class="avatar-img max-un" src="{{ Auth::user()->avatar }}" width="48" height="48" alt="avatar">
             </div>
             <div class="text-area">
-                <h6 class="m-0 mb-1"><a href="profile-post.html">{{ Auth::user()->full_name }}</a></h6>
+                <h6 class="m-0 mb-1"><a href="{{ route('profile.show', Auth::user()->username) }}">{{ Auth::user()->full_name }}</a></h6>
                 <p class="mdtxt">{{ '@' . Auth::user()->username }}</p>
             </div>
         </div>
@@ -44,18 +44,20 @@
                     <span>AI Tools</span>
                 </a>
             </li>
+            @auth
+            <li>
+                <a href="{{ route('people.index') }}" class="d-flex gap-4">
+                    <i class="material-symbols-outlined mat-icon"> person </i>
+                    <span>People</span>
+                </a>
+            </li>
+            @endauth
             <li>
                 <a href="{{ route('requests.index') }}" class="d-flex gap-4 @if(request()->is('requests*')) active @endif">
                     <i class="material-symbols-outlined mat-icon"> add_task </i>
                     <span>Requests</span>
                 </a>
             </li>
-            {{-- <li>
-                <a href="friend-request.html" class="d-flex gap-4">
-                    <i class="material-symbols-outlined mat-icon"> person </i>
-                    <span>People</span>
-                </a>
-            </li> --}}
             <li>
                 <a href="{{ route('events.index') }}" class="d-flex gap-4">
                     <i class="material-symbols-outlined mat-icon"> workspace_premium </i>

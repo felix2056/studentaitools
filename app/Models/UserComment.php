@@ -35,4 +35,22 @@ class UserComment extends Model
     {
         return $this->children->count() > 0;
     }
+
+    public function getGifLinkAttribute()
+    {
+        // if comment body is a link to .gif
+        if (strpos($this->body, '.gif') !== false) {
+            return $this->body;
+        }
+        return null;
+    }
+
+    public function getFileLinkAttribute()
+    {
+        // if comment body is a link to /storage/files/
+        if (strpos($this->body, '/storage/files/') !== false) {
+            return $this->body;
+        }
+        return null;
+    }
 }

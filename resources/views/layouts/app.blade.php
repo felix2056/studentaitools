@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="/css/nice-select.css">
     <link rel="stylesheet" href="/css/nice-search-multiple.css">
 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     @yield('styles')
 </head>
 
@@ -87,7 +90,7 @@
                             <div class="main-area p-5 messages-content">
                                 <h5 class="mb-8">Messages</h5>
                                 <div class="single-box p-0 mb-7">
-                                    <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                                    <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
                                             <img class="avatar-img max-un" src="/images/avatar-7.png" alt="avatar">
                                         </div>
@@ -167,106 +170,12 @@
                                     </a>
                                 </div>
                                 <div class="btn-area">
-                                    <a href="profile-chat.html">See all inbox</a>
+                                    <a href="{{ route('auth.messages') }}">See all inbox</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="single-item d-none d-lg-block messages-area notification-area">
-                            <div class="notification-btn cmn-head position-relative">
-                                <div class="icon-area d-center position-relative">
-                                    <i class="material-symbols-outlined mat-icon">notifications</i>
-                                    <span class="abs-area position-absolute d-center mdtxt">3</span>
-                                </div>
-                            </div>
-
-                            <div class="main-area p-5 notification-content">
-                                <h5 class="mb-8">Notification</h5>
-                                <div class="single-box p-0 mb-7">
-                                    <a href="profile-notification.html"
-                                        class="d-flex justify-content-between align-items-center">
-                                        <div class="left-item position-relative d-inline-flex gap-3">
-                                            <div class="avatar position-relative d-inline-flex">
-                                                <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
-                                                <img class="abs-item position-absolute max-un"
-                                                    src="/images/speech-bubble.png" alt="icon">
-                                            </div>
-                                            <div class="text-area">
-                                                <h6 class="m-0 mb-1">Piter Maio</h6>
-                                                <p class="mdtxt">Comment on your post</p>
-                                            </div>
-                                        </div>
-                                        <div class="time-remaining">
-                                            <p class="mdtxt">Just now</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="single-box p-0 mb-7">
-                                    <a href="profile-notification.html"
-                                        class="d-flex justify-content-between align-items-center">
-                                        <div class="left-item position-relative d-inline-flex gap-3">
-                                            <div class="avatar position-relative d-inline-flex">
-                                                <img class="avatar-img max-un" src="/images/avatar-2.png" alt="avatar">
-                                                <img class="abs-item position-absolute max-un"
-                                                    src="/images/emoji-love.png" alt="icon">
-                                            </div>
-                                            <div class="text-area">
-                                                <h6 class="m-0 mb-1">Kathryn Murphy</h6>
-                                                <p class="mdtxt">Like your photo</p>
-                                            </div>
-                                        </div>
-                                        <div class="time-remaining">
-                                            <p class="mdtxt">2min</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="single-box p-0 mb-7">
-                                    <a href="profile-notification.html"
-                                        class="d-flex justify-content-between align-items-center">
-                                        <div class="left-item position-relative d-inline-flex gap-3">
-                                            <div class="avatar position-relative d-inline-flex">
-                                                <img class="avatar-img max-un" src="/images/avatar-3.png" alt="avatar">
-                                                <img class="abs-item position-absolute max-un"
-                                                    src="/images/emoji-love.png" alt="icon">
-                                            </div>
-                                            <div class="text-area">
-                                                <h6 class="m-0 mb-1">Jacob Jones</h6>
-                                                <p class="mdtxt">Sent you a request</p>
-                                            </div>
-                                        </div>
-                                        <div class="time-remaining">
-                                            <p class="mdtxt">1hr</p>
-                                        </div>
-                                    </a>
-                                    <div class="d-flex gap-3 mt-4">
-                                        <button class="cmn-btn">Accept</button>
-                                        <button class="cmn-btn alt">Delete</button>
-                                    </div>
-                                </div>
-                                <div class="single-box p-0 mb-7">
-                                    <a href="profile-notification.html"
-                                        class="d-flex justify-content-between align-items-center">
-                                        <div class="left-item position-relative d-inline-flex gap-3">
-                                            <div class="avatar position-relative d-inline-flex">
-                                                <img class="avatar-img max-un" src="/images/avatar-4.png" alt="avatar">
-                                                <img class="abs-item position-absolute max-un"
-                                                    src="/images/emoji-love.png" alt="icon">
-                                            </div>
-                                            <div class="text-area">
-                                                <h6 class="m-0 mb-1">Kathryn Murphy</h6>
-                                                <p class="mdtxt">officia consequat duis enim...</p>
-                                            </div>
-                                        </div>
-                                        <div class="time-remaining">
-                                            <p class="mdtxt">2hr</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="btn-area">
-                                    <a href="profile-notification.html">See all notification</a>
-                                </div>
-                            </div>
-                        </div>
+                        @include('includes.notifications.desktop')
 
                         <div class="single-item d-none d-lg-block profile-area position-relative">
                             <div class="profile-pic d-flex align-items-center">
@@ -426,96 +335,9 @@
                     </div>
                 </div>
             </div>
-            <div class="single-item messages-area notification-area">
-                <div class="notification-btn cmn-head position-relative">
-                    <div class="icon-area d-center position-relative">
-                        <i class="material-symbols-outlined mat-icon">notifications</i>
-                        <span class="abs-area position-absolute d-center mdtxt">3</span>
-                    </div>
-                </div>
-                <div class="main-area p-5 notification-content">
-                    <h5 class="mb-8">Notification</h5>
-                    <div class="single-box p-0 mb-7">
-                        <a href="profile-notification.html" class="d-flex justify-content-between align-items-center">
-                            <div class="left-item position-relative d-inline-flex gap-3">
-                                <div class="avatar position-relative d-inline-flex">
-                                    <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
-                                    <img class="abs-item position-absolute max-un" src="/images/speech-bubble.png"
-                                        alt="icon">
-                                </div>
-                                <div class="text-area">
-                                    <h6 class="m-0 mb-1">Piter Maio</h6>
-                                    <p class="mdtxt">Comment on your post</p>
-                                </div>
-                            </div>
-                            <div class="time-remaining">
-                                <p class="mdtxt">Just now</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="single-box p-0 mb-7">
-                        <a href="profile-notification.html" class="d-flex justify-content-between align-items-center">
-                            <div class="left-item position-relative d-inline-flex gap-3">
-                                <div class="avatar position-relative d-inline-flex">
-                                    <img class="avatar-img max-un" src="/images/avatar-2.png" alt="avatar">
-                                    <img class="abs-item position-absolute max-un" src="/images/emoji-love.png"
-                                        alt="icon">
-                                </div>
-                                <div class="text-area">
-                                    <h6 class="m-0 mb-1">Kathryn Murphy</h6>
-                                    <p class="mdtxt">Like your photo</p>
-                                </div>
-                            </div>
-                            <div class="time-remaining">
-                                <p class="mdtxt">2min</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="single-box p-0 mb-7">
-                        <a href="profile-notification.html" class="d-flex justify-content-between align-items-center">
-                            <div class="left-item position-relative d-inline-flex gap-3">
-                                <div class="avatar position-relative d-inline-flex">
-                                    <img class="avatar-img max-un" src="/images/avatar-3.png" alt="avatar">
-                                    <img class="abs-item position-absolute max-un" src="/images/emoji-love.png"
-                                        alt="icon">
-                                </div>
-                                <div class="text-area">
-                                    <h6 class="m-0 mb-1">Jacob Jones</h6>
-                                    <p class="mdtxt">Sent you a request</p>
-                                </div>
-                            </div>
-                            <div class="time-remaining">
-                                <p class="mdtxt">1hr</p>
-                            </div>
-                        </a>
-                        <div class="d-flex gap-3 mt-4">
-                            <button class="cmn-btn">Accept</button>
-                            <button class="cmn-btn alt">Delete</button>
-                        </div>
-                    </div>
-                    <div class="single-box p-0 mb-7">
-                        <a href="profile-notification.html" class="d-flex justify-content-between align-items-center">
-                            <div class="left-item position-relative d-inline-flex gap-3">
-                                <div class="avatar position-relative d-inline-flex">
-                                    <img class="avatar-img max-un" src="/images/avatar-4.png" alt="avatar">
-                                    <img class="abs-item position-absolute max-un" src="/images/emoji-love.png"
-                                        alt="icon">
-                                </div>
-                                <div class="text-area">
-                                    <h6 class="m-0 mb-1">Kathryn Murphy</h6>
-                                    <p class="mdtxt">officia consequat duis enim...</p>
-                                </div>
-                            </div>
-                            <div class="time-remaining">
-                                <p class="mdtxt">2hr</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="btn-area">
-                        <a href="profile-notification.html">See all notification</a>
-                    </div>
-                </div>
-            </div>
+
+            @include('includes.notifications.mobile')
+
             <div class="single-item profile-area position-relative">
                 <div class="profile-pic d-flex align-items-center">
                     <span class="avatar cmn-head active-status">
@@ -534,9 +356,11 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="view-profile my-2">
-                        <a href="profile-post.html" class="mdtxt w-100 text-center py-2">View profile</a>
+                        <a href="{{ route('profile.show', Auth::user()->username) }}" class="mdtxt w-100 text-center py-2">View profile</a>
                     </div>
+                    
                     <ul>
                         <li>
                             <a href="{{ route('auth.settings') }}" class="mdtxt">
@@ -586,6 +410,8 @@
     <script src="/js/plugin.js"></script>
     <script src="/js/main.js"></script>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('.search-active').click(function () {
@@ -593,44 +419,6 @@
             });
         });
     </script>
-
-    @auth
-    <script>
-        $(document).ready(function () {
-            // save favorite tool
-            $('.save-favorite-btn').click(function () {
-                var tool_slug = $(this).prev().val();
-                var button = $(this);
-                $.ajax({
-                    url: '/tools/' + tool_slug + '/favorite',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function (response) {
-                        if (response.status == 'favorited') {
-                            // change 'Save' to 'Saved'
-                            button.html('<i class="material-symbols-outlined mat-icon"> bookmark_added </i> Saved');
-                        } else if (response.status == 'unfavorited') {
-                            // change 'Saved' to 'Save'
-                            button.html('<i class="material-symbols-outlined mat-icon"> bookmark_add </i> Save');
-                        } else {
-                            alert('An error occurred. Please try again.');
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-    @else
-    <script>
-        $(document).ready(function () {
-            $('.save-favorite-btn').click(function () {
-                window.location.href = '{{ route('auth.signin') }}';
-            });
-        });
-    </script>
-    @endauth
 
     <!-- Main Scripts -->
     @yield('scripts')

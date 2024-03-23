@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\UserComment;
+use App\Notifications\UserPosted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,7 @@ class NewsfeedController extends Controller
         $post = new Post();
         $post->user_id = $user->id;
         $post->content = $request->content;
+        $post->images = '[]';
 
         // get images[]
         if ($request->hasFile('images')) {
@@ -52,6 +54,11 @@ class NewsfeedController extends Controller
         $post->save();
 
         // $post->tags()->sync($request->tags);
+
+        // notify followers
+        $user->followers->each(function ($follower) use ($post) {
+            $follower->notify(new UserPosted($post));
+        });
 
         return redirect()->back();
     }

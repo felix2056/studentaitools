@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $user->name . ' - About')
+@section('title', $user->full_name . ' - About')
 
 @section('content')
 <main class="main-content">
@@ -19,10 +19,72 @@
                         <p class="mdtxt mt-6">{{ $user->bio }}</p>
                     </div>
                     <ul class="d-grid gap-3 mt-4">
+                        @if ($user->gender)
                         <li class="d-center gap-3 justify-content-between">
                             <div class="info-area d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> integration_instructions </i>
-                                <span class="mdtxt">Developer</span>
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="mdtxt">{{ $user->gender }}</span>
+                            </div>
+                            <div class="input-item d-center text-start">
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                <span>Public</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                <span>Friends</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                <span>Only me</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                <span>Share</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                <span>Edit</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        @endif
+
+                        @if ($user->preferred_pronouns && $user->show_pronouns)
+                        <li class="d-center gap-3 justify-content-between">
+                            <div class="info-area d-flex align-items-center gap-2">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="mdtxt">{{ $user->preferred_pronouns }}</span>
                             </div>
                             <div class="input-item d-center text-start">
                                 <div class="group-btn cus-dropdown dropend">
@@ -71,10 +133,13 @@
                                 </div>
                             </div>
                         </li>
+                        @endif
+
+                        @if ($user->date_of_birth && $user->show_birthday)
                         <li class="d-center gap-3 justify-content-between">
                             <div class="info-area d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> school </i>
-                                <span class="mdtxt">Master's degree</span>
+                                <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                <span class="mdtxt">{{ $user->birthday }}</span>
                             </div>
                             <div class="input-item d-center text-start">
                                 <div class="group-btn cus-dropdown dropend">
@@ -123,10 +188,13 @@
                                 </div>
                             </div>
                         </li>
+                        @endif
+
+                        @if ($user->education)
                         <li class="d-center gap-3 justify-content-between">
                             <div class="info-area d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> flag </i>
-                                <span class="mdtxt link"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4337263037032e222a2f6d202c2e">[email&#160;protected]</a></span>
+                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                <span class="mdtxt">{{ $user->education }}</span>
                             </div>
                             <div class="input-item d-center text-start">
                                 <div class="group-btn cus-dropdown dropend">
@@ -175,10 +243,13 @@
                                 </div>
                             </div>
                         </li>
+                        @endif
+
+                        @if ($user->skills)
                         <li class="d-center gap-3 justify-content-between">
                             <div class="info-area d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> language </i>
-                                <span class="mdtxt link">www.wisoky.com</span>
+                                <i class="fa fa-cogs" aria-hidden="true"></i>
+                                <span class="mdtxt">{{ $user->skills }}</span>
                             </div>
                             <div class="input-item d-center text-start">
                                 <div class="group-btn cus-dropdown dropend">
@@ -227,10 +298,13 @@
                                 </div>
                             </div>
                         </li>
+                        @endif
+
+                        @if ($user->hobbies)
                         <li class="d-center gap-3 justify-content-between">
                             <div class="info-area d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> call </i>
-                                <span class="mdtxt">(316) 555-0116</span>
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                <span class="mdtxt">{{ $user->hobbies }}</span>
                             </div>
                             <div class="input-item d-center text-start">
                                 <div class="group-btn cus-dropdown dropend">
@@ -279,10 +353,13 @@
                                 </div>
                             </div>
                         </li>
+                        @endif
+
+                        @if ($user->languages)
                         <li class="d-center gap-3 justify-content-between">
                             <div class="info-area d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> pin_drop </i>
-                                <span class="mdtxt">USA</span>
+                                <i class="fa fa-language" aria-hidden="true"></i>
+                                <span class="mdtxt">{{ $user->languages_commas }}</span>
                             </div>
                             <div class="input-item d-center text-start">
                                 <div class="group-btn cus-dropdown dropend">
@@ -331,10 +408,297 @@
                                 </div>
                             </div>
                         </li>
+                        @endif
+
+                        @if ($user->facebook)
                         <li class="d-center gap-3 justify-content-between">
                             <div class="info-area d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> house </i>
-                                <span class="mdtxt">775 Rolling Green Rd.</span>
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                                <span class="mdtxt link">
+                                    <a href="{{ $user->facebook }}" target="_blank">Facebook</a>
+                                </span>
+                            </div>
+                            <div class="input-item d-center text-start">
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                <span>Public</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                <span>Only me</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                <span>Share</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                <span>Edit</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        @endif
+
+                        @if ($user->twitter)
+                        <li class="d-center gap-3 justify-content-between">
+                            <div class="info-area d-flex align-items-center gap-2">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                                <span class="mdtxt link">
+                                    <a href="{{ $user->twitter }}" target="_blank">Twitter</a>
+                                </span>
+                            </div>
+                            <div class="input-item d-center text-start">
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                <span>Public</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                <span>Only me</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                <span>Share</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                <span>Edit</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        @endif
+
+                        @if ($user->instagram)
+                        <li class="d-center gap-3 justify-content-between">
+                            <div class="info-area d-flex align-items-center gap-2">
+                                <i class="fa fa-instagram" aria-hidden="true"></i>
+                                <span class="mdtxt link">
+                                    <a href="{{ $user->instagram }}" target="_blank">Instagram</a>
+                                </span>
+                            </div>
+                            <div class="input-item d-center text-start">
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                <span>Public</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                <span>Only me</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                <span>Share</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                <span>Edit</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        @endif
+
+                        @if ($user->linkedin)
+                        <li class="d-center gap-3 justify-content-between">
+                            <div class="info-area d-flex align-items-center gap-2">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                <span class="mdtxt link">
+                                    <a href="{{ $user->linkedin }}" target="_blank">LinkedIn</a>
+                                </span>
+                            </div>
+                            <div class="input-item d-center text-start">
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                <span>Public</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                <span>Only me</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                <span>Share</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                <span>Edit</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        @endif
+
+                        @if ($user->website)
+                        <li class="d-center gap-3 justify-content-between">
+                            <div class="info-area d-flex align-items-center gap-2">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <span class="mdtxt link">
+                                    <a href="{{ $user->website }}" target="_blank">{{ $user->website }}</a>
+                                </span>
+                            </div>
+                            <div class="input-item d-center text-start">
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-3 m-0"> public </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> public </i>
+                                                <span>Public</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> person </i>
+                                                <span>Only me</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> share </i>
+                                                <span>Share</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="group-btn cus-dropdown dropend">
+                                    <button type="button" class="dropdown-btn d-center ps-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                                    </button>
+                                    <ul class="dropdown-menu p-4 pt-2">
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> edit </i>
+                                                <span>Edit</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                                <i class="material-symbols-outlined mat-icon"> delete </i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        @endif
+
+                        <li class="d-center gap-3 justify-content-between">
+                            <div class="info-area d-flex align-items-center gap-2">
+                                <i class="fa fa-language" aria-hidden="true"></i>
+                                <span class="mdtxt">{{ $user->country }}</span>
                             </div>
                             <div class="input-item d-center text-start">
                                 <div class="group-btn cus-dropdown dropend">
@@ -392,253 +756,46 @@
                     <div class="sidebar-area p-5">
                         <div class="mb-4">
                             <h6 class="d-inline-flex">
-                                Contact
+                                Friends
                             </h6>
                         </div>
                         <div class="d-flex flex-column gap-6">
-                            <div class="profile-area d-center position-relative align-items-center justify-content-between">
-                                <div class="avatar-item d-flex gap-3 align-items-center">
-                                    <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-6.png" alt="avatar">
-                                    </div>
-                                    <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Piter Maio</a></h6>
-                                    </div>
-                                </div>
-                                <span class="mdtxt abs-area d-center position-absolute end-0">5</span>
-                            </div>
+                            @foreach ($user->getFriends() as $friend)
                             <div class="profile-area d-center justify-content-between">
                                 <div class="avatar-item d-flex gap-3 align-items-center">
                                     <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-7.png" alt="avatar">
+                                        <img class="avatar-img max-un" src="{{ $friend->avatar }}" alt="avatar">
                                     </div>
+
                                     <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Floyd Miles</a></h6>
+                                        <h6 class="m-0">
+                                            <a href="{{ route('profile.show', $friend->username) }}">{{ $friend->first_name }}</a>
+                                        </h6>
                                     </div>
                                 </div>
+
                                 <div class="btn-group cus-dropdown dropend">
                                     <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
                                     </button>
+
                                     <ul class="dropdown-menu p-4 pt-2">
                                         <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                            <a class="unfollow-friend-btn droplist d-flex align-items-center gap-2" href="#">
                                                 <i class="material-symbols-outlined mat-icon"> person_remove </i>
                                                 <span>Unfollow</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
+                                            <a class="block-friend-btn droplist d-flex align-items-center gap-2" href="#">
                                                 <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                                <span>Hide Contact</span>
+                                                <span>Block</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="profile-area d-center justify-content-between">
-                                <div class="avatar-item d-flex gap-3 align-items-center">
-                                    <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-8.png" alt="avatar">
-                                    </div>
-                                    <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Darrell Steward</a></h6>
-                                    </div>
-                                </div>
-                                <div class="btn-group cus-dropdown dropend">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                                <span>Unfollow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                                <span>Hide Contact</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="profile-area d-center justify-content-between">
-                                <div class="avatar-item d-flex gap-3 align-items-center">
-                                    <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-2.png" alt="avatar">
-                                    </div>
-                                    <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Kristin Watson</a></h6>
-                                    </div>
-                                </div>
-                                <div class="btn-group cus-dropdown dropend">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                                <span>Unfollow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                                <span>Hide Contact</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="profile-area d-center justify-content-between">
-                                <div class="avatar-item d-flex gap-3 align-items-center">
-                                    <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-3.png" alt="avatar">
-                                    </div>
-                                    <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Jane Cooper</a></h6>
-                                    </div>
-                                </div>
-                                <div class="btn-group cus-dropdown dropend">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                                <span>Unfollow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                                <span>Hide Contact</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="profile-area d-center justify-content-between">
-                                <div class="avatar-item d-flex gap-3 align-items-center">
-                                    <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-4.png" alt="avatar">
-                                    </div>
-                                    <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Devon Lane</a></h6>
-                                    </div>
-                                </div>
-                                <div class="btn-group cus-dropdown dropend">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                                <span>Unfollow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                                <span>Hide Contact</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="profile-area d-center justify-content-between">
-                                <div class="avatar-item d-flex gap-3 align-items-center">
-                                    <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-9.png" alt="avatar">
-                                    </div>
-                                    <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Annette Black</a></h6>
-                                    </div>
-                                </div>
-                                <div class="btn-group cus-dropdown dropend">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                                <span>Unfollow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                                <span>Hide Contact</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="profile-area d-center justify-content-between">
-                                <div class="avatar-item d-flex gap-3 align-items-center">
-                                    <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-10.png" alt="avatar">
-                                    </div>
-                                    <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Jerome Bell</a></h6>
-                                    </div>
-                                </div>
-                                <div class="btn-group cus-dropdown dropend">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                                <span>Unfollow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                                <span>Hide Contact</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="profile-area d-center justify-content-between">
-                                <div class="avatar-item d-flex gap-3 align-items-center">
-                                    <div class="avatar-item">
-                                        <img class="avatar-img max-un" src="images/avatar-11.png" alt="avatar">
-                                    </div>
-                                    <div class="info-area">
-                                        <h6 class="m-0"><a href="public-profile-post.html" class="mdtxt">Guy Hawkins</a></h6>
-                                    </div>
-                                </div>
-                                <div class="btn-group cus-dropdown dropend">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                                <span>Unfollow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                                <span>Hide Contact</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

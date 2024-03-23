@@ -43,20 +43,15 @@ class Tool extends Model
         return $this->hasMany(Rating::class);
     }
 
-    public function favorites()
+    public function favoriters()
     {
         return $this->belongsToMany(User::class, 'user_favorites', 'tool_id', 'user_id')->withTimestamps();
     }
 
-    // public function bookmarks()
-    // {
-    //     return $this->hasMany(Bookmark::class);
-    // }
-
-    // public function likes()
-    // {
-    //     return $this->hasMany(Like::class);
-    // }
+    public function isFavorite()
+    {
+        return $this->favoriters->contains(auth()->id());
+    }
 
     public function getCategoryListAttribute()
     {
@@ -71,6 +66,22 @@ class Tool extends Model
     public function getCategoryNameAttribute()
     {
         return $this->categories->first()->name ?? 'No Category';
+    }
+
+    public function getFavoritersCommasAttribute()
+    {
+        // limit to 3 favoriters
+        return $this->favoriters->take(3)->implode('first_name', ', ');
+    }
+
+    public function getFavoritersCountAttribute()
+    {
+        $count = $this->favoriters->count();
+        if ($count >= 1000) {
+            return number_format($count / 1000, 1) . 'K';
+        } else {
+            return $count;
+        }
     }
 
     public function getTagsAttribute($value)

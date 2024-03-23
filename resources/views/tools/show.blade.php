@@ -77,17 +77,11 @@
 
                         <div class="friends-list d-flex flex-wrap gap-2 align-items-center text-center">
                             <ul class="d-flex align-items-center justify-content-center">
-                                <li><img src="/images/avatar-3.png" alt="image"></li>
-                                <li><img src="/images/avatar-2.png" alt="image"></li>
-                                <li><img src="/images/avatar-4.png" alt="image"></li>
-                                <li><img src="/images/avatar-5.png" alt="image"></li>
-                                <li><img src="/images/avatar-6.png" alt="image"></li>
-                                <li><img src="/images/avatar-7.png" alt="image"></li>
-                                <li><img src="/images/avatar-8.png" alt="image"></li>
-                                <li><img src="/images/avatar-9.png" alt="image"></li>
-                                <li><img src="/images/avatar-10.png" alt="image"></li>
+                                @foreach ($tool->favoriters()->limit(9)->get() as $favoriter)
+                                    <li><img src="{{ $favoriter->avatar }}" alt="image" width="25" height="25"></li>
+                                @endforeach
                             </ul>
-                            <span class="mdtxt d-center">Rezeka, Martiola, Larmjio, and 10+ more favorited</span>
+                            <span class="mdtxt d-center">Saved by {{ $tool->favoriters_commas }} and {{ $tool->favoriters_count > 9 ? $tool->favoriters_count - 9 : 0 }} others</span>
                         </div>
                         <div class="page-details">
                             <ul class="nav mt-5 pt-4 flex-wrap gap-2 tab-area" role="tablist">
@@ -714,7 +708,7 @@
                                     <div class="tab-pane fade show active" id="favorites-tab-pane" role="tabpanel" aria-labelledby="favorites-tab" tabindex="0">
                                         <div class="search-area d-center my-7 flex-wrap gap-2 justify-content-between">
                                             <div class="total-followers">
-                                                <h6>{{ $tool->favorites->count() }} Saves</h6>
+                                                <h6>{{ $tool->favoriters->count() }} Saves</h6>
                                             </div>
                                             <form action="#" class="d-flex align-items-stretch justify-content-between gap-4">
                                                 <div class="input-area py-2 w-100 gap-2 d-flex align-items-center">
@@ -725,17 +719,19 @@
                                         </div>
 
                                         <div class="row">
-                                            @foreach ($tool->favorites as $favorite)
+                                            @foreach ($tool->favoriters as $favoriter)
                                                 <div class="col-md-6">
                                                     <div class="single-box member-single p-3">
                                                         <div class="profile-area d-center justify-content-between">
                                                             <div class="avatar-item d-flex gap-3 align-items-center">
                                                                 <div class="avatar-item">
-                                                                    <img class="avatar-img max-un" src="{{ $favorite->user->avatar }}" alt="avatar">
+                                                                    <img class="avatar-img max-un" src="{{ $favoriter->avatar }}" alt="avatar" width="50" height="50">
                                                                 </div>
                                                                 <div class="info-area text-start">
-                                                                    <h6 class="m-0"><a href="{{ route('profile.show', $faborite->user->username) }}">{{ $favorite->user->username }}</a></h6>
-                                                                    {{-- <p class="mdtxt status">10 Mutual Friends</p> --}}
+                                                                    <h6 class="m-0">
+                                                                        <a href="{{ route('profile.show', $favoriter->username) }}">{{ $favoriter->username }}</a>
+                                                                    </h6>
+                                                                    {{-- <p class="mdtxt status">{{ $favoriter->mutual_favoriters_count }} Mutual {{ Str::plural('Save', $favoriter->mutualFavoriters_count) }}</p> --}}
                                                                 </div>
                                                             </div>
 

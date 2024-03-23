@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\UserAccepted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,8 +81,11 @@ class PeopleController extends Controller
         // accept friend request
         Auth::user()->acceptFriendRequest($user);
 
+        // notify user
+        $user->notify(new UserAccepted(Auth::user()));
+
         if ($request->ajax()) {
-            return response()->json(['status' => 'success']);
+            return response()->json(['status' => 'success', 'message' => 'You are now friends with ' . $user->first_name]);
         }
 
         return back();
@@ -98,7 +102,7 @@ class PeopleController extends Controller
         Auth::user()->denyFriendRequest($user);
 
         if ($request->ajax()) {
-            return response()->json(['status' => 'success']);
+            return response()->json(['status' => 'success', 'message' => 'You have rejected ' . $user->first_name . '\'s friend request']);
         }
 
         return back();

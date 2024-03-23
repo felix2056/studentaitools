@@ -10,8 +10,12 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::where('is_active', true)->latest()->paginate(16);
-        return view('events.index', compact('events'));
+        $topEvents = Event::where('is_active', true)->orderBy('views', 'desc')->paginate(16);
+        $latestEvents = Event::where('is_active', true)->latest()->paginate(16);
+        $localEvents = Event::where('is_active', true)->where('type', 'local')->latest()->paginate(16);
+        $onlineEvents = Event::where('is_active', true)->where('type', 'online')->latest()->paginate(16);
+        
+        return view('events.index', compact('topEvents', 'latestEvents', 'localEvents', 'onlineEvents'));
     }
 
     public function show($slug)

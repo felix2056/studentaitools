@@ -48,34 +48,112 @@
                             </h6>
                         </div>
                         <ul class="d-grid gap-2 mt-4">
+                            @if ($user->gender)
                             <li class="d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> integration_instructions </i>
-                                <span class="mdtxt">Developer</span>
+                                <i class="fa fa-user"></i>
+                                <span class="mdtxt text-capitalize">{{ $user->gender }}</span>
                             </li>
+                            @endif
+
+                            @if ($user->preferred_pronouns && $user->show_pronouns)
                             <li class="d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> school </i>
-                                <span class="mdtxt">Master's degree</span>
+                                <i class="fa fa-user"></i>
+                                <span class="mdtxt text-capitalize">{{ $user->preferred_pronouns }}</span>
                             </li>
+                            @endif
+
+                            @if ($user->date_of_birth && $user->show_birthday)
                             <li class="d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> flag </i>
-                                <span class="mdtxt link"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9bdacbabd89a4a8a0a5e7aaa6a4">[email&#160;protected]</a></span>
+                                <i class="fa fa-birthday-cake"></i>
+                                <span class="mdtxt">{{ $user->birthday }}</span>
                             </li>
+                            @endif
+
+                            @if ($user->education)
                             <li class="d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> language </i>
-                                <span class="mdtxt link">www.wisoky.com</span>
+                                <i class="fa fa-graduation-cap"></i>
+                                <span class="mdtxt">{{ $user->education }}</span>
                             </li>
+                            @endif
+
+                            @if ($user->awards)
                             <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-trophy"></i>
+                                <span class="mdtxt link">{{ $user->awards }}</span>
+                            </li>
+                            @endif
+
+                            @if ($user->skills)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-cogs"></i>
+                                <span class="mdtxt">{{ $user->skills }}</span>
+                            </li>
+                            @endif
+
+                            @if ($user->hobbies)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-heart"></i>
+                                <span class="mdtxt">{{ $user->hobbies }}</span>
+                            </li>
+                            @endif
+
+                            @if ($user->languages)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-language"></i>
+                                <span class="mdtxt">{{ $user->languages_commas }}</span>
+                            </li>
+                            @endif
+
+                            @if ($user->facebook)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-facebook"></i>
+                                <a href="{{ $user->facebook }}" target="_blank" class="mdtxt link">Facebook</a>
+                            </li>
+                            @endif
+
+                            @if ($user->twitter)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-twitter"></i>
+                                <a href="{{ $user->twitter }}" target="_blank" class="mdtxt link">Twitter</a>
+                            </li>
+                            @endif
+
+                            @if ($user->instagram)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-instagram"></i>
+                                <a href="{{ $user->instagram }}" target="_blank" class="mdtxt link">Instagram</a>
+                            </li>
+                            @endif
+
+                            @if ($user->linkedin)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-linkedin"></i>
+                                <a href="{{ $user->linkedin }}" target="_blank" class="mdtxt link">Linkedin</a>
+                            </li>
+                            @endif
+
+                            @if ($user->website)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-globe"></i>
+                                <a href="{{ $user->website }}" target="_blank" class="mdtxt link">{{ $user->website }}</a>
+                            </li>
+                            @endif
+
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa fa-map-marker"></i>
+                                <span class="mdtxt text-capitalize">{{ $user->country }}</span>
+                            </li>
+
+                            
+                            {{-- <li class="d-flex align-items-center gap-2">
                                 <i class="material-symbols-outlined mat-icon"> call </i>
                                 <span class="mdtxt">(316) 555-0116</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="material-symbols-outlined mat-icon"> pin_drop </i>
-                                <span class="mdtxt">USA</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
+                            </li> --}}
+
+                            {{-- <li class="d-flex align-items-center gap-2">
                                 <i class="material-symbols-outlined mat-icon"> house </i>
                                 <span class="mdtxt">775 Rolling Green Rd.</span>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>

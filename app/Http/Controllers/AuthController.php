@@ -238,6 +238,30 @@ class AuthController extends Controller
         return redirect()->back()->with('success', 'Cover uploaded successfully.');
     }
 
+    public function notifications()
+    {
+        return view('auth.notifications');
+    }
+
+    public function markAllAsRead()
+    {
+        Auth::user()->unreadNotifications->markAsRead();
+        
+        if (request()->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'All notifications marked as read.',
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'All notifications marked as read.');
+    }
+
+    public function messages()
+    {
+        return view('auth.messages');
+    }
+
     public function signout()
     {
         auth()->logout();

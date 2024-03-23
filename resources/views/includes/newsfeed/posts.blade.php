@@ -4,7 +4,7 @@
         <div class="profile-area d-center justify-content-between">
             <div class="avatar-item d-flex gap-3 align-items-center">
                 <div class="avatar position-relative">
-                    <img class="avatar-img max-un" src="{{ $post->user->avatar }}" alt="avatar">
+                    <img class="avatar-img max-un" src="{{ $post->user->avatar }}" alt="avatar" width="48" height="48">
                 </div>
                 <div class="info-area">
                     <h6 class="m-0">
@@ -174,11 +174,11 @@
             <div class="profile-box d-none d-xxl-block">
                 @auth
                 <a href="#">
-                    <img src="{{ Auth::user()->avatar }}" class="max-un" alt="icon">
+                    <img src="{{ Auth::user()->avatar }}" class="max-un" alt="icon" width="50" height="50">
                 </a>
                 @else
                 <a href="#">
-                    <img src="/images/add-post-avatar.png" class="max-un" alt="icon">
+                    <img src="/images/add-post-avatar.png" class="max-un" alt="icon" width="50" height="50">
                 </a>
                 @endauth
             </div>

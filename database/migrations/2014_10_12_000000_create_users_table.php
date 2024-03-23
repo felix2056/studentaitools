@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();
-            $table->string('github')->nullable();
+            $table->string('instagram')->nullable();
             $table->string('website')->nullable();
             $table->string('academic_interests')->nullable();
             $table->string('professional_interests')->nullable();
@@ -40,6 +40,19 @@ return new class extends Migration
             $table->string('preferred_pronouns')->nullable();
             $table->json('preferred_study_tools')->nullable();
             $table->boolean('agree_terms')->default(false);
+            $table->enum('show_email', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_birthday', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_pronouns', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_languages', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_education', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_awards', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_skills', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_hobbies', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_academic_interests', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_professional_interests', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_learning_preferences', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_study_tools', ['public', 'friends', 'only_me'])->default('only_me');
+            $table->enum('show_social_links', ['public', 'friends', 'only_me'])->default('public');
             $table->timestamp('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->string('city')->nullable();

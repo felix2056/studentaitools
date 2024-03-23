@@ -75,6 +75,8 @@ class ToolController extends Controller
         $tool = Tool::where('slug', $slug)->firstOrFail();
         if (!$tool) abort(404);
 
+        $tool->increment('views');
+
         return view('tools.show', compact('tool'));
     }
 

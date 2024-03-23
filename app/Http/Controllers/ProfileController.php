@@ -30,4 +30,28 @@ class ProfileController extends Controller
 
         return view('profile.photos', compact('user'));
     }
+
+    public function connections($username)
+    {
+        $user = User::where('username', $username)->first();
+        if (!$user) return abort(404);
+
+        return view('profile.connections', compact('user'));
+    }
+
+    public function aiSaves($username)
+    {
+        $user = User::where('username', $username)->first();
+        if (!$user) return abort(404);
+
+        return view('profile.ai-saves', compact('user'));
+    }
+
+    public function events($username)
+    {
+        $user = User::where('username', $username)->first();
+        if (!$user) return abort(404);
+
+        return view('profile.events', compact('user'));
+    }
 }

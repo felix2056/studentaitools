@@ -91,22 +91,25 @@
         <div class="page-details">
             <ul class="nav mt-5 pt-4 flex-wrap gap-2 tab-area">
                 <li class="nav-item" role="presentation">
-                    <a href="{{ route('profile.show', $user->username) }}" class="nav-link d-center active">Posts</a>
+                    <a href="{{ route('profile.show', $user->username) }}" class="nav-link d-center @if(request()->is('profile/')) active @endif">Posts</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="{{ route('profile.about', $user->username) }}" class="nav-link d-center">About</a>
+                    <a href="{{ route('profile.about', $user->username) }}" class="nav-link d-center @if(request()->is('profile/*/about')) active @endif">About</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="{{ route('profile.photos', $user->username) }}" class="nav-link d-center">Photos</a>
+                    <a href="{{ route('profile.photos', $user->username) }}" class="nav-link d-center @if(request()->is('profile/*/photos')) active @endif">Photos</a>
                 </li>
-                <li class="nav-item" role="presentation">
+                {{-- <li class="nav-item" role="presentation">
                     <a href="profile-group.html" class="nav-link d-center">Groups</a>
+                </li> --}}
+                <li class="nav-item" role="presentation">
+                    <a href="{{ route('profile.connections', $user->username) }}" class="nav-link d-center @if(request()->is('profile/*/connections')) active @endif">Connections</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="profile-connections.html" class="nav-link d-center">Connections</a>
+                    <a href="{{ route('profile.ai-saves', $user->username) }}" class="nav-link d-center @if(request()->is('profile/*/ai-saves')) active @endif">AI Saves</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="profile-events.html" class="nav-link d-center">Events</a>
+                    <a href="{{ route('profile.events', $user->username) }}" class="nav-link d-center @if(request()->is('profile/*/events')) active @endif">Events</a>
                 </li>
             </ul>
         </div>

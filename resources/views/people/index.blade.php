@@ -23,19 +23,19 @@
                             </a>
                             <div class="friends-list d-center gap-1 text-center">
                                 <ul class="d-center">
-                                    <li><img src="images/avatar-2.png" alt="image"></li>
-                                    <li><img src="images/avatar-3.png" alt="image"></li>
-                                    <li><img src="images/avatar-4.png" alt="image"></li>
+                                    @foreach ($user->getMutualFriends(Auth::user(), 3) as $friend)
+                                        <li><img src="{{ $friend->avatar }}" alt="image"></li>
+                                    @endforeach
                                 </ul>
-                                <span class="smtxt m-0">10 mutual friends</span>
+                                <span class="mdtxt d-center">{{ $user->getMutualFriendsCount(Auth::user()) }} mutual friends</span>
                             </div>
 
                             <div class="d-center gap-2 mt-4">
-                                @if (auth()->user()->isFriendWith($user))
+                                @if (Auth::user()->isFriendWith($user))
                                 <button class="unfriend-btn cmn-btn" data-user-id="{{ $user->id }}">
                                     <i class="material-symbols-outlined mat-icon"> person_add_disabled </i> Unfriend
                                 </button>
-                                @elseif (auth()->user()->hasSentFriendRequestTo($user))
+                                @elseif (Auth::user()->hasSentFriendRequestTo($user))
                                 <button class="pending-friend-btn cmn-btn" disabled data-user-id="{{ $user->id }}">
                                     <i class="material-symbols-outlined mat-icon"> autorenew </i> Pending
                                 </button>

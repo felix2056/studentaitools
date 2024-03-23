@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Hootlex\Friendships\Traits\Friendable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -106,6 +107,16 @@ class User extends Authenticatable
         return $this->followers->contains($user->id);
     }
 
+    public function mutualFollowers()
+    {
+        return $this->followings->intersect($this->followers);
+    }
+
+    public function mutualFollowings()
+    {
+        return $this->followers->intersect($this->followings);
+    }
+
     public function addFollowing($user)
     {
         $this->followings()->attach($user->id);
@@ -114,6 +125,11 @@ class User extends Authenticatable
     public function removeFollowing($user)
     {
         $this->followings()->detach($user->id);
+    }
+
+    public function hasFavorited($tool)
+    {
+        return $this->favorites->contains($tool->id);
     }
 
     public function getFullNameAttribute()
@@ -156,6 +172,11 @@ class User extends Authenticatable
         return $this->posts->pluck('images')->toArray();
     }
 
+    public function getBirthdayAttribute()
+    {
+        return $this->date_of_birth ? Carbon::parse($this->date_of_birth)->format('F j') : null;
+    }
+
     public function getPendingFriendsCount($groupSlug = '')
     {
         $friendsCount = $this->findFriendships(Status::PENDING, $groupSlug)->count();
@@ -184,6 +205,28 @@ class User extends Authenticatable
         }
     }
 
+    public function getMutualFollowersCountAttribute()
+    {
+        // count them in 'K' format
+        $count = $this->mutualFollowers()->count();
+        if ($count >= 1000) {
+            return number_format($count / 1000, 1) . 'K';
+        } else {
+            return $count;
+        }
+    }
+
+    public function getMutualFollowingsCountAttribute()
+    {
+        // count them in 'K' format
+        $count = $this->mutualFollowings()->count();
+        if ($count >= 1000) {
+            return number_format($count / 1000, 1) . 'K';
+        } else {
+            return $count;
+        }
+    }
+
     public function getLanguagesAttribute($value)
     {
         return json_decode($value) ?: [];
@@ -197,5 +240,30 @@ class User extends Authenticatable
     public function getPreferredStudyToolsAttribute($value)
     {
         return json_decode($value) ?: [];
+    }
+
+    public function getLanguagesCommasAttribute()
+    {
+        return implode(', ', $this->languages);
+    }
+
+    public function getLearningPreferencesCommasAttribute()
+    {
+        return implode(', ', $this->learning_preferences);
+    }
+
+    public function getPreferredStudyToolsCommasAttribute()
+    {
+        return implode(', ', $this->preferred_study_tools);
+    }
+
+    public function getIsOnlineAttribute()
+    {
+        return $this->last_login_at > now()->subMinutes(5);
+    }
+
+    public function getIsOfflineAttribute()
+    {
+        return !$this->is_online;
     }
 }

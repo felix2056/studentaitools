@@ -109,6 +109,10 @@ Route::prefix('profile')->group(function () {
     Route::get('{username}', 'ProfileController@show')->name('profile.show');
     Route::get('{username}/about', 'ProfileController@about')->name('profile.about');
     Route::get('{username}/photos', 'ProfileController@photos')->name('profile.photos');
+    Route::get('{username}/connections', 'ProfileController@connections')->name('profile.connections');
+    Route::get('{username}/reviews', 'ProfileController@reviews')->name('profile.reviews');
+    Route::get('{username}/ai-saves', 'ProfileController@aiSaves')->name('profile.ai-saves');
+    Route::get('{username}/events', 'ProfileController@events')->name('profile.events');
 });
 
 Route::middleware('auth')->group(function () {
@@ -120,6 +124,11 @@ Route::middleware('auth')->group(function () {
     Route::match(['get', 'post'], 'settings', 'AuthController@settings')->name('auth.settings');
     Route::post('upload-avatar', 'AuthController@uploadAvatar')->name('auth.upload-avatar');
     Route::post('upload-cover', 'AuthController@uploadCover')->name('auth.upload-cover');
+
+    Route::get('notifications', 'AuthController@notifications')->name('auth.notifications');
+    Route::get('notifications/mark-all-as-read', 'AuthController@markAllAsRead')->name('auth.notifications.mark-all-as-read');
+
+    Route::get('messages', 'AuthController@messages')->name('auth.messages');
 
     Route::get('signout', 'AuthController@signout')->name('auth.signout');
 });

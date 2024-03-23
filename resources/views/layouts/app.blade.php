@@ -54,9 +54,9 @@
                         @php
                             $random_tool_name = \App\Models\Tool::inRandomOrder()->first()->name;
                         @endphp
-                        <form action="{{ route('tools.search', $random_tool_name) }}" class="input-area d-flex align-items-center">
+                        <form action="{{ route('tools.search', $random_tool_name) }}" class="input-area d-flex align-items-center" method="GET">
                             <i class="material-symbols-outlined mat-icon">search</i>
-                            <input type="text" placeholder="Search AI Tools With AI" autocomplete="off">
+                            <input type="text" placeholder="Search AI Tools With AI" class="glob-search-input" autocomplete="off">
                         </form>
                     </div>
 
@@ -415,6 +415,24 @@
     <script src="/js/main.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // on enter key press
+            $('input.glob-search-input').on('keypress', function(event) {
+                if (event.which === 13) { 
+                    event.preventDefault();
+    
+                    var search = $(this).val();
+                    if (search.length > 0) {
+                        window.location.href = '/tools/search/' + search;
+                    } else {
+                        window.location.href = '/tools';
+                    }
+                }
+            });
+        });
+    </script>
 
     <!-- Main Scripts -->
     @yield('scripts')

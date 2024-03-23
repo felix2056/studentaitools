@@ -53,7 +53,9 @@
                     <div class="search-form">
                         <form action="#" class="input-area d-flex align-items-center">
                             <i class="material-symbols-outlined mat-icon">search</i>
-                            <input type="text" placeholder="Search Student AI Tools" autocomplete="off">
+                            <input type="text" placeholder="Search AI Tools With AI" autocomplete="off">
+                            <!-- Create a container for the autocomplete UI -->
+                            <div id="autocomplete"></div>
                         </form>
                     </div>
 

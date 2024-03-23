@@ -4,14 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Tool extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $guarded = [];
 
     protected $with = ['categories'];
+
+    // toSearchableArray() for Algolia
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        $array['categories'] = $this->categories->pluck('name')->toArray();
+
+        return $array;
+    }
+
+    public function searchableAs()
+    {
+        return 'StudentAITools';
+    }
+
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
 
     public function scopeFeatured($query)
     {

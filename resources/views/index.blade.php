@@ -103,7 +103,7 @@
                     <form action="{{ route('tools.search', $random_tool_name) }}" class="d-flex align-items-stretch justify-content-between gap-4" name="search-form" method="GET">
                         <div class="input-area py-2 w-100 gap-2 d-flex align-items-center">
                             <i class="material-symbols-outlined mat-icon">search</i>
-                            <input type="text" class="search-input" placeholder="Type and hit enter" autocomplete="off">
+                            <input type="text" class="search-input" placeholder="Search AI Tools With AI" autocomplete="off">
                         </div>
                     </form>
                     
@@ -124,13 +124,12 @@
 
                     <div class="tab-pane fade" id="most-recent-tab-pane" role="tabpanel" aria-labelledby="most-recent-tab" tabindex="0">
                         <div class="row cus-mar friend-request">
-                            @include('includes.tools.index', ['tools' => \App\Models\Tool::latest()->limit(18)->get()])
+                            @include('includes.tools.most-recent', ['tools' => \App\Models\Tool::latest()->limit(18)->get()])
                         </div>
                     </div>
                     <div class="tab-pane fade" id="most-saved-tab-pane" role="tabpanel" aria-labelledby="most-saved-tab" tabindex="0">
                         <div class="row cus-mar friend-request">
-                            <!-- get tools by UserFavorites -->
-                            @include('includes.tools.index', ['tools' => \App\Models\Tool::withCount('favoriters')->orderBy('favoriters_count', 'desc')->limit(18)->get()])
+                            @include('includes.tools.most-saved', ['tools' => \App\Models\Tool::withCount('favoriters')->orderBy('favoriters_count', 'desc')->limit(18)->get()])
                         </div>
                     </div>
                 </div>

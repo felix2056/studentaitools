@@ -46,7 +46,7 @@
         </div>
 
         <div class="d-center btn-border pt-5 gap-2 mt-4">
-            <button class="cmn-btn save-favorite-btn fourth" data-slug="{{ $tool->slug }}">
+            <button class="cmn-btn most-saved-save-favorite-btn fourth" data-slug="{{ $tool->slug }}">
                 <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
                 @if(Auth::check() && Auth::user()->hasFavorited($tool)) Saved
                 @else Save
@@ -66,7 +66,7 @@
     <script>
         $(document).ready(function () {
             // save favorite tool
-            $('.save-favorite-btn').click(function () {
+            $('.most-saved-save-favorite-btn').click(function () {
                 var button = $(this);
                 var tool_slug = button.data('slug');
 
@@ -94,7 +94,7 @@
 @else
     <script>
         $(document).ready(function () {
-            $('.save-favorite-btn').click(function () {
+            $('.most-saved-save-favorite-btn').click(function () {
                 window.location.href = '{{ route('auth.signin') }}';
             });
         });

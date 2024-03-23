@@ -23,7 +23,8 @@ class ToolController extends Controller
     {
         if (!$query) return redirect()->route('tools.index');
 
-        $tools = Tool::where('name', 'like', "%$query%")->orWhere('content', 'like', "%$query%")->paginate(16);
+        // $tools = Tool::where('name', 'like', "%$query%")->orWhere('content', 'like', "%$query%")->paginate(16);
+        $tools = Tool::search($query)->paginate(16);
         return view('tools.search', compact('tools', 'query'));
     }
 

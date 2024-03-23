@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'education' => fake()->sentence(),
             'awards' => fake()->sentence(),
             'bio' => fake()->paragraph(),
-            'avatar' => 'https://i.pravatar.cc/300',
+            // 'avatar' => 'https://i.pravatar.cc/300',
             'cover' => 'https://i.pravatar.cc/1500',
             'facebook' => 'https://facebook.com/' . fake()->userName(),
             'twitter' => 'https://twitter.com/' . fake()->userName(),

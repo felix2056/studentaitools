@@ -51,19 +51,21 @@
                     </button>
 
                     <div class="search-form">
-                        <form action="#" class="input-area d-flex align-items-center">
+                        @php
+                            $random_tool_name = \App\Models\Tool::inRandomOrder()->first()->name;
+                        @endphp
+                        <form action="{{ route('tools.search', $random_tool_name) }}" class="input-area d-flex align-items-center">
                             <i class="material-symbols-outlined mat-icon">search</i>
                             <input type="text" placeholder="Search AI Tools With AI" autocomplete="off">
-                            <!-- Create a container for the autocomplete UI -->
-                            <div id="autocomplete"></div>
                         </form>
                     </div>
 
                     <ul
                         class="navbar-nav feed flex-row gap-xl-20 gap-lg-10 gap-sm-7 gap-1 py-4 py-lg-0 m-lg-auto ms-auto ms-aut align-self-center">
                         <li>
-                            <a href="{{ route('index') }}" class="nav-icon home active"><i
-                                    class="mat-icon fs-xxl material-symbols-outlined mat-icon">home</i></a>
+                            <a href="{{ route('index') }}" class="nav-icon home active">
+                                <i class="mat-icon fs-xxl material-symbols-outlined mat-icon">home</i>
+                            </a>
                         </li>
                         <li>
                             <a href="{{ route('newsfeed.index') }}" class="nav-icon feed"><i
@@ -413,14 +415,6 @@
     <script src="/js/main.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('.search-active').click(function () {
-                $('.search-form').toggleClass('active');
-            });
-        });
-    </script>
 
     <!-- Main Scripts -->
     @yield('scripts')

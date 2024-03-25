@@ -108,7 +108,7 @@
                                     </a>
                                 </div>
                                 <div class="single-box p-0 mb-7">
-                                    <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                                    <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
                                             <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
                                         </div>
@@ -119,7 +119,7 @@
                                     </a>
                                 </div>
                                 <div class="single-box p-0 mb-7">
-                                    <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                                    <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
                                             <img class="avatar-img max-un" src="/images/avatar-2.png" alt="avatar">
                                         </div>
@@ -130,7 +130,7 @@
                                     </a>
                                 </div>
                                 <div class="single-box p-0 mb-7">
-                                    <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                                    <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
                                             <img class="avatar-img max-un" src="/images/avatar-3.png" alt="avatar">
                                         </div>
@@ -141,7 +141,7 @@
                                     </a>
                                 </div>
                                 <div class="single-box p-0 mb-7">
-                                    <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                                    <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
                                             <img class="avatar-img max-un" src="/images/avatar-4.png" alt="avatar">
                                         </div>
@@ -152,7 +152,7 @@
                                     </a>
                                 </div>
                                 <div class="single-box p-0 mb-7">
-                                    <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                                    <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
                                             <img class="avatar-img max-un" src="/images/avatar-5.png" alt="avatar">
                                         </div>
@@ -163,7 +163,7 @@
                                     </a>
                                 </div>
                                 <div class="single-box p-0 mb-7">
-                                    <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                                    <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                                         <div class="avatar">
                                             <img class="avatar-img max-un" src="/images/avatar-6.png" alt="avatar">
                                         </div>
@@ -255,7 +255,7 @@
                 <div class="main-area p-5 messages-content">
                     <h5 class="mb-8">Messages</h5>
                     <div class="single-box p-0 mb-7">
-                        <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                        <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
                                 <img class="avatar-img max-un" src="/images/avatar-7.png" alt="avatar">
                             </div>
@@ -269,7 +269,7 @@
                         </a>
                     </div>
                     <div class="single-box p-0 mb-7">
-                        <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                        <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
                                 <img class="avatar-img max-un" src="/images/avatar-1.png" alt="avatar">
                             </div>
@@ -280,7 +280,7 @@
                         </a>
                     </div>
                     <div class="single-box p-0 mb-7">
-                        <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                        <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
                                 <img class="avatar-img max-un" src="/images/avatar-2.png" alt="avatar">
                             </div>
@@ -291,7 +291,7 @@
                         </a>
                     </div>
                     <div class="single-box p-0 mb-7">
-                        <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                        <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
                                 <img class="avatar-img max-un" src="/images/avatar-3.png" alt="avatar">
                             </div>
@@ -302,7 +302,7 @@
                         </a>
                     </div>
                     <div class="single-box p-0 mb-7">
-                        <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                        <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
                                 <img class="avatar-img max-un" src="/images/avatar-4.png" alt="avatar">
                             </div>
@@ -313,7 +313,7 @@
                         </a>
                     </div>
                     <div class="single-box p-0 mb-7">
-                        <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                        <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
                                 <img class="avatar-img max-un" src="/images/avatar-5.png" alt="avatar">
                             </div>
@@ -324,7 +324,7 @@
                         </a>
                     </div>
                     <div class="single-box p-0 mb-7">
-                        <a href="profile-chat.html" class="d-flex gap-2 align-items-center">
+                        <a href="{{ route('auth.messages') }}" class="d-flex gap-2 align-items-center">
                             <div class="avatar">
                                 <img class="avatar-img max-un" src="/images/avatar-6.png" alt="avatar">
                             </div>
@@ -335,7 +335,7 @@
                         </a>
                     </div>
                     <div class="btn-area">
-                        <a href="profile-chat.html">See all inbox</a>
+                        <a href="{{ route('auth.messages') }}">See all inbox</a>
                     </div>
                 </div>
             </div>

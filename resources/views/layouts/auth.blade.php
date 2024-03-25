@@ -22,8 +22,8 @@
     <link href="/images/logo/png/white_logo_transparent_background_favicon.png" rel="icon" type="image/png">
 
     <!-- title and description-->
-    <title>Socialite</title>
-    <meta name="description" content="@yield('title') | Student AI Tools">
+    <title>@yield('title') | Student AI Tools</title>
+    <meta name="description" content="Student AI Tools is a A directory of all the tools you'll ever need as student. Subscribe to our newsletter for weekly updates on the latest tools to save you time.">
 
     <!-- css files -->
     <link rel="stylesheet" href="/css/tailwind.css">
